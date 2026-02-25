@@ -44,3 +44,4 @@ Deliver a working slide engine where users can define slides in TSX, navigate be
 
 ## Shipped Plans
 - Plan 001 — Project scaffolding: Initialize a Vite project with the react-ts template using Bun. Files: package.json, vite.config.ts, tsconfig.json, tsconfig.app.json, tsconfig.node.json, eslint.config.js, index.html, main.tsx, vite-env.d.ts
+- Plan 002 — Deck and slide engine: Create a DeckContext with React context for slide state. Files: Deck.tsx, Slide.tsx, DeckContext.tsx, useDeck.ts, index.ts, Deck.test.tsx
