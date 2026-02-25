@@ -47,3 +47,4 @@ Deliver a working slide engine where users can define slides in TSX, navigate be
 - Plan 002 — Deck and slide engine: Create a DeckContext with React context for slide state. Files: Deck.tsx, Slide.tsx, DeckContext.tsx, useDeck.ts, index.ts, Deck.test.tsx
 - Plan 003 — Keyboard and click navigation: Add useKeyboardNavigation hook for arrow/space/home/end keys plus click navigation. Files: useKeyboardNavigation.ts, Deck.tsx, useKeyboardNavigation.test.tsx
 - Plan 004 — Fullscreen mode and progress indicator: Add useFullscreen hook wrapping the Fullscreen API. Files: useFullscreen.ts, ProgressBar.tsx, SlideCounter.tsx, Deck.tsx
+- Plan 005 — Theme system: Define a Theme type with tokens and create ThemeProvider with CSS custom properties. Files: types.ts, ThemeContext.tsx, defaultTheme.ts, createTheme.ts, useTheme.ts, Deck.tsx
