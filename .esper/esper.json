@@ -1,0 +1,10 @@
+{
+  "backlog_mode": "local",
+  "current_phase": "001-core-engine-and-theming",
+  "commands": {
+    "test": "bun run test",
+    "lint": "bun run lint",
+    "typecheck": "bun run typecheck",
+    "dev": "bun run dev"
+  }
+}
