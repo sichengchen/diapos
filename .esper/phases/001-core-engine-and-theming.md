@@ -46,3 +46,4 @@ Deliver a working slide engine where users can define slides in TSX, navigate be
 - Plan 001 — Project scaffolding: Initialize a Vite project with the react-ts template using Bun. Files: package.json, vite.config.ts, tsconfig.json, tsconfig.app.json, tsconfig.node.json, eslint.config.js, index.html, main.tsx, vite-env.d.ts
 - Plan 002 — Deck and slide engine: Create a DeckContext with React context for slide state. Files: Deck.tsx, Slide.tsx, DeckContext.tsx, useDeck.ts, index.ts, Deck.test.tsx
 - Plan 003 — Keyboard and click navigation: Add useKeyboardNavigation hook for arrow/space/home/end keys plus click navigation. Files: useKeyboardNavigation.ts, Deck.tsx, useKeyboardNavigation.test.tsx
+- Plan 004 — Fullscreen mode and progress indicator: Add useFullscreen hook wrapping the Fullscreen API. Files: useFullscreen.ts, ProgressBar.tsx, SlideCounter.tsx, Deck.tsx
