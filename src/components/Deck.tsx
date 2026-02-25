@@ -1,5 +1,7 @@
 import { Children, type ReactNode, useCallback, useRef } from 'react'
 import { DeckProvider } from '../context/DeckContext'
+import { ThemeProvider } from '../theme/ThemeContext'
+import type { Theme } from '../theme/types'
 import { useDeck } from '../hooks/useDeck'
 import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation'
 import { useFullscreen } from '../hooks/useFullscreen'
@@ -8,6 +10,7 @@ import { SlideCounter } from './SlideCounter'
 
 export interface DeckProps {
   children: ReactNode
+  theme?: Theme
   clickNavigation?: boolean
   showProgress?: boolean
   showCounter?: boolean
@@ -66,17 +69,19 @@ function DeckInner({ slides, clickNavigation = true, showProgress = true, showCo
   )
 }
 
-export function Deck({ children, clickNavigation, showProgress, showCounter }: DeckProps) {
+export function Deck({ children, theme, clickNavigation, showProgress, showCounter }: DeckProps) {
   const slides = Children.toArray(children)
 
   return (
-    <DeckProvider totalSlides={slides.length}>
-      <DeckInner
-        slides={slides}
-        clickNavigation={clickNavigation}
-        showProgress={showProgress}
-        showCounter={showCounter}
-      />
-    </DeckProvider>
+    <ThemeProvider theme={theme}>
+      <DeckProvider totalSlides={slides.length}>
+        <DeckInner
+          slides={slides}
+          clickNavigation={clickNavigation}
+          showProgress={showProgress}
+          showCounter={showCounter}
+        />
+      </DeckProvider>
+    </ThemeProvider>
   )
 }
