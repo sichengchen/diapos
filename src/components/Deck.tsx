@@ -1,18 +1,32 @@
-import { Children, type ReactNode, useCallback } from 'react'
+import { Children, type ReactNode, useCallback, useRef } from 'react'
 import { DeckProvider } from '../context/DeckContext'
 import { useDeck } from '../hooks/useDeck'
 import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation'
+import { useFullscreen } from '../hooks/useFullscreen'
+import { ProgressBar } from './ProgressBar'
+import { SlideCounter } from './SlideCounter'
 
 export interface DeckProps {
   children: ReactNode
   clickNavigation?: boolean
+  showProgress?: boolean
+  showCounter?: boolean
 }
 
-function DeckInner({ slides, clickNavigation = true }: { slides: ReactNode[]; clickNavigation?: boolean }) {
+interface DeckInnerProps {
+  slides: ReactNode[]
+  clickNavigation?: boolean
+  showProgress?: boolean
+  showCounter?: boolean
+}
+
+function DeckInner({ slides, clickNavigation = true, showProgress = true, showCounter = true }: DeckInnerProps) {
   const deckState = useDeck()
   const { currentIndex, next, prev } = deckState
+  const deckRef = useRef<HTMLDivElement>(null)
 
   useKeyboardNavigation(deckState)
+  useFullscreen(deckRef)
 
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -33,6 +47,7 @@ function DeckInner({ slides, clickNavigation = true }: { slides: ReactNode[]; cl
 
   return (
     <div
+      ref={deckRef}
       onClick={handleClick}
       style={{
         width: '100vw',
@@ -45,16 +60,23 @@ function DeckInner({ slides, clickNavigation = true }: { slides: ReactNode[]; cl
       }}
     >
       {slides[currentIndex]}
+      {showProgress && <ProgressBar />}
+      {showCounter && <SlideCounter />}
     </div>
   )
 }
 
-export function Deck({ children, clickNavigation }: DeckProps) {
+export function Deck({ children, clickNavigation, showProgress, showCounter }: DeckProps) {
   const slides = Children.toArray(children)
 
   return (
     <DeckProvider totalSlides={slides.length}>
-      <DeckInner slides={slides} clickNavigation={clickNavigation} />
+      <DeckInner
+        slides={slides}
+        clickNavigation={clickNavigation}
+        showProgress={showProgress}
+        showCounter={showCounter}
+      />
     </DeckProvider>
   )
 }
