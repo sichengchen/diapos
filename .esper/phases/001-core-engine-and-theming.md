@@ -50,3 +50,4 @@ Deliver a working slide engine where users can define slides in TSX, navigate be
 - Plan 005 — Theme system: Define a Theme type with tokens and create ThemeProvider with CSS custom properties. Files: types.ts, ThemeContext.tsx, defaultTheme.ts, createTheme.ts, useTheme.ts, Deck.tsx
 - Plan 006 — Built-in layout components: Title, Content, Code, Image, Split slide layouts consuming theme tokens. Files: Title.tsx, Content.tsx, Code.tsx, Image.tsx, Split.tsx, index.ts, layouts.test.tsx
 - Plan 007 — Slide transitions: Define a Transition type and create TransitionWrapper with CSS transitions. Files: TransitionWrapper.tsx, types.ts, Deck.tsx, transitions.css
+- Plan 008 — Example presentation: Create a demo showcasing all features and layouts. Files: slides.tsx, theme.ts, main.tsx, global.css
