@@ -21,6 +21,7 @@ export function Slide({ children, style, className }: SlideProps) {
         justifyContent: 'center',
         alignItems: 'stretch',
         textAlign: 'left',
+        gap: '0.5em',
         overflow: 'hidden',
         fontFamily: 'var(--diapos-font-body, system-ui)',
         color: 'var(--diapos-fg, #fff)',

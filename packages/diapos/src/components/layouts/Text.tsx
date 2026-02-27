@@ -16,7 +16,7 @@ export function Text({ children, pause, style }: TextProps) {
         fontFamily: 'var(--diapos-font-body, system-ui)',
         fontSize: '1.02em',
         lineHeight: 1.45,
-        margin: '0 0 0.5em 0',
+        margin: 0,
         ...pauseStyle,
         ...style,
       }}
