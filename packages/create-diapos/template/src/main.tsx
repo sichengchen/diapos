@@ -1,8 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { DiaposRouter } from '../packages/diapos/src/index'
-import { DemoPresentation, DemoPresenter } from '../packages/create-diapos/template/src/slides'
-import '../packages/diapos/src/styles/global.css'
+import { DiaposRouter } from 'diapos'
+import { DemoPresentation, DemoPresenter } from './slides'
+import 'diapos/styles.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
