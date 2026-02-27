@@ -11,15 +11,15 @@ interface ThemeProviderProps {
 
 function themeToCSS(theme: Theme): Record<string, string> {
   return {
-    '--diapo-bg': theme.colors.background,
-    '--diapo-fg': theme.colors.foreground,
-    '--diapo-accent': theme.colors.accent,
-    '--diapo-code-bg': theme.colors.code,
-    '--diapo-font-heading': theme.fonts.heading,
-    '--diapo-font-body': theme.fonts.body,
-    '--diapo-font-code': theme.fonts.code,
-    '--diapo-spacing-slide': theme.spacing.slide,
-    '--diapo-radius': theme.borderRadius,
+    '--diapos-bg': theme.colors.background,
+    '--diapos-fg': theme.colors.foreground,
+    '--diapos-accent': theme.colors.accent,
+    '--diapos-code-bg': theme.colors.code,
+    '--diapos-font-heading': theme.fonts.heading,
+    '--diapos-font-body': theme.fonts.body,
+    '--diapos-font-code': theme.fonts.code,
+    '--diapos-spacing-slide': theme.spacing.slide,
+    '--diapos-radius': theme.borderRadius,
   }
 }
 

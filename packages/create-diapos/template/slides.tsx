@@ -1,13 +1,13 @@
-import { Deck, Slide, Title, Content, Code, Split } from '../../src'
+import { Deck, Slide, Title, Content, Code, Split } from 'diapos'
 import { demoTheme } from './theme'
 
-const exampleCode = `import { Deck, Slide, Title, Content } from 'diapo'
+const exampleCode = `import { Deck, Slide, Title, Content } from 'diapos'
 
 function MyPresentation() {
   return (
     <Deck>
-      <Title title="Hello, Diapo!" subtitle="Slides in React" />
-      <Content heading="Why Diapo?">
+      <Title title="Hello, Diapos!" subtitle="Slides in React" />
+      <Content heading="Why Diapos?">
         <p>Because slides should be code.</p>
       </Content>
     </Deck>
@@ -17,9 +17,9 @@ function MyPresentation() {
 export function DemoPresentation() {
   return (
     <Deck theme={demoTheme} transition="fade">
-      <Title title="Diapo" subtitle="Presentations as React Components" />
+      <Title title="Diapos" subtitle="Presentations as React Components" />
 
-      <Content heading="What is Diapo?">
+      <Content heading="What is Diapos?">
         <ul style={{ fontSize: '1em', lineHeight: 2 }}>
           <li>A code-first presentation framework</li>
           <li>Write slides in TSX — like Beamer, but for React</li>
@@ -37,7 +37,7 @@ export function DemoPresentation() {
       <Split
         left={
           <div>
-            <h2 style={{ fontFamily: 'var(--diapo-font-heading)', fontSize: '2em', margin: '0 0 0.5em 0' }}>
+            <h2 style={{ fontFamily: 'var(--diapos-font-heading)', fontSize: '2em', margin: '0 0 0.5em 0' }}>
               Split Layout
             </h2>
             <p style={{ fontSize: '1.2em', lineHeight: 1.6 }}>
@@ -48,8 +48,8 @@ export function DemoPresentation() {
         }
         right={
           <div style={{
-            backgroundColor: 'var(--diapo-code-bg)',
-            borderRadius: 'var(--diapo-radius)',
+            backgroundColor: 'var(--diapos-code-bg)',
+            borderRadius: 'var(--diapos-radius)',
             padding: '2em',
             fontSize: '1.1em',
           }}>
@@ -84,17 +84,17 @@ export function DemoPresentation() {
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
-        padding: 'var(--diapo-spacing-slide)',
+        padding: 'var(--diapos-spacing-slide)',
       }}>
         <h1 style={{
-          fontFamily: 'var(--diapo-font-heading)',
+          fontFamily: 'var(--diapos-font-heading)',
           fontSize: '3em',
           marginBottom: '0.5em',
         }}>
           Thank You
         </h1>
         <p style={{ fontSize: '1.5em', opacity: 0.6 }}>
-          diapo — slides as code
+          diapos — slides as code
         </p>
       </Slide>
     </Deck>

@@ -14,13 +14,13 @@ export function Title({ title, subtitle, style }: TitleProps) {
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
-        padding: 'var(--diapo-spacing-slide, 64px)',
+        padding: 'var(--diapos-spacing-slide, 64px)',
         ...style,
       }}
     >
       <h1
         style={{
-          fontFamily: 'var(--diapo-font-heading, system-ui)',
+          fontFamily: 'var(--diapos-font-heading, system-ui)',
           fontSize: '3.5em',
           fontWeight: 700,
           margin: 0,
@@ -32,7 +32,7 @@ export function Title({ title, subtitle, style }: TitleProps) {
       {subtitle && (
         <p
           style={{
-            fontFamily: 'var(--diapo-font-body, system-ui)',
+            fontFamily: 'var(--diapos-font-body, system-ui)',
             fontSize: '1.5em',
             opacity: 0.7,
             marginTop: '0.5em',

@@ -11,7 +11,7 @@ export function SlideCounter() {
         bottom: '12px',
         right: '16px',
         fontSize: '14px',
-        fontFamily: 'var(--diapo-font-body, system-ui, sans-serif)',
+        fontFamily: 'var(--diapos-font-body, system-ui, sans-serif)',
         color: 'rgba(255, 255, 255, 0.5)',
         userSelect: 'none',
         pointerEvents: 'none',

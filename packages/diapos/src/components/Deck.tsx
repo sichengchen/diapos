@@ -69,8 +69,8 @@ function DeckInner({
         height: '100vh',
         overflow: 'hidden',
         position: 'relative',
-        backgroundColor: 'var(--diapo-bg, #000)',
-        color: 'var(--diapo-fg, #fff)',
+        backgroundColor: 'var(--diapos-bg, #000)',
+        color: 'var(--diapos-fg, #fff)',
         cursor: clickNavigation ? 'pointer' : undefined,
       }}
     >

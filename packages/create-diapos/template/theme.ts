@@ -1,4 +1,4 @@
-import { createTheme } from '../../src'
+import { createTheme } from 'diapos'
 
 export const demoTheme = createTheme({
   colors: {

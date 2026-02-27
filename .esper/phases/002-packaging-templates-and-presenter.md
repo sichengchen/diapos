@@ -1,0 +1,60 @@
+---
+phase: 002-packaging-templates-and-presenter
+title: Packaging, Templates, and Presenter
+status: active
+---
+
+# Phase 2: Packaging, Templates, and Presenter
+
+## Goal
+Transform diapos from a standalone app into a publishable framework with a monorepo structure, an npx starter script, an improved template system, and a full presenter mode with speaker notes and dual-view sync.
+
+## In Scope
+- Monorepo restructure: `packages/diapos` (library) + `packages/create-diapos` (CLI scaffolder)
+- Library build configuration (Vite library mode, proper exports, peer dependencies)
+- `npx create-diapos` CLI that scaffolds a new presentation project
+- **Component architecture overhaul (Approach D from exploration 001)**:
+  - `<Slide>` becomes the always-explicit frame boundary (breaking change from Phase 1)
+  - Remove `<Content>` (redundant) and `<Split>` (replaced by `<Columns>`)
+  - Refactor `<Title>`, `<Code>`, `<Image>` to be content components inside `<Slide>` (no longer wrap `<Slide>`)
+  - New structural: `<Section>` as wrapper that groups slides + auto-inserts divider
+  - New building blocks: `<Block>`, `<Columns>`/`<Column>`
+  - New layout: `<Quote>`
+  - `createLayout()` factory for user-defined content components
+  - `<Slide>` provides default theme typography via CSS vars
+  - `<Deck>` metadata props (`title`, `author`, `date`) + auto title slide
+  - `<Deck>` child flattening for `<Section>` tree
+- Speaker notes support on slides (`notes` prop on `<Slide>`)
+- Presenter view route (notes + current slide + next slide preview)
+- Projector view route (fullscreen current slide only)
+- BroadcastChannel-based sync between presenter and projector tabs
+- URL-based routing for views (simple hash routing)
+
+## Out of Scope (deferred)
+- `<Step>` / progressive reveal (separate plan 015, needs sub-slide expansion engine)
+- PDF / static HTML export
+- Animations within slides (beyond slide transitions)
+- Plugin / extension system
+- Remote control / cross-device sync (WebSocket)
+- Collaborative editing
+- Visual editor / WYSIWYG
+- Publishing to npm (build and packaging are in scope, but the actual `npm publish` step is deferred)
+
+## Acceptance Criteria
+- [ ] Monorepo structure with `packages/diapos` and `packages/create-diapos`
+- [ ] `diapos` builds as a library with proper ESM exports and TypeScript declarations
+- [ ] `npx create-diapos my-slides` scaffolds a working presentation project
+- [ ] `<Slide>` is always explicit — layouts are content components inside `<Slide>`
+- [ ] `<Content>` and `<Split>` removed; `<Columns>`/`<Column>` replaces Split
+- [ ] `<Section>` groups slides and auto-generates divider slides
+- [ ] `<Block>`, `<Quote>`, `createLayout()` available
+- [ ] `<Deck>` metadata props generate auto title slide
+- [ ] Slides accept `notes` prop for speaker notes
+- [ ] `/presenter` route shows notes + current slide + next slide preview
+- [ ] `/` (or `/projector`) route shows fullscreen slide only
+- [ ] BroadcastChannel syncs slide navigation between presenter and projector tabs
+- [ ] All tests pass (`bun run test`)
+- [ ] Lint and typecheck pass (`bun run lint`, `bun run typecheck`)
+
+## Phase Notes
+Phase 1 architecture is solid — DeckContext/ThemeContext split, CSS custom properties for theming, and the DeckInner pattern all carry forward cleanly. The component architecture shifts to Approach D (exploration 001): `<Slide>` is always explicit, layouts become content components, `<Content>` and `<Split>` are removed. This is a breaking change but acceptable since Phase 1 has no external consumers.

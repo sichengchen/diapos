@@ -1,0 +1,9 @@
+{
+  "name": "create-diapos",
+  "version": "0.0.1",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "create-diapos": "./bin/create-diapos.js"
+  }
+}

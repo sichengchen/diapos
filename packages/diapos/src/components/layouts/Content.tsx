@@ -13,14 +13,14 @@ export function Content({ heading, children, style }: ContentProps) {
       style={{
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
-        padding: 'var(--diapo-spacing-slide, 64px)',
+        padding: 'var(--diapos-spacing-slide, 64px)',
         ...style,
       }}
     >
       {heading && (
         <h2
           style={{
-            fontFamily: 'var(--diapo-font-heading, system-ui)',
+            fontFamily: 'var(--diapos-font-heading, system-ui)',
             fontSize: '2.5em',
             fontWeight: 600,
             margin: '0 0 0.5em 0',
@@ -32,7 +32,7 @@ export function Content({ heading, children, style }: ContentProps) {
       )}
       <div
         style={{
-          fontFamily: 'var(--diapo-font-body, system-ui)',
+          fontFamily: 'var(--diapos-font-body, system-ui)',
           fontSize: '1.25em',
           lineHeight: 1.6,
         }}

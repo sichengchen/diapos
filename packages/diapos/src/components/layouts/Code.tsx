@@ -14,14 +14,14 @@ export function Code({ code, title, language, style }: CodeProps) {
       style={{
         justifyContent: 'center',
         alignItems: 'stretch',
-        padding: 'var(--diapo-spacing-slide, 64px)',
+        padding: 'var(--diapos-spacing-slide, 64px)',
         ...style,
       }}
     >
       {title && (
         <h2
           style={{
-            fontFamily: 'var(--diapo-font-heading, system-ui)',
+            fontFamily: 'var(--diapos-font-heading, system-ui)',
             fontSize: '2em',
             fontWeight: 600,
             margin: '0 0 0.5em 0',
@@ -33,11 +33,11 @@ export function Code({ code, title, language, style }: CodeProps) {
       <pre
         data-language={language}
         style={{
-          fontFamily: 'var(--diapo-font-code, monospace)',
+          fontFamily: 'var(--diapos-font-code, monospace)',
           fontSize: '1em',
           lineHeight: 1.5,
-          backgroundColor: 'var(--diapo-code-bg, #1e293b)',
-          borderRadius: 'var(--diapo-radius, 8px)',
+          backgroundColor: 'var(--diapos-code-bg, #1e293b)',
+          borderRadius: 'var(--diapos-radius, 8px)',
           padding: '1.5em',
           margin: 0,
           overflow: 'auto',

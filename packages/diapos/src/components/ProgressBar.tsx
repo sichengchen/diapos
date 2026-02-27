@@ -20,7 +20,7 @@ export function ProgressBar() {
         style={{
           height: '100%',
           width: `${progress}%`,
-          backgroundColor: 'var(--diapo-accent, #3b82f6)',
+          backgroundColor: 'var(--diapos-accent, #3b82f6)',
           transition: 'width 0.3s ease',
         }}
       />

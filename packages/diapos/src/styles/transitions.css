@@ -1,0 +1,28 @@
+.diapos-transition-fade-enter {
+  opacity: 0;
+}
+
+.diapos-transition-fade-active {
+  opacity: 1;
+  transition: opacity var(--diapos-transition-duration, 300ms) ease;
+}
+
+.diapos-transition-slide-enter-forward {
+  transform: translateX(100%);
+}
+
+.diapos-transition-slide-enter-backward {
+  transform: translateX(-100%);
+}
+
+.diapos-transition-slide-active {
+  transform: translateX(0);
+  transition: transform var(--diapos-transition-duration, 300ms) ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .diapos-transition-fade-active,
+  .diapos-transition-slide-active {
+    transition: none;
+  }
+}

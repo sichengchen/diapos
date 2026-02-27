@@ -31,7 +31,7 @@ export function Split({ left, right, ratio = '1fr 1fr', style }: SplitProps) {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            padding: 'var(--diapo-spacing-slide, 64px)',
+            padding: 'var(--diapos-spacing-slide, 64px)',
           }}
         >
           {left}
@@ -41,7 +41,7 @@ export function Split({ left, right, ratio = '1fr 1fr', style }: SplitProps) {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            padding: 'var(--diapo-spacing-slide, 64px)',
+            padding: 'var(--diapos-spacing-slide, 64px)',
           }}
         >
           {right}

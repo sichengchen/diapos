@@ -15,7 +15,7 @@ export function Image({ src, alt = '', caption, contain = false, style }: ImageP
       style={{
         justifyContent: 'center',
         alignItems: 'center',
-        padding: contain ? 'var(--diapo-spacing-slide, 64px)' : 0,
+        padding: contain ? 'var(--diapos-spacing-slide, 64px)' : 0,
         ...style,
       }}
     >
@@ -27,13 +27,13 @@ export function Image({ src, alt = '', caption, contain = false, style }: ImageP
           maxHeight: caption ? '80%' : '100%',
           objectFit: contain ? 'contain' : 'cover',
           ...(contain ? {} : { width: '100%', height: '100%' }),
-          borderRadius: contain ? 'var(--diapo-radius, 8px)' : undefined,
+          borderRadius: contain ? 'var(--diapos-radius, 8px)' : undefined,
         }}
       />
       {caption && (
         <p
           style={{
-            fontFamily: 'var(--diapo-font-body, system-ui)',
+            fontFamily: 'var(--diapos-font-body, system-ui)',
             fontSize: '1em',
             opacity: 0.7,
             marginTop: '0.75em',

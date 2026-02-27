@@ -1,6 +1,6 @@
 {
   "backlog_mode": "local",
-  "current_phase": "001-core-engine-and-theming",
+  "current_phase": "002-packaging-templates-and-presenter",
   "commands": {
     "test": "bun run test",
     "lint": "bun run lint",

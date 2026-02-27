@@ -1,20 +1,19 @@
 {
-  "name": "diapo",
+  "name": "diapos-workspace",
   "private": true,
   "version": "0.0.1",
   "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "bun run --filter diapos build",
     "lint": "eslint .",
     "typecheck": "tsc -b --noEmit",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "preview": "vite preview"
-  },
-  "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
@@ -29,6 +28,8 @@
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
     "jsdom": "^26.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "typescript": "~5.7.0",
     "typescript-eslint": "^8.24.0",
     "vite": "^6.2.0",

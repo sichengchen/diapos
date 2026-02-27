@@ -44,13 +44,13 @@ export function TransitionWrapper({
 
   const enterClass =
     transition === 'fade'
-      ? 'diapo-transition-fade-enter'
+      ? 'diapos-transition-fade-enter'
       : direction === 'forward'
-        ? 'diapo-transition-slide-enter-forward'
-        : 'diapo-transition-slide-enter-backward'
+        ? 'diapos-transition-slide-enter-forward'
+        : 'diapos-transition-slide-enter-backward'
 
   const activeClass =
-    transition === 'fade' ? 'diapo-transition-fade-active' : 'diapo-transition-slide-active'
+    transition === 'fade' ? 'diapos-transition-fade-active' : 'diapos-transition-slide-active'
 
   return (
     <div
@@ -58,7 +58,7 @@ export function TransitionWrapper({
       style={{
         width: '100%',
         height: '100%',
-        ['--diapo-transition-duration' as string]: `${duration}ms`,
+        ['--diapos-transition-duration' as string]: `${duration}ms`,
       }}
     >
       {children}
