@@ -1,0 +1,7 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "diapos-demo"
+compatibility_date = "2025-02-27"
+
+[assets]
+directory = "./dist"
+not_found_handling = "single-page-application"

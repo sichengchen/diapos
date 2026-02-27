@@ -9,6 +9,8 @@
   "scripts": {
     "dev": "vite",
     "build": "bun run --filter diapos build",
+    "build:demo": "vite build",
+    "deploy": "vite build && wrangler deploy",
     "lint": "eslint .",
     "typecheck": "tsc -b --noEmit",
     "test": "vitest run --passWithNoTests",
