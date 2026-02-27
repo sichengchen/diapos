@@ -1,7 +1,7 @@
 ---
 phase: 001-core-engine-and-theming
 title: Core Engine and Theming
-status: active
+status: completed
 ---
 
 # Phase 1: Core Engine and Theming
@@ -31,16 +31,16 @@ Deliver a working slide engine where users can define slides in TSX, navigate be
 - Collaborative editing
 
 ## Acceptance Criteria
-- [ ] A user can create a new presentation by writing TSX files
-- [ ] Slides render correctly in the browser with Vite HMR
-- [ ] Arrow keys, spacebar, and click navigate between slides
-- [ ] Fullscreen mode works in modern browsers
-- [ ] At least one theme can be applied and customized
-- [ ] Built-in layout components (Title, Content, Code, Image, Split) work correctly
-- [ ] Slide transitions animate smoothly
-- [ ] Progress indicator shows current position
-- [ ] All tests pass (`bun run test`)
-- [ ] Lint and typecheck pass (`bun run lint`, `bun run typecheck`)
+- [x] A user can create a new presentation by writing TSX files
+- [x] Slides render correctly in the browser with Vite HMR
+- [x] Arrow keys, spacebar, and click navigate between slides
+- [x] Fullscreen mode works in modern browsers
+- [x] At least one theme can be applied and customized
+- [x] Built-in layout components (Title, Content, Code, Image, Split) work correctly
+- [x] Slide transitions animate smoothly
+- [x] Progress indicator shows current position
+- [x] All tests pass (`bun run test`)
+- [x] Lint and typecheck pass (`bun run lint`, `bun run typecheck`)
 
 ## Shipped Plans
 - Plan 001 — Project scaffolding: Initialize a Vite project with the react-ts template using Bun. Files: package.json, vite.config.ts, tsconfig.json, tsconfig.app.json, tsconfig.node.json, eslint.config.js, index.html, main.tsx, vite-env.d.ts
