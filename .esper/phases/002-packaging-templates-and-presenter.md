@@ -62,3 +62,4 @@ Phase 1 architecture is solid — DeckContext/ThemeContext split, CSS custom pro
 ## Shipped Plans
 - Plan 9 — Monorepo restructure: Initialize a Bun/npm workspace at the root with `packages/*` glob. Files: package.json, vite.config.ts, tsconfig.app.json, tsconfig.node.json, eslint.config.js, packages/diapos/package.json, packages/diapos/vite.config.ts, packages/diapos/tsconfig.json, packages/create-diapos/package.json
 - Plan 10 — Library build and exports: Configure Vite library mode with CSS bundling and vite-plugin-dts declarations. Files: packages/diapos/src/index.ts, packages/diapos/package.json
+- Plan 11 — create-diapos CLI scaffolder: CLI that scaffolds a ready-to-run diapos project from template. Files: packages/create-diapos/src/index.ts, packages/create-diapos/template/*
