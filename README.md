@@ -1,5 +1,7 @@
 # Diapos
 
+[![npm](https://img.shields.io/npm/v/diapos)](https://www.npmjs.com/package/diapos)
+
 Diapos is a React-based presentation framework.
 
 Write slides in TSX, present in the browser!
