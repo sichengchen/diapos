@@ -1,12 +1,13 @@
 ---
 id: 9
 title: Monorepo restructure
-status: active
+status: done
 type: feature
 priority: 1
 phase: 002-packaging-templates-and-presenter
 branch: feature/002-packaging-templates-and-presenter
 created: 2026-02-26
+shipped_at: 2026-02-27
 ---
 # Monorepo restructure
 
@@ -39,3 +40,16 @@ Diapos is currently a single Vite app project with `private: true` in package.js
 - Run: `cd packages/diapos && bun run build` produces dist/ with ESM + .d.ts files
 - Expected: All pass, library builds cleanly with proper exports
 - Edge cases: Path aliases (`@/`) must resolve correctly in both dev and build modes
+
+## Progress
+- Implemented workspace root package.json with `packages/*` glob
+- Moved all library source from `src/` to `packages/diapos/src/`
+- Created `packages/diapos/package.json` with exports, peerDependencies, vite-plugin-dts
+- Created `packages/diapos/vite.config.ts` with library mode build (ESM + .d.ts via vite-plugin-dts)
+- Created `packages/diapos/tsconfig.json` for library type checking
+- Moved demo presentation to `packages/create-diapos/template/` with imports from `diapos`
+- Created `packages/create-diapos/package.json` placeholder
+- Updated root `vite.config.ts` with `diapos` and `@` aliases for dev
+- Updated root `tsconfig.app.json` and `tsconfig.node.json` for new paths
+- Modified: package.json, vite.config.ts, tsconfig.app.json, tsconfig.node.json, eslint.config.js, src/main.tsx, packages/diapos/*, packages/create-diapos/*
+- Verification: all 30 tests pass, typecheck passes, lint clean (warnings only), library build produces diapos.js + diapos.css + index.d.ts
