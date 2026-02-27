@@ -1,11 +1,11 @@
-import { Children, cloneElement, isValidElement, type ReactNode, type ReactElement } from 'react'
+import { Children, isValidElement, type ReactNode, type ReactElement } from 'react'
 import { Step } from '../components/Step'
 import { StepProvider } from '../context/StepContext'
 
 function countSteps(children: ReactNode): number {
   let count = 0
   Children.forEach(children, (child) => {
-    if (isValidElement(child)) {
+    if (isValidElement<{ children?: ReactNode }>(child)) {
       if (child.type === Step) {
         count++
       }
@@ -24,7 +24,7 @@ export function parseSlides(children: ReactNode) {
   const notes: Record<number, ReactNode> = {}
 
   rawSlides.forEach((child) => {
-    const stepCount = isValidElement(child) ? countSteps(child.props.children) : 0
+    const stepCount = isValidElement<{ children?: ReactNode }>(child) ? countSteps(child.props.children) : 0
     const slideNotes = isValidElement<{ notes?: ReactNode }>(child) && child.props.notes != null
       ? child.props.notes
       : undefined
