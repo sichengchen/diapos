@@ -8,11 +8,12 @@ export function SlideCounter() {
       data-testid="slide-counter"
       style={{
         position: 'absolute',
-        bottom: '12px',
-        right: '16px',
-        fontSize: '14px',
+        bottom: 'calc(var(--diapos-spacing-slide, 64px) * 0.25)',
+        right: 'calc(var(--diapos-spacing-slide, 64px) * 0.25)',
+        fontSize: '0.875em',
         fontFamily: 'var(--diapos-font-body, system-ui, sans-serif)',
-        color: 'rgba(255, 255, 255, 0.5)',
+        color: 'var(--diapos-fg, #fff)',
+        opacity: 0.4,
         userSelect: 'none',
         pointerEvents: 'none',
       }}
