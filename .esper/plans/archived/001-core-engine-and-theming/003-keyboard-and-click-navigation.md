@@ -1,11 +1,13 @@
 ---
 id: 003
 title: Keyboard and click navigation
-status: pending
+status: done
+shipped_at: 2026-02-25
 type: feature
 priority: 3
 phase: 001-core-engine-and-theming
 branch: feature/001-core-engine-and-theming
+pr: https://github.com/sichengchen/diapo/pull/1
 created: 2026-02-25
 ---
 
