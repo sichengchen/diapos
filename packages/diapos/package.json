@@ -12,13 +12,17 @@
     },
     "./styles.css": "./dist/diapos.css"
   },
+  "sideEffects": [
+    "**/*.css"
+  ],
   "files": [
     "dist",
     "src"
   ],
   "scripts": {
     "build": "vite build",
-    "typecheck": "tsc -b --noEmit"
+    "typecheck": "tsc -b --noEmit",
+    "prepublishOnly": "bun run typecheck && bun run build"
   },
   "peerDependencies": {
     "react": "^19.0.0",

@@ -1,3 +1,6 @@
+import './styles/global.css'
+import './styles/transitions.css'
+
 export { Deck } from './components/Deck'
 export type { DeckProps } from './components/Deck'
 
