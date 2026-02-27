@@ -1,7 +1,7 @@
 {
   "name": "diapos-workspace",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "workspaces": [
     "packages/*"
@@ -11,6 +11,7 @@
     "build": "bun run --filter diapos build",
     "build:demo": "vite build",
     "deploy": "vite build && wrangler deploy",
+    "bump": "npm version --no-git-tag-version --workspaces --include-workspace-root",
     "copy:readme": "cp README.md packages/diapos/README.md && cp README.md packages/create-diapos/README.md",
     "publish:all": "bun run copy:readme && npm publish --workspace packages/diapos --access public && npm publish --workspace packages/create-diapos --access public",
     "lint": "eslint .",
