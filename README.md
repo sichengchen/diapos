@@ -4,6 +4,8 @@ Diapos is a React-based presentation framework.
 
 Write slides in TSX, present in the browser!
 
+[Demo](https://diapos-demo.scchan.workers.dev)
+
 ## Quick Start
 
 ```bash
@@ -67,4 +69,4 @@ Click the left or right half of the screen to navigate.
 
 ## License
 
-MIT
+[MIT](LICENSE)
