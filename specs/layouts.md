@@ -37,6 +37,197 @@ interface TitleProps {
 
 ---
 
+## Heading
+
+### Import
+
+```ts
+import { Heading } from 'diapos'
+import type { HeadingProps } from 'diapos'
+```
+
+### Props
+
+```ts
+interface HeadingProps {
+  children: ReactNode
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  pause?: boolean
+  style?: CSSProperties
+}
+```
+
+### Behavior
+
+- Renders a heading element at the specified level (default `h2`).
+- Uses `--diapos-font-heading` for font family.
+- Size: h1=`clamp(2.2rem,4.2vw,4rem)`, h2=`clamp(1.8rem,3.2vw,3rem)`, h3=`clamp(1.4rem,2.4vw,2rem)`, h4=`1.5rem`.
+- Weight: 700 for h1/h2, 600 for h3+.
+- Supports `pause` prop for progressive reveal.
+
+### Valid Usage
+
+```tsx
+<Slide>
+  <Heading>Main Point</Heading>
+  <Heading as="h3">Subtitle</Heading>
+  <Heading pause>Revealed on next click</Heading>
+</Slide>
+```
+
+---
+
+## Text
+
+### Import
+
+```ts
+import { Text } from 'diapos'
+import type { TextProps } from 'diapos'
+```
+
+### Props
+
+```ts
+interface TextProps {
+  children: ReactNode
+  pause?: boolean
+  style?: CSSProperties
+}
+```
+
+### Behavior
+
+- Renders a `<p>` element with theme-aware body font.
+- Uses `--diapos-font-body` for font family, `1.02em` size, `1.45` line height.
+- Supports `pause` prop for progressive reveal.
+
+### Valid Usage
+
+```tsx
+<Slide>
+  <Text>A paragraph of content.</Text>
+  <Text pause>Revealed on next click.</Text>
+</Slide>
+```
+
+---
+
+## BulletPoints
+
+### Import
+
+```ts
+import { BulletPoints } from 'diapos'
+import type { BulletPointsProps } from 'diapos'
+```
+
+### Props
+
+```ts
+interface BulletPointsProps {
+  children: ReactNode
+  pause?: boolean
+  style?: CSSProperties
+}
+```
+
+### Behavior
+
+- Renders a `<ul>` element with theme-aware body font.
+- Contains `<Item>` children which render as `<li>` — valid HTML with no wrapper elements.
+- Supports `pause` prop for progressive reveal of the entire list.
+
+### Valid Usage
+
+```tsx
+<Slide>
+  <BulletPoints>
+    <Item>First point</Item>
+    <Item pause>Revealed second</Item>
+    <Item pause>Revealed third</Item>
+  </BulletPoints>
+</Slide>
+```
+
+---
+
+## Enumerate
+
+### Import
+
+```ts
+import { Enumerate } from 'diapos'
+import type { EnumerateProps } from 'diapos'
+```
+
+### Props
+
+```ts
+interface EnumerateProps {
+  children: ReactNode
+  pause?: boolean
+  style?: CSSProperties
+}
+```
+
+### Behavior
+
+- Renders an `<ol>` element with theme-aware body font.
+- Contains `<Item>` children which render as `<li>` — valid HTML with no wrapper elements.
+- Supports `pause` prop for progressive reveal of the entire list.
+
+### Valid Usage
+
+```tsx
+<Slide>
+  <Enumerate>
+    <Item>Step one</Item>
+    <Item pause>Step two (revealed)</Item>
+    <Item pause>Step three (revealed)</Item>
+  </Enumerate>
+</Slide>
+```
+
+---
+
+## Item
+
+### Import
+
+```ts
+import { Item } from 'diapos'
+import type { ItemProps } from 'diapos'
+```
+
+### Props
+
+```ts
+interface ItemProps {
+  children: ReactNode
+  pause?: boolean
+  style?: CSSProperties
+}
+```
+
+### Behavior
+
+- Renders a `<li>` element directly — no wrapper elements, producing valid HTML inside `<ul>` or `<ol>`.
+- When `pause` is truthy: hidden with `visibility: hidden` until revealed (reserves space).
+- When `pause` is falsy: always visible.
+- Outside a PauseProvider (no progressive reveal context): always visible.
+
+### Valid Usage
+
+```tsx
+<BulletPoints>
+  <Item>Always visible</Item>
+  <Item pause>Revealed on next click</Item>
+</BulletPoints>
+```
+
+---
+
 ## Code
 
 ### Import

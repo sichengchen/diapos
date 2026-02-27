@@ -21,8 +21,10 @@ Diapos is a code-first presentation framework built on React and TypeScript. Use
   <Section>                     — groups slides, auto-inserts divider
     <Slide>                     — frame boundary (always explicit)
       <Title> | <Code> | ...    — content layouts (inside Slide)
+      <Heading> | <Text>        — theme-aware content (supports pause)
+      <BulletPoints>|<Enumerate>— lists (supports pause)
+        <Item>                  — list item (supports pause)
       <Block> | <Columns>       — building blocks (composable)
-      <Step>                    — progressive reveal wrapper
 ```
 
 ## Testing Strategy

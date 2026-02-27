@@ -80,8 +80,9 @@ describe('BulletPoints', () => {
         <Item>One</Item>
       </BulletPoints>,
     )
-    const ul = container.querySelector('ul')!
-    expect(ul.children[0].tagName).toBe('LI')
+    const ul = container.querySelector('ul')
+    expect(ul).not.toBeNull()
+    expect(ul!.children[0]!.tagName).toBe('LI')
   })
 })
 
@@ -104,8 +105,9 @@ describe('Enumerate', () => {
         <Item>One</Item>
       </Enumerate>,
     )
-    const ol = container.querySelector('ol')!
-    expect(ol.children[0].tagName).toBe('LI')
+    const ol = container.querySelector('ol')
+    expect(ol).not.toBeNull()
+    expect(ol!.children[0]!.tagName).toBe('LI')
   })
 })
 

@@ -1,4 +1,4 @@
-import { PresenterView, ProjectorView, Slide, Step, Title, Code } from 'diapos'
+import { PresenterView, ProjectorView, Slide, Title, Code, Heading, BulletPoints, Item, Text } from 'diapos'
 import { demoTheme } from './theme'
 
 const exampleCode = `import { Deck, Slide, Title, Code } from 'diapos'
@@ -23,20 +23,20 @@ const demoSlides = (
     </Slide>
 
     <Slide notes="Emphasize the code-first philosophy. Mention Beamer as inspiration for LaTeX users.">
-      <h2>What is Diapos?</h2>
-      <ul>
-        <li>A code-first presentation framework</li>
-        <li>Write slides in TSX — like Beamer, but for React</li>
-        <li>Themeable, composable, hackable</li>
-        <li>Built on Vite for instant HMR</li>
-      </ul>
+      <Heading>What is Diapos?</Heading>
+      <BulletPoints>
+        <Item>A code-first presentation framework</Item>
+        <Item>Write slides in TSX — like Beamer, but for React</Item>
+        <Item>Themeable, composable, hackable</Item>
+        <Item>Built on Vite for instant HMR</Item>
+      </BulletPoints>
     </Slide>
 
     <Slide notes="Reveal each feature one by one. Pause between each for emphasis.">
-      <h2>Key Features</h2>
-      <Step><p>Write slides in TSX</p></Step>
-      <Step><p>Theme with CSS custom properties</p></Step>
-      <Step><p>Presenter mode with speaker notes</p></Step>
+      <Heading>Key Features</Heading>
+      <Text pause>Write slides in TSX</Text>
+      <Text pause>Theme with CSS custom properties</Text>
+      <Text pause>Presenter mode with speaker notes</Text>
     </Slide>
 
     <Slide>
@@ -48,25 +48,25 @@ const demoSlides = (
     </Slide>
 
     <Slide>
-      <h2>Built-in Layouts</h2>
-      <ul>
-        <li><code>&lt;Title&gt;</code> — centered title with subtitle</li>
-        <li><code>&lt;Code&gt;</code> — syntax-highlighted code block</li>
-        <li><code>&lt;Image&gt;</code> — full-bleed or contained image</li>
-        <li><code>&lt;Step&gt;</code> — progressive reveal</li>
-        <li><code>&lt;Slide&gt;</code> — bare slide for full control</li>
-      </ul>
+      <Heading>Built-in Layouts</Heading>
+      <BulletPoints>
+        <Item><code>&lt;Title&gt;</code> — centered title with subtitle</Item>
+        <Item><code>&lt;Code&gt;</code> — syntax-highlighted code block</Item>
+        <Item><code>&lt;Image&gt;</code> — full-bleed or contained image</Item>
+        <Item><code>&lt;Heading&gt;</code>, <code>&lt;Text&gt;</code> — theme-aware content</Item>
+        <Item><code>&lt;BulletPoints&gt;</code>, <code>&lt;Enumerate&gt;</code> — lists with pause support</Item>
+      </BulletPoints>
     </Slide>
 
     <Slide>
-      <h2>Navigation</h2>
-      <ul>
-        <li><kbd>→</kbd> <kbd>↓</kbd> <kbd>Space</kbd> — next slide</li>
-        <li><kbd>←</kbd> <kbd>↑</kbd> — previous slide</li>
-        <li><kbd>Home</kbd> / <kbd>End</kbd> — first / last slide</li>
-        <li><kbd>F</kbd> — toggle fullscreen</li>
-        <li>Click left/right halves to navigate</li>
-      </ul>
+      <Heading>Navigation</Heading>
+      <BulletPoints>
+        <Item><kbd>→</kbd> <kbd>↓</kbd> <kbd>Space</kbd> — next slide</Item>
+        <Item><kbd>←</kbd> <kbd>↑</kbd> — previous slide</Item>
+        <Item><kbd>Home</kbd> / <kbd>End</kbd> — first / last slide</Item>
+        <Item><kbd>F</kbd> — toggle fullscreen</Item>
+        <Item>Click left/right halves to navigate</Item>
+      </BulletPoints>
     </Slide>
 
     <Slide notes="Thank the audience. Open for questions.">

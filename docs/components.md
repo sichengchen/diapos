@@ -74,6 +74,85 @@ import { Title } from 'diapos'
 | `subtitle` | `ReactNode` | -- | Optional subtitle |
 | `style` | `CSSProperties` | -- | Style overrides |
 
+### `<Heading>`
+
+Theme-aware heading element. Supports progressive reveal with `pause`.
+
+```tsx
+import { Heading } from 'diapos'
+
+<Slide>
+  <Heading>Main Point</Heading>
+  <Heading as="h3">Subtitle</Heading>
+  <Heading pause>Revealed on next click</Heading>
+</Slide>
+```
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | required | Heading content |
+| `as` | `'h1' \| 'h2' \| ... \| 'h6'` | `'h2'` | Heading level |
+| `pause` | `boolean` | -- | Progressive reveal |
+| `style` | `CSSProperties` | -- | Style overrides |
+
+### `<Text>`
+
+Theme-aware paragraph. Supports progressive reveal with `pause`.
+
+```tsx
+import { Text } from 'diapos'
+
+<Slide>
+  <Text>A paragraph of content.</Text>
+  <Text pause>Revealed on next click.</Text>
+</Slide>
+```
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | required | Text content |
+| `pause` | `boolean` | -- | Progressive reveal |
+| `style` | `CSSProperties` | -- | Style overrides |
+
+### `<BulletPoints>` / `<Enumerate>` / `<Item>`
+
+Theme-aware lists. `<BulletPoints>` renders `<ul>`, `<Enumerate>` renders `<ol>`. Both contain `<Item>` children that render as `<li>` directly — valid HTML with no wrapper elements.
+
+```tsx
+import { BulletPoints, Enumerate, Item } from 'diapos'
+
+<Slide>
+  <BulletPoints>
+    <Item>Always visible</Item>
+    <Item pause>Revealed first</Item>
+    <Item pause>Revealed second</Item>
+  </BulletPoints>
+</Slide>
+
+<Slide>
+  <Enumerate>
+    <Item>Step one</Item>
+    <Item pause>Step two</Item>
+  </Enumerate>
+</Slide>
+```
+
+**BulletPoints / Enumerate props:**
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | required | `<Item>` children |
+| `pause` | `boolean` | -- | Progressive reveal of the entire list |
+| `style` | `CSSProperties` | -- | Style overrides |
+
+**Item props:**
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | required | Item content |
+| `pause` | `boolean` | -- | Progressive reveal (hidden until revealed, reserves space) |
+| `style` | `CSSProperties` | -- | Style overrides |
+
 ### `<Code>`
 
 Displays a code block with optional title.
