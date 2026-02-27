@@ -1,14 +1,14 @@
 ---
-id: 015
+id: 15
 title: Step progressive reveal
-status: pending
+status: done
 type: feature
 priority: 3
 phase: 002-packaging-templates-and-presenter
 branch: feature/002-packaging-templates-and-presenter
 created: 2026-02-26
+shipped_at: 2026-02-27
 ---
-
 # Step progressive reveal
 
 ## Context
@@ -57,3 +57,14 @@ Depends on: plan 012 (component architecture overhaul) must be complete first, s
 - Expected: N Steps in a Slide produce N+1 navigable sub-slides, hidden content preserves layout
 - Manual: Navigate through a slide with Steps — content reveals progressively
 - Edge cases: Slide with no Steps (normal behavior), nested Steps (should flatten), Step wrapping a Block or Columns
+
+## Progress
+- Created `StepContext.tsx`: context with `visibleUpTo` and `nextIndex()` counter, `StepProvider` resets counter each render
+- Created `Step.tsx`: wrapper that reads `StepContext`, auto-assigns index via `nextIndex()`, renders with `visibility: hidden/visible`
+- Extended `parseSlides` to count Steps via recursive tree walking (`countSteps`), expand slides with N steps into N+1 sub-slides, wrap each in `<StepProvider visibleUpTo={i}>`
+- Notes preserved across sub-slides (same note maps to all expanded indices)
+- Exported `Step` and `StepProps` from public API
+- Added Step demo to template slides and main.tsx (3-step "Key Features" progressive reveal)
+- Tests: 7 tests covering expansion count, initial hidden state, progressive reveal on navigation, no-step passthrough, mixed slides, notes preservation, standalone Step
+- Modified: Step.tsx (new), StepContext.tsx (new), parseSlides.tsx (renamed from .ts, extended), index.ts, slides.tsx, main.tsx
+- Verification: all Step tests pass (7/7), typecheck clean, lint clean for plan 15 files
