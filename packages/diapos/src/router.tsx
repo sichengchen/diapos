@@ -23,9 +23,16 @@ export function useRoute(): DiaposRoute {
 interface DiaposRouterProps {
   projector: ReactNode
   presenter: ReactNode
+  title?: string
 }
 
-export function DiaposRouter({ projector, presenter }: DiaposRouterProps) {
+export function DiaposRouter({ projector, presenter, title }: DiaposRouterProps) {
   const route = useRoute()
+
+  useEffect(() => {
+    const base = title ?? document.title.replace(/ — (Presenter|Projector)$/, '')
+    document.title = `${base}${route === 'presenter' ? ' — Presenter View' : ''}`
+  }, [route, title])
+
   return <>{route === 'presenter' ? presenter : projector}</>
 }

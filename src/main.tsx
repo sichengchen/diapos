@@ -7,6 +7,7 @@ import '../packages/diapos/src/styles/global.css'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <DiaposRouter
+      title="Diapos Demo"
       projector={<DemoPresentation />}
       presenter={<DemoPresenter />}
     />
