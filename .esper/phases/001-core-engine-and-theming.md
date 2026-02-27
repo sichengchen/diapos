@@ -48,3 +48,4 @@ Deliver a working slide engine where users can define slides in TSX, navigate be
 - Plan 003 — Keyboard and click navigation: Add useKeyboardNavigation hook for arrow/space/home/end keys plus click navigation. Files: useKeyboardNavigation.ts, Deck.tsx, useKeyboardNavigation.test.tsx
 - Plan 004 — Fullscreen mode and progress indicator: Add useFullscreen hook wrapping the Fullscreen API. Files: useFullscreen.ts, ProgressBar.tsx, SlideCounter.tsx, Deck.tsx
 - Plan 005 — Theme system: Define a Theme type with tokens and create ThemeProvider with CSS custom properties. Files: types.ts, ThemeContext.tsx, defaultTheme.ts, createTheme.ts, useTheme.ts, Deck.tsx
+- Plan 006 — Built-in layout components: Title, Content, Code, Image, Split slide layouts consuming theme tokens. Files: Title.tsx, Content.tsx, Code.tsx, Image.tsx, Split.tsx, index.ts, layouts.test.tsx
