@@ -6,34 +6,6 @@ type SyncMessage =
   | { type: 'sync-request' }
 
 const CHANNEL_NAME = 'diapos-sync'
-const STORAGE_EVENT_KEY = 'diapos-sync:event'
-
-interface StoragePayload {
-  message: SyncMessage
-  nonce: string
-}
-
-function postStorageMessage(message: SyncMessage) {
-  try {
-    const payload: StoragePayload = {
-      message,
-      nonce: `${Date.now()}-${Math.random()}`,
-    }
-    localStorage.setItem(STORAGE_EVENT_KEY, JSON.stringify(payload))
-  } catch {
-    // localStorage may be unavailable in some browser contexts
-  }
-}
-
-function parseStorageMessage(value: string): SyncMessage | null {
-  try {
-    const parsed = JSON.parse(value) as StoragePayload
-    if (!parsed || typeof parsed !== 'object' || !('message' in parsed)) return null
-    return parsed.message
-  } catch {
-    return null
-  }
-}
 
 export function useSyncChannel(
   deckState: DeckState | null,
@@ -41,6 +13,7 @@ export function useSyncChannel(
 ) {
   const channelRef = useRef<BroadcastChannel | null>(null)
   const lastBroadcastRef = useRef<number>(-1)
+  const hasReceivedSyncRef = useRef(false)
   const deckStateRef = useRef(deckState)
   deckStateRef.current = deckState
 
@@ -61,6 +34,7 @@ export function useSyncChannel(
       if (!state) return
 
       if (msg.type === 'navigate') {
+        hasReceivedSyncRef.current = true
         lastBroadcastRef.current = msg.index
         state.goTo(msg.index)
       } else if (msg.type === 'sync-request' && role === 'presenter') {
@@ -70,18 +44,10 @@ export function useSyncChannel(
 
     const postMessage = (message: SyncMessage) => {
       channel?.postMessage(message)
-      postStorageMessage(message)
     }
 
     const requestSync = () => {
       postMessage({ type: 'sync-request' })
-    }
-
-    const handleStorage = (event: StorageEvent) => {
-      if (event.key !== STORAGE_EVENT_KEY || !event.newValue) return
-      const message = parseStorageMessage(event.newValue)
-      if (!message) return
-      handleIncoming(message)
     }
 
     if (channel) {
@@ -89,7 +55,8 @@ export function useSyncChannel(
         handleIncoming(event.data)
       }
     }
-    window.addEventListener('storage', handleStorage)
+
+    let retryTimer: number | null = null
 
     const handleFocus = () => {
       requestSync()
@@ -102,15 +69,24 @@ export function useSyncChannel(
     }
 
     if (role === 'projector') {
+      hasReceivedSyncRef.current = false
       requestSync()
       window.addEventListener('focus', handleFocus)
       document.addEventListener('visibilitychange', handleVisibilityChange)
+
+      retryTimer = window.setInterval(() => {
+        if (!hasReceivedSyncRef.current) {
+          requestSync()
+        }
+      }, 1000)
     }
 
     return () => {
-      window.removeEventListener('storage', handleStorage)
       window.removeEventListener('focus', handleFocus)
       document.removeEventListener('visibilitychange', handleVisibilityChange)
+      if (retryTimer != null) {
+        window.clearInterval(retryTimer)
+      }
       channel?.close()
       channelRef.current = null
     }

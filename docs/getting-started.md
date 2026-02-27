@@ -18,7 +18,7 @@ my-slides/
   src/
     slides.tsx    # your slides
     theme.ts      # your theme
-    main.tsx      # entry point
+    main.tsx      # router entry point (projector/presenter)
   index.html
   package.json
   vite.config.ts
@@ -63,7 +63,7 @@ Opens a Vite dev server with HMR. Edit your slides and see changes instantly.
 
 ## Presenting
 
-- **Projector view**: `http://localhost:5173` -- fullscreen slides for the audience
-- **Presenter view**: `http://localhost:5173/#/presenter` -- notes, next slide preview, and controls
+- **Presenter view**: `http://localhost:5173` -- notes, next slide preview, and controls
+- **Projector view**: `http://localhost:5173/#/projector` -- fullscreen slides for the audience
 
-Both views stay in sync via BroadcastChannel. Navigate in the presenter tab and the projector tab follows.
+Scaffolded `main.tsx` uses `DiaposRouter` with `ProjectorView` and `PresenterView`, so both routes work out of the box. Use the PresenterView Play button to open the projector route in a new tab. Both views stay in sync via BroadcastChannel.

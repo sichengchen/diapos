@@ -25,7 +25,7 @@ interface DeckProps {
 ## Behavior
 
 - Root component for a presentation. Must wrap all slides.
-- Calls `Children.toArray(children)` to flatten the child tree into a slide array.
+- Recursively unwraps fragment children (for shared slide trees) into a flat slide array.
 - Collects `notes` prop from each child element and builds a `Record<number, ReactNode>` mapping slide index to notes.
 - Mounts `ThemeProvider` > `DeckProvider` > `DeckInner`.
 - `DeckInner` renders only `slides[currentIndex]` wrapped in `TransitionWrapper`.
@@ -47,10 +47,10 @@ interface DeckProps {
 </Deck>
 ```
 
-Direct children of `<Deck>` are counted as slides. Each child is one frame.
+`<Slide>` children count as slides, including slides passed through fragment wrappers.
 
 ## Constraints
 
 - Must have at least one child.
-- Does not deep-flatten — `Children.toArray` normalizes one level only.
+- Only fragment wrappers are unwrapped. Arbitrary wrapper components are not treated as implicit slides.
 - Only one `<Deck>` should be rendered at a time per page.

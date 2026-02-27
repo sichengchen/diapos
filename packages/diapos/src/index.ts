@@ -20,6 +20,8 @@ export { Code } from './components/layouts/Code'
 export type { CodeProps } from './components/layouts/Code'
 export { Image } from './components/layouts/Image'
 export type { ImageProps } from './components/layouts/Image'
+export { Quote } from './components/layouts/Quote'
+export type { QuoteProps } from './components/layouts/Quote'
 
 // Views
 export { PresenterView } from './views/PresenterView'

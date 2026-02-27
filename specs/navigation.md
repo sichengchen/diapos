@@ -75,7 +75,7 @@ type SyncMessage =
 ### Protocol
 
 1. **Presenter** auto-broadcasts `{ type: 'navigate', index }` on every `currentIndex` change.
-2. **Projector** sends `{ type: 'sync-request' }` on mount and again when the tab regains focus/visibility.
+2. **Projector** sends `{ type: 'sync-request' }` on mount, retries until it receives state, and requests again when the tab regains focus/visibility.
 3. **Presenter** responds to `sync-request` with `{ type: 'navigate', index: currentIndex }`.
 4. Both sides deduplicate with `lastBroadcastRef` to avoid echo loops.
 

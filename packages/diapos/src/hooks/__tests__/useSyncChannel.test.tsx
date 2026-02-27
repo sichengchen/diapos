@@ -10,6 +10,7 @@ class MockBroadcastChannel {
   name: string
   onmessage: ((event: MessageEvent) => void) | null = null
   closed = false
+  sent: unknown[] = []
 
   constructor(name: string) {
     this.name = name
@@ -17,6 +18,7 @@ class MockBroadcastChannel {
   }
 
   postMessage(data: unknown) {
+    this.sent.push(data)
     // Deliver to all other instances with the same name
     for (const instance of MockBroadcastChannel.instances) {
       if (instance !== this && instance.name === this.name && !instance.closed && instance.onmessage) {
@@ -112,28 +114,26 @@ describe('Deck with sync', () => {
     expect(screen.getByTestId('projector-index')).toHaveTextContent('1')
   })
 
-  it('falls back to storage events when BroadcastChannel is unavailable', () => {
-    vi.stubGlobal('BroadcastChannel', undefined)
+  it('projector retries sync requests until a presenter responds', () => {
+    vi.useFakeTimers()
 
     render(
       <Deck sync="projector" clickNavigation={false} showProgress={false} showCounter={false}>
-        <Slide><SyncControls id="projector-fallback" /></Slide>
-        <Slide><SyncControls id="projector-fallback" /></Slide>
+        <Slide><SyncControls id="projector-retry" /></Slide>
+        <Slide><SyncControls id="projector-retry" /></Slide>
       </Deck>,
     )
 
-    expect(screen.getByTestId('projector-fallback-index')).toHaveTextContent('0')
+    const projectorChannel = MockBroadcastChannel.instances[0]
+    expect(projectorChannel).toBeDefined()
+    expect(projectorChannel?.sent).toHaveLength(1)
 
     act(() => {
-      window.dispatchEvent(new StorageEvent('storage', {
-        key: 'diapos-sync:event',
-        newValue: JSON.stringify({
-          message: { type: 'navigate', index: 1 },
-          nonce: 'test-nonce',
-        }),
-      }))
+      vi.advanceTimersByTime(2100)
     })
 
-    expect(screen.getByTestId('projector-fallback-index')).toHaveTextContent('1')
+    expect(projectorChannel?.sent.length).toBeGreaterThanOrEqual(3)
+
+    vi.useRealTimers()
   })
 })

@@ -13,7 +13,8 @@ bun install
 bun dev
 ```
 
-Open `http://localhost:5173` for the projector view, `http://localhost:5173/#/presenter` for the presenter view.
+Open `http://localhost:5173` for the presenter view, `http://localhost:5173/#/projector` for the projector view.
+New scaffolded projects wire both routes by default via `DiaposRouter`.
 
 ## Example
 

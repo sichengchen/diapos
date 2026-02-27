@@ -115,10 +115,9 @@ interface ImageProps {
 
 ### Import
 
-Not yet exported from the public API. Available internally at:
-
 ```ts
-import { Quote } from './components/layouts/Quote'
+import { Quote } from 'diapos'
+import type { QuoteProps } from 'diapos'
 ```
 
 ### Props

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { Slide } from '../../components/Slide'
 import { ProjectorView } from '../ProjectorView'
 import { PresenterView } from '../PresenterView'
@@ -86,5 +86,24 @@ describe('PresenterView', () => {
       </PresenterView>,
     )
     expect(screen.getByText('No notes for this slide')).toBeInTheDocument()
+  })
+
+  it('opens projector view in a new tab from play button', () => {
+    const openSpy = vi.spyOn(window, 'open').mockImplementation(() => null)
+
+    render(
+      <PresenterView>
+        <Slide><div>Slide 1</div></Slide>
+        <Slide><div>Slide 2</div></Slide>
+      </PresenterView>,
+    )
+
+    screen.getByRole('button', { name: 'Play' }).click()
+
+    expect(openSpy).toHaveBeenCalledTimes(1)
+    expect(openSpy.mock.calls[0]?.[0]).toContain('#/projector')
+    expect(openSpy.mock.calls[0]?.[1]).toBe('_blank')
+
+    openSpy.mockRestore()
   })
 })

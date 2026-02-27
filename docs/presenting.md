@@ -1,31 +1,19 @@
 # Presenting
 
-Diapos has two presentation modes: **projector** (audience-facing) and **presenter** (speaker-facing). They sync via BroadcastChannel.
+Diapos has two presentation modes: **presenter** (speaker-facing) and **projector** (audience-facing). They sync via BroadcastChannel.
 
 ## Views
 
-### Projector View
-
-The default view at `/#/` or `/`. Shows the current slide fullscreen with no UI chrome. This is what your audience sees.
-
-```tsx
-import { ProjectorView } from 'diapos'
-
-<ProjectorView theme={myTheme}>
-  <Slide>...</Slide>
-  <Slide>...</Slide>
-</ProjectorView>
-```
-
 ### Presenter View
 
-The speaker view at `/#/presenter`. Shows:
+The default speaker view at `/` or `/#/presenter`. Shows:
 - Current slide (large preview)
 - Next slide (smaller preview)
 - Speaker notes for the current slide
 - Slide counter (`1 / N`)
 - Elapsed timer
 - Prev/Next buttons
+- Play button to open the projector route in a new tab
 
 ```tsx
 import { PresenterView } from 'diapos'
@@ -34,6 +22,19 @@ import { PresenterView } from 'diapos'
   <Slide notes="Welcome everyone">...</Slide>
   <Slide>...</Slide>
 </PresenterView>
+```
+
+### Projector View
+
+The audience view at `/#/projector`. Shows the current slide fullscreen with no UI chrome.
+
+```tsx
+import { ProjectorView } from 'diapos'
+
+<ProjectorView theme={myTheme}>
+  <Slide>...</Slide>
+  <Slide>...</Slide>
+</ProjectorView>
 ```
 
 ## Router
@@ -64,9 +65,11 @@ function App() {
 }
 ```
 
+Shared slide trees passed as fragments (for example `const slides = <>...</>`) are supported in both projector and presenter views.
+
 Routes:
-- `/#/` or `/` -- projector view
-- `/#/presenter` -- presenter view
+- `/` or `/#/presenter` -- presenter view
+- `/#/projector` -- projector view
 
 You can also use `useRoute()` for custom routing logic:
 

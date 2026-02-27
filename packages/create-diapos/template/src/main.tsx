@@ -1,10 +1,14 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { DemoPresentation } from './slides'
+import { DiaposRouter } from 'diapos'
+import { DemoPresentation, DemoPresenter } from './slides'
 import 'diapos/styles.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <DemoPresentation />
+    <DiaposRouter
+      projector={<DemoPresentation />}
+      presenter={<DemoPresenter />}
+    />
   </StrictMode>,
 )

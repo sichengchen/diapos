@@ -1,4 +1,4 @@
-import { Children, isValidElement, type ReactNode, type ReactElement } from 'react'
+import { Children, Fragment, isValidElement, type ReactNode, type ReactElement } from 'react'
 import { Step } from '../components/Step'
 import { StepProvider } from '../context/StepContext'
 
@@ -17,8 +17,17 @@ function countSteps(children: ReactNode): number {
   return count
 }
 
+function flattenFragmentChildren(children: ReactNode): ReactNode[] {
+  return Children.toArray(children).flatMap((child) => {
+    if (isValidElement<{ children?: ReactNode }>(child) && child.type === Fragment) {
+      return flattenFragmentChildren(child.props.children)
+    }
+    return [child]
+  })
+}
+
 export function parseSlides(children: ReactNode) {
-  const rawSlides = Children.toArray(children)
+  const rawSlides = flattenFragmentChildren(children)
 
   const expandedSlides: ReactNode[] = []
   const notes: Record<number, ReactNode> = {}

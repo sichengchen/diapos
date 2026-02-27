@@ -4,8 +4,8 @@ export type DiaposRoute = 'projector' | 'presenter'
 
 function getRoute(): DiaposRoute {
   const hash = window.location.hash.replace(/^#\/?/, '')
-  if (hash === 'presenter') return 'presenter'
-  return 'projector'
+  if (hash === 'projector') return 'projector'
+  return 'presenter'
 }
 
 export function useRoute(): DiaposRoute {
