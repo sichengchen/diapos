@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { Slide } from '../../components/Slide'
-import { Step } from '../../components/Step'
+import { Item } from '../../components/layouts/Item'
+import { BulletPoints } from '../../components/layouts/BulletPoints'
 import { parseSlides } from '../parseSlides'
 
 describe('parseSlides', () => {
@@ -15,16 +16,18 @@ describe('parseSlides', () => {
     expect(slides).toHaveLength(2)
   })
 
-  it('preserves notes and step expansion from fragment children', () => {
+  it('preserves notes and pause expansion from fragment children', () => {
     const { slides, notes } = parseSlides(
       <>
         <Slide notes="Intro notes">
           <div>Intro</div>
         </Slide>
         <Slide notes="Step notes">
-          <Step>
-            <div>Reveal</div>
-          </Step>
+          <BulletPoints>
+            <Item pause>
+              <div>Reveal</div>
+            </Item>
+          </BulletPoints>
         </Slide>
       </>,
     )

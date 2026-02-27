@@ -1,20 +1,20 @@
 import { createContext, type ReactNode, useCallback, useMemo, useRef } from 'react'
 
-export interface StepContextValue {
+export interface PauseContextValue {
   visibleUpTo: number
   nextIndex: () => number
 }
 
-export const StepContext = createContext<StepContextValue | null>(null)
+export const PauseContext = createContext<PauseContextValue | null>(null)
 
-interface StepProviderProps {
+interface PauseProviderProps {
   children: ReactNode
   visibleUpTo: number
 }
 
-export function StepProvider({ children, visibleUpTo }: StepProviderProps) {
+export function PauseProvider({ children, visibleUpTo }: PauseProviderProps) {
   const counterRef = useRef(0)
-  // Reset counter at the start of each render so Steps get consistent indices
+  // Reset counter at the start of each render so paused items get consistent indices
   counterRef.current = 0
 
   const nextIndex = useCallback(() => counterRef.current++, [])
@@ -24,5 +24,5 @@ export function StepProvider({ children, visibleUpTo }: StepProviderProps) {
     [visibleUpTo, nextIndex],
   )
 
-  return <StepContext.Provider value={value}>{children}</StepContext.Provider>
+  return <PauseContext.Provider value={value}>{children}</PauseContext.Provider>
 }
