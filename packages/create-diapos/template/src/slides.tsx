@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react'
 import { PresenterView, ProjectorView, Slide, Step, Title, Code } from 'diapos'
 import { demoTheme } from './theme'
 
@@ -17,14 +16,6 @@ function MyPresentation() {
   )
 }`
 
-function Heading({ children }: { children: ReactNode }) {
-  return <h2>{children}</h2>
-}
-
-function BulletList({ children }: { children: ReactNode }) {
-  return <ul>{children}</ul>
-}
-
 const demoSlides = (
   <>
     <Slide notes="Welcome the audience. Introduce diapos as a code-first presentation framework.">
@@ -32,22 +23,20 @@ const demoSlides = (
     </Slide>
 
     <Slide notes="Emphasize the code-first philosophy. Mention Beamer as inspiration for LaTeX users.">
-      <Heading>What is Diapos?</Heading>
-      <BulletList>
+      <h2>What is Diapos?</h2>
+      <ul>
         <li>A code-first presentation framework</li>
         <li>Write slides in TSX — like Beamer, but for React</li>
         <li>Themeable, composable, hackable</li>
         <li>Built on Vite for instant HMR</li>
-      </BulletList>
+      </ul>
     </Slide>
 
     <Slide notes="Reveal each feature one by one. Pause between each for emphasis.">
-      <Heading>Key Features</Heading>
-      <BulletList>
-        <Step><li>Write slides in TSX</li></Step>
-        <Step><li>Theme with CSS custom properties</li></Step>
-        <Step><li>Presenter mode with speaker notes</li></Step>
-      </BulletList>
+      <h2>Key Features</h2>
+      <Step><p>Write slides in TSX</p></Step>
+      <Step><p>Theme with CSS custom properties</p></Step>
+      <Step><p>Presenter mode with speaker notes</p></Step>
     </Slide>
 
     <Slide>
@@ -59,25 +48,25 @@ const demoSlides = (
     </Slide>
 
     <Slide>
-      <Heading>Built-in Layouts</Heading>
-      <BulletList>
+      <h2>Built-in Layouts</h2>
+      <ul>
         <li><code>&lt;Title&gt;</code> — centered title with subtitle</li>
         <li><code>&lt;Code&gt;</code> — syntax-highlighted code block</li>
         <li><code>&lt;Image&gt;</code> — full-bleed or contained image</li>
         <li><code>&lt;Step&gt;</code> — progressive reveal</li>
         <li><code>&lt;Slide&gt;</code> — bare slide for full control</li>
-      </BulletList>
+      </ul>
     </Slide>
 
     <Slide>
-      <Heading>Navigation</Heading>
-      <BulletList>
+      <h2>Navigation</h2>
+      <ul>
         <li><kbd>→</kbd> <kbd>↓</kbd> <kbd>Space</kbd> — next slide</li>
         <li><kbd>←</kbd> <kbd>↑</kbd> — previous slide</li>
         <li><kbd>Home</kbd> / <kbd>End</kbd> — first / last slide</li>
         <li><kbd>F</kbd> — toggle fullscreen</li>
         <li>Click left/right halves to navigate</li>
-      </BulletList>
+      </ul>
     </Slide>
 
     <Slide notes="Thank the audience. Open for questions.">
