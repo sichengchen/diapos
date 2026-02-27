@@ -17,7 +17,7 @@ export function TransitionWrapper({
   duration = 300,
   direction,
 }: TransitionWrapperProps) {
-  const [isActive, setIsActive] = useState(transition === 'none')
+  const [isActive, setIsActive] = useState(true)
   const prevKeyRef = useRef(slideKey)
 
   useEffect(() => {
