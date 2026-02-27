@@ -16,14 +16,10 @@ export { SlideCounter } from './components/SlideCounter'
 // Layout components
 export { Title } from './components/layouts/Title'
 export type { TitleProps } from './components/layouts/Title'
-export { Content } from './components/layouts/Content'
-export type { ContentProps } from './components/layouts/Content'
 export { Code } from './components/layouts/Code'
 export type { CodeProps } from './components/layouts/Code'
 export { Image } from './components/layouts/Image'
 export type { ImageProps } from './components/layouts/Image'
-export { Split } from './components/layouts/Split'
-export type { SplitProps } from './components/layouts/Split'
 
 // Views
 export { PresenterView } from './views/PresenterView'
