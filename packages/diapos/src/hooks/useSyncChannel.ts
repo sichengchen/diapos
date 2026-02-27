@@ -6,6 +6,34 @@ type SyncMessage =
   | { type: 'sync-request' }
 
 const CHANNEL_NAME = 'diapos-sync'
+const STORAGE_EVENT_KEY = 'diapos-sync:event'
+
+interface StoragePayload {
+  message: SyncMessage
+  nonce: string
+}
+
+function postStorageMessage(message: SyncMessage) {
+  try {
+    const payload: StoragePayload = {
+      message,
+      nonce: `${Date.now()}-${Math.random()}`,
+    }
+    localStorage.setItem(STORAGE_EVENT_KEY, JSON.stringify(payload))
+  } catch {
+    // localStorage may be unavailable in some browser contexts
+  }
+}
+
+function parseStorageMessage(value: string): SyncMessage | null {
+  try {
+    const parsed = JSON.parse(value) as StoragePayload
+    if (!parsed || typeof parsed !== 'object' || !('message' in parsed)) return null
+    return parsed.message
+  } catch {
+    return null
+  }
+}
 
 export function useSyncChannel(
   deckState: DeckState | null,
@@ -19,28 +47,71 @@ export function useSyncChannel(
   useEffect(() => {
     if (!deckStateRef.current) return
 
-    const channel = new BroadcastChannel(CHANNEL_NAME)
-    channelRef.current = channel
+    let channel: BroadcastChannel | null = null
+    try {
+      channel = new BroadcastChannel(CHANNEL_NAME)
+      channelRef.current = channel
+    } catch {
+      channel = null
+      channelRef.current = null
+    }
 
-    channel.onmessage = (event: MessageEvent<SyncMessage>) => {
+    const handleIncoming = (msg: SyncMessage) => {
       const state = deckStateRef.current
       if (!state) return
 
-      const msg = event.data
       if (msg.type === 'navigate') {
         lastBroadcastRef.current = msg.index
         state.goTo(msg.index)
       } else if (msg.type === 'sync-request' && role === 'presenter') {
-        channel.postMessage({ type: 'navigate', index: state.currentIndex })
+        postMessage({ type: 'navigate', index: state.currentIndex })
+      }
+    }
+
+    const postMessage = (message: SyncMessage) => {
+      channel?.postMessage(message)
+      postStorageMessage(message)
+    }
+
+    const requestSync = () => {
+      postMessage({ type: 'sync-request' })
+    }
+
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key !== STORAGE_EVENT_KEY || !event.newValue) return
+      const message = parseStorageMessage(event.newValue)
+      if (!message) return
+      handleIncoming(message)
+    }
+
+    if (channel) {
+      channel.onmessage = (event: MessageEvent<SyncMessage>) => {
+        handleIncoming(event.data)
+      }
+    }
+    window.addEventListener('storage', handleStorage)
+
+    const handleFocus = () => {
+      requestSync()
+    }
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        requestSync()
       }
     }
 
     if (role === 'projector') {
-      channel.postMessage({ type: 'sync-request' })
+      requestSync()
+      window.addEventListener('focus', handleFocus)
+      document.addEventListener('visibilitychange', handleVisibilityChange)
     }
 
     return () => {
-      channel.close()
+      window.removeEventListener('storage', handleStorage)
+      window.removeEventListener('focus', handleFocus)
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+      channel?.close()
       channelRef.current = null
     }
   }, [deckState === null, role]) // eslint-disable-line react-hooks/exhaustive-deps

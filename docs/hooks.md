@@ -113,4 +113,4 @@ const { broadcast } = useSyncChannel(deckState, 'presenter')
 | `deckState` | `DeckState \| null` | Deck state (null to disable) |
 | `role` | `'presenter' \| 'projector'` | This tab's role |
 
-The presenter auto-broadcasts on navigation. The projector receives and follows. Most users should use the higher-level view components instead of this hook directly.
+The presenter auto-broadcasts on navigation. The projector receives and follows, and re-requests sync when the tab regains focus/visibility. Most users should use the higher-level view components instead of this hook directly.

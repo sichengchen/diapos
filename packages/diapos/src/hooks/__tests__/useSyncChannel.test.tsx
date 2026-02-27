@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render, screen, act } from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { Deck } from '../../components/Deck'
 import { Slide } from '../../components/Slide'
@@ -56,6 +56,16 @@ function NavControls() {
   )
 }
 
+function SyncControls({ id }: { id: string }) {
+  const { currentIndex, next } = useDeck()
+  return (
+    <div>
+      <span data-testid={`${id}-index`}>{currentIndex}</span>
+      <button data-testid={`${id}-next`} onClick={next}>Next</button>
+    </div>
+  )
+}
+
 describe('Deck with sync', () => {
   it('creates a BroadcastChannel when sync is set', () => {
     render(
@@ -74,5 +84,56 @@ describe('Deck with sync', () => {
       </Deck>,
     )
     expect(MockBroadcastChannel.instances.length).toBe(0)
+  })
+
+  it('syncs projector index when presenter navigates', () => {
+    render(
+      <>
+        <Deck sync="presenter">
+          <Slide><SyncControls id="presenter" /></Slide>
+          <Slide><SyncControls id="presenter" /></Slide>
+        </Deck>
+
+        <Deck sync="projector" clickNavigation={false} showProgress={false} showCounter={false}>
+          <Slide><SyncControls id="projector" /></Slide>
+          <Slide><SyncControls id="projector" /></Slide>
+        </Deck>
+      </>,
+    )
+
+    expect(screen.getByTestId('presenter-index')).toHaveTextContent('0')
+    expect(screen.getByTestId('projector-index')).toHaveTextContent('0')
+
+    act(() => {
+      screen.getByTestId('presenter-next').click()
+    })
+
+    expect(screen.getByTestId('presenter-index')).toHaveTextContent('1')
+    expect(screen.getByTestId('projector-index')).toHaveTextContent('1')
+  })
+
+  it('falls back to storage events when BroadcastChannel is unavailable', () => {
+    vi.stubGlobal('BroadcastChannel', undefined)
+
+    render(
+      <Deck sync="projector" clickNavigation={false} showProgress={false} showCounter={false}>
+        <Slide><SyncControls id="projector-fallback" /></Slide>
+        <Slide><SyncControls id="projector-fallback" /></Slide>
+      </Deck>,
+    )
+
+    expect(screen.getByTestId('projector-fallback-index')).toHaveTextContent('0')
+
+    act(() => {
+      window.dispatchEvent(new StorageEvent('storage', {
+        key: 'diapos-sync:event',
+        newValue: JSON.stringify({
+          message: { type: 'navigate', index: 1 },
+          nonce: 'test-nonce',
+        }),
+      }))
+    })
+
+    expect(screen.getByTestId('projector-fallback-index')).toHaveTextContent('1')
   })
 })

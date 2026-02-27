@@ -75,7 +75,7 @@ type SyncMessage =
 ### Protocol
 
 1. **Presenter** auto-broadcasts `{ type: 'navigate', index }` on every `currentIndex` change.
-2. **Projector** on mount sends `{ type: 'sync-request' }` to get the current index.
+2. **Projector** sends `{ type: 'sync-request' }` on mount and again when the tab regains focus/visibility.
 3. **Presenter** responds to `sync-request` with `{ type: 'navigate', index: currentIndex }`.
 4. Both sides deduplicate with `lastBroadcastRef` to avoid echo loops.
 
@@ -90,6 +90,6 @@ import { DiaposRouter, useRoute } from 'diapos'
 type DiaposRoute = 'projector' | 'presenter'
 ```
 
-- Hash-based: `/#/presenter` → `'presenter'`, everything else → `'projector'`.
+- Hash-based: `/#/projector` → `'projector'`, everything else (including no hash and `/#/presenter`) → `'presenter'`.
 - `DiaposRouter` accepts `{ projector: ReactNode, presenter: ReactNode }` and renders the matching view.
 - `useRoute()` returns the current `DiaposRoute` and re-renders on hash change.
