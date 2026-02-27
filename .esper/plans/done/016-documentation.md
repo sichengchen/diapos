@@ -1,14 +1,14 @@
 ---
-id: 016
+id: 16
 title: README, docs, and specs
-status: pending
+status: done
 type: feature
 priority: 2
 phase: 002-packaging-templates-and-presenter
 branch: feature/002-packaging-templates-and-presenter
 created: 2026-02-26
+shipped_at: 2026-02-27
 ---
-
 # README, docs, and specs
 
 ## Context
@@ -83,3 +83,15 @@ Files:
 - Run: manual review — all docs render correctly as markdown
 - Expected: README has working quick start, docs cover all public API, specs cover all component contracts
 - Edge cases: Ensure docs/specs match the actual implementation (cross-reference with source after plan 012)
+
+## Progress
+- Created README.md: tagline, quick start, minimal example, features list, navigation table, doc links, tech stack
+- Created docs/getting-started.md: installation, project structure, key concepts, dev server, presenting
+- Created docs/components.md: all structural (Deck, Slide, Section), content layouts (Title, Code, Image, Quote), building blocks (Block, Columns/Column), chrome (ProgressBar, SlideCounter) with props tables
+- Created docs/theming.md: createTheme, Theme shape, default values, CSS custom properties, useTheme
+- Created docs/presenting.md: projector/presenter views, DiaposRouter, BroadcastChannel sync, speaker notes
+- Created docs/hooks.md: useDeck, useNotes, useTheme, useFullscreen, useSyncChannel with return types
+- Created specs/deck.md, slide.md, section.md, layouts.md, blocks.md, theming.md, navigation.md — machine-readable component specs for coding agents
+- Skipped: docs/custom-layouts.md (createLayout not implemented), specs/step.md (Step not implemented), specs/create-layout.md (not implemented)
+- Noted components not yet exported (Section, Block, Columns, Quote) and missing files (Content, Split — removed in plan 012)
+- Verification: all docs render correctly as markdown
