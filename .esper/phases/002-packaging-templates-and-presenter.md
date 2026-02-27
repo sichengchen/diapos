@@ -65,3 +65,4 @@ Phase 1 architecture is solid — DeckContext/ThemeContext split, CSS custom pro
 - Plan 11 — create-diapos CLI scaffolder: CLI that scaffolds a ready-to-run diapos project from template. Files: packages/create-diapos/src/index.ts, packages/create-diapos/template/*
 - Plan 13 — Speaker notes support: Add a `notes` prop to `<Slide>` — accepts a string or React node. Files: Slide.tsx, DeckContext.tsx, Deck.tsx, useNotes.ts, index.ts, slides.tsx
 - Plan 14 — Presenter and projector views with sync: Add hash router, BroadcastChannel sync, presenter view with notes/preview/timer, and projector view. Files: useSyncChannel.ts, router.tsx, ProjectorView.tsx, PresenterView.tsx, parseSlides.ts, Deck.tsx, index.ts, main.tsx
+- Plan 16 — README, docs, and specs: README, user docs (getting-started, components, theming, presenting, hooks), and agent specs (deck, slide, section, layouts, blocks, theming, navigation). Files: README.md, docs/*, specs/*
