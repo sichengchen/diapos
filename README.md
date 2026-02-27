@@ -1,8 +1,8 @@
-# diapos
+# Diapos
 
-A code-first presentation framework built on React and TypeScript.
+Diapos is a React-based presentation framework.
 
-Write slides in TSX, present in the browser. Themeable, composable, hackable.
+Write slides in TSX, present in the browser!
 
 ## Quick Start
 
@@ -13,13 +13,12 @@ bun install
 bun dev
 ```
 
-Open `http://localhost:5173` for the presenter view, `http://localhost:5173/#/projector` for the projector view.
-New scaffolded projects wire both routes by default via `DiaposRouter`.
+Open `http://localhost:5173` for the presenter view, click "Play" or open `http://localhost:5173/#/projector` for the projector view.
 
 ## Example
 
 ```tsx
-import { Deck, Slide, Title, Code } from 'diapos'
+import { Deck, Slide, Title, Heading, Text, BulletPoints, Item, Code } from 'diapos'
 
 function MyPresentation() {
   return (
@@ -27,15 +26,20 @@ function MyPresentation() {
       <Slide>
         <Title title="Hello, Diapos!" subtitle="Slides as React components" />
       </Slide>
-      <Slide notes="Walk through the code example">
-        <Code
-          title="Getting Started"
-          code={`npx create-diapos my-slides`}
-          language="bash"
-        />
+      <Slide notes="Walk through the key points">
+        <Heading>Why Diapos?</Heading>
+        <BulletPoints>
+          <Item pause>Write slides in TSX</Item>
+          <Item pause>Theme with CSS custom properties</Item>
+          <Item pause>Presenter mode with speaker notes</Item>
+        </BulletPoints>
       </Slide>
       <Slide>
-        <h1>Thank You</h1>
+        <Heading as="h3">Quick Example</Heading>
+        <Code code={`const x = 1`} language="ts" />
+      </Slide>
+      <Slide>
+        <Title title="Thank You" />
       </Slide>
     </Deck>
   )
@@ -45,7 +49,7 @@ function MyPresentation() {
 ## Features
 
 - **Code-first** -- slides are TSX, not config files
-- **Component-based** -- `<Slide>`, `<Title>`, `<Code>`, `<Image>`, `<Quote>` and more
+- **Component-based** -- `<Slide>`, `<Title>`, `<Heading>`, `<Text>`, `<BulletPoints>`, `<Code>`, `<Image>`, `<Quote>` and more
 - **Themeable** -- `createTheme()` with CSS custom properties
 - **Presenter mode** -- speaker notes, next slide preview, elapsed timer
 - **Projector sync** -- BroadcastChannel keeps presenter and projector tabs in sync
