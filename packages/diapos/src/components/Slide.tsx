@@ -4,7 +4,7 @@ export interface SlideProps {
   children: ReactNode
   style?: CSSProperties
   className?: string
-  notes?: string
+  notes?: ReactNode
 }
 
 export function Slide({ children, style, className }: SlideProps) {

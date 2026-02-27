@@ -23,6 +23,7 @@ export { Split } from './components/layouts/Split'
 export type { SplitProps } from './components/layouts/Split'
 
 export { useDeck } from './hooks/useDeck'
+export { useNotes } from './hooks/useNotes'
 export { useTheme } from './hooks/useTheme'
 export { useFullscreen } from './hooks/useFullscreen'
 export type { DeckState } from './context/DeckContext'

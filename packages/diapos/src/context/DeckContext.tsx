@@ -4,6 +4,7 @@ export interface DeckState {
   currentIndex: number
   totalSlides: number
   direction: 'forward' | 'backward'
+  notes: Record<number, ReactNode>
   next: () => void
   prev: () => void
   goTo: (index: number) => void
@@ -15,9 +16,10 @@ interface DeckProviderProps {
   children: ReactNode
   totalSlides: number
   startIndex?: number
+  notes?: Record<number, ReactNode>
 }
 
-export function DeckProvider({ children, totalSlides, startIndex = 0 }: DeckProviderProps) {
+export function DeckProvider({ children, totalSlides, startIndex = 0, notes = {} }: DeckProviderProps) {
   const [currentIndex, setCurrentIndex] = useState(startIndex)
   const directionRef = useRef<'forward' | 'backward'>('forward')
 
@@ -43,8 +45,8 @@ export function DeckProvider({ children, totalSlides, startIndex = 0 }: DeckProv
   )
 
   const value = useMemo<DeckState>(
-    () => ({ currentIndex, totalSlides, direction: directionRef.current, next, prev, goTo }),
-    [currentIndex, totalSlides, next, prev, goTo],
+    () => ({ currentIndex, totalSlides, direction: directionRef.current, notes, next, prev, goTo }),
+    [currentIndex, totalSlides, notes, next, prev, goTo],
   )
 
   return <DeckContext.Provider value={value}>{children}</DeckContext.Provider>

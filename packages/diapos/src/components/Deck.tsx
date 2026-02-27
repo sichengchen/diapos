@@ -1,4 +1,4 @@
-import { Children, type ReactNode, useCallback, useRef } from 'react'
+import { Children, isValidElement, type ReactNode, useCallback, useMemo, useRef } from 'react'
 import { DeckProvider } from '../context/DeckContext'
 import { ThemeProvider } from '../theme/ThemeContext'
 import type { Theme } from '../theme/types'
@@ -99,9 +99,19 @@ export function Deck({
 }: DeckProps) {
   const slides = Children.toArray(children)
 
+  const notes = useMemo(() => {
+    const result: Record<number, ReactNode> = {}
+    slides.forEach((child, index) => {
+      if (isValidElement<{ notes?: ReactNode }>(child) && child.props.notes != null) {
+        result[index] = child.props.notes
+      }
+    })
+    return result
+  }, [slides])
+
   return (
     <ThemeProvider theme={theme}>
-      <DeckProvider totalSlides={slides.length}>
+      <DeckProvider totalSlides={slides.length} notes={notes}>
         <DeckInner
           slides={slides}
           transition={transition}

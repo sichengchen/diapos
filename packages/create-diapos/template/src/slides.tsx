@@ -17,16 +17,20 @@ function MyPresentation() {
 export function DemoPresentation() {
   return (
     <Deck theme={demoTheme} transition="fade">
-      <Title title="Diapos" subtitle="Presentations as React Components" />
+      <Slide notes="Welcome the audience. Introduce diapos as a code-first presentation framework.">
+        <Title title="Diapos" subtitle="Presentations as React Components" />
+      </Slide>
 
-      <Content heading="What is Diapos?">
-        <ul style={{ fontSize: '1em', lineHeight: 2 }}>
-          <li>A code-first presentation framework</li>
-          <li>Write slides in TSX — like Beamer, but for React</li>
-          <li>Themeable, composable, hackable</li>
-          <li>Built on Vite for instant HMR</li>
-        </ul>
-      </Content>
+      <Slide notes="Emphasize the code-first philosophy. Mention Beamer as inspiration for LaTeX users.">
+        <Content heading="What is Diapos?">
+          <ul style={{ fontSize: '1em', lineHeight: 2 }}>
+            <li>A code-first presentation framework</li>
+            <li>Write slides in TSX — like Beamer, but for React</li>
+            <li>Themeable, composable, hackable</li>
+            <li>Built on Vite for instant HMR</li>
+          </ul>
+        </Content>
+      </Slide>
 
       <Code
         title="Getting Started"
@@ -80,12 +84,15 @@ export function DemoPresentation() {
         </ul>
       </Content>
 
-      <Slide style={{
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-        padding: 'var(--diapos-spacing-slide)',
-      }}>
+      <Slide
+        notes="Thank the audience. Open for questions."
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          textAlign: 'center',
+          padding: 'var(--diapos-spacing-slide)',
+        }}
+      >
         <h1 style={{
           fontFamily: 'var(--diapos-font-heading)',
           fontSize: '3em',
