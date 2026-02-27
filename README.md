@@ -13,7 +13,7 @@ bun install
 bun dev
 ```
 
-Open `http://localhost:5173` for the presenter view, click "Play" or open `http://localhost:5173/#/projector` for the projector view.
+Open `http://localhost:5173` for the presenter view, click "Play" or open `http://localhost:5173/#/projector` for the projector view. Those two tabs are connected.
 
 ## Example
 
@@ -29,8 +29,7 @@ function MyPresentation() {
       <Slide notes="Walk through the key points">
         <Heading>Why Diapos?</Heading>
         <BulletPoints>
-          <Item pause>Write slides in TSX</Item>
-          <Item pause>Theme with CSS custom properties</Item>
+          <Item pause>Write slides in React</Item>
           <Item pause>Presenter mode with speaker notes</Item>
         </BulletPoints>
       </Slide>
@@ -45,16 +44,6 @@ function MyPresentation() {
   )
 }
 ```
-
-## Features
-
-- **Code-first** -- slides are TSX, not config files
-- **Component-based** -- `<Slide>`, `<Title>`, `<Heading>`, `<Text>`, `<BulletPoints>`, `<Code>`, `<Image>`, `<Quote>` and more
-- **Themeable** -- `createTheme()` with CSS custom properties
-- **Presenter mode** -- speaker notes, next slide preview, elapsed timer
-- **Projector sync** -- BroadcastChannel keeps presenter and projector tabs in sync
-- **Keyboard navigation** -- arrow keys, space, Home/End, F for fullscreen
-- **Fast iteration** -- Vite HMR for instant feedback
 
 ## Navigation
 
@@ -75,10 +64,6 @@ Click the left or right half of the screen to navigate.
 - [Theming](docs/theming.md)
 - [Presenting](docs/presenting.md)
 - [Hooks](docs/hooks.md)
-
-## Tech Stack
-
-React 19 | TypeScript | Vite | Bun
 
 ## License
 
