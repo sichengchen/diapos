@@ -1,14 +1,13 @@
 ---
-id: 012
+id: 12
 title: Component architecture overhaul (Approach D)
-status: pending
+status: active
 type: feature
 priority: 2
 phase: 002-packaging-templates-and-presenter
 branch: feature/002-packaging-templates-and-presenter
 created: 2026-02-26
 ---
-
 # Component architecture overhaul (Approach D)
 
 ## Context

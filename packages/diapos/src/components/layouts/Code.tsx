@@ -1,5 +1,4 @@
 import type { CSSProperties, ReactNode } from 'react'
-import { Slide } from '../Slide'
 
 export interface CodeProps {
   code: string
@@ -10,11 +9,14 @@ export interface CodeProps {
 
 export function Code({ code, title, language, style }: CodeProps) {
   return (
-    <Slide
+    <div
       style={{
-        justifyContent: 'center',
+        display: 'flex',
+        flexDirection: 'column',
         alignItems: 'stretch',
-        padding: 'var(--diapos-spacing-slide, 64px)',
+        width: '100%',
+        flex: 1,
+        justifyContent: 'center',
         ...style,
       }}
     >
@@ -46,6 +48,6 @@ export function Code({ code, title, language, style }: CodeProps) {
       >
         <code>{code}</code>
       </pre>
-    </Slide>
+    </div>
   )
 }

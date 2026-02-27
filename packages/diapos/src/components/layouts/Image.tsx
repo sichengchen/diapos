@@ -1,5 +1,4 @@
 import type { CSSProperties, ReactNode } from 'react'
-import { Slide } from '../Slide'
 
 export interface ImageProps {
   src: string
@@ -11,11 +10,14 @@ export interface ImageProps {
 
 export function Image({ src, alt = '', caption, contain = false, style }: ImageProps) {
   return (
-    <Slide
+    <div
       style={{
+        display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: contain ? 'var(--diapos-spacing-slide, 64px)' : 0,
+        width: '100%',
+        flex: 1,
         ...style,
       }}
     >
@@ -26,7 +28,6 @@ export function Image({ src, alt = '', caption, contain = false, style }: ImageP
           maxWidth: '100%',
           maxHeight: caption ? '80%' : '100%',
           objectFit: contain ? 'contain' : 'cover',
-          ...(contain ? {} : { width: '100%', height: '100%' }),
           borderRadius: contain ? 'var(--diapos-radius, 8px)' : undefined,
         }}
       />
@@ -43,6 +44,6 @@ export function Image({ src, alt = '', caption, contain = false, style }: ImageP
           {caption}
         </p>
       )}
-    </Slide>
+    </div>
   )
 }

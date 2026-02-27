@@ -1,12 +1,12 @@
-import type { CSSProperties, ReactNode } from 'react'
+import type { CSSProperties } from 'react'
 
-export interface TitleProps {
-  title: ReactNode
-  subtitle?: ReactNode
+export interface QuoteProps {
+  quote: string
+  author?: string
   style?: CSSProperties
 }
 
-export function Title({ title, subtitle, style }: TitleProps) {
+export function Quote({ quote, author, style }: QuoteProps) {
   return (
     <div
       style={{
@@ -20,27 +20,28 @@ export function Title({ title, subtitle, style }: TitleProps) {
         ...style,
       }}
     >
-      <h1
+      <blockquote
         style={{
-          fontFamily: 'var(--diapos-font-heading, system-ui)',
-          fontSize: '3.5em',
-          fontWeight: 700,
+          fontFamily: 'var(--diapos-font-body, system-ui)',
+          fontSize: '2em',
+          fontStyle: 'italic',
+          lineHeight: 1.4,
           margin: 0,
-          lineHeight: 1.2,
+          maxWidth: '80%',
         }}
       >
-        {title}
-      </h1>
-      {subtitle && (
+        &ldquo;{quote}&rdquo;
+      </blockquote>
+      {author && (
         <p
           style={{
             fontFamily: 'var(--diapos-font-body, system-ui)',
-            fontSize: '1.5em',
+            fontSize: '1.2em',
             opacity: 0.7,
-            marginTop: '0.5em',
+            marginTop: '1em',
           }}
         >
-          {subtitle}
+          &mdash; {author}
         </p>
       )}
     </div>
