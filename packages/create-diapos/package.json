@@ -2,8 +2,14 @@
   "name": "create-diapos",
   "version": "0.0.1",
   "type": "module",
-  "private": true,
   "bin": {
-    "create-diapos": "./bin/create-diapos.js"
+    "create-diapos": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "template"
+  ],
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target node"
   }
 }
