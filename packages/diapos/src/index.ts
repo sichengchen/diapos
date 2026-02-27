@@ -22,8 +22,20 @@ export type { ImageProps } from './components/layouts/Image'
 export { Split } from './components/layouts/Split'
 export type { SplitProps } from './components/layouts/Split'
 
+// Views
+export { PresenterView } from './views/PresenterView'
+export type { PresenterViewProps } from './views/PresenterView'
+export { ProjectorView } from './views/ProjectorView'
+export type { ProjectorViewProps } from './views/ProjectorView'
+
+// Router
+export { DiaposRouter, useRoute } from './router'
+export type { DiaposRoute } from './router'
+
+// Hooks
 export { useDeck } from './hooks/useDeck'
 export { useNotes } from './hooks/useNotes'
+export { useSyncChannel } from './hooks/useSyncChannel'
 export { useTheme } from './hooks/useTheme'
 export { useFullscreen } from './hooks/useFullscreen'
 export type { DeckState } from './context/DeckContext'

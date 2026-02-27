@@ -1,4 +1,4 @@
-import { Children, isValidElement, type ReactNode, useCallback, useMemo, useRef } from 'react'
+import { type ReactNode, useCallback, useMemo, useRef } from 'react'
 import { DeckProvider } from '../context/DeckContext'
 import { ThemeProvider } from '../theme/ThemeContext'
 import type { Theme } from '../theme/types'
@@ -6,9 +6,11 @@ import type { Transition } from '../types'
 import { useDeck } from '../hooks/useDeck'
 import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation'
 import { useFullscreen } from '../hooks/useFullscreen'
+import { useSyncChannel } from '../hooks/useSyncChannel'
 import { TransitionWrapper } from './TransitionWrapper'
 import { ProgressBar } from './ProgressBar'
 import { SlideCounter } from './SlideCounter'
+import { parseSlides } from '../utils/parseSlides'
 
 export interface DeckProps {
   children: ReactNode
@@ -18,6 +20,7 @@ export interface DeckProps {
   clickNavigation?: boolean
   showProgress?: boolean
   showCounter?: boolean
+  sync?: 'presenter' | 'projector'
 }
 
 interface DeckInnerProps {
@@ -27,6 +30,7 @@ interface DeckInnerProps {
   clickNavigation: boolean
   showProgress: boolean
   showCounter: boolean
+  sync?: 'presenter' | 'projector'
 }
 
 function DeckInner({
@@ -36,6 +40,7 @@ function DeckInner({
   clickNavigation,
   showProgress,
   showCounter,
+  sync,
 }: DeckInnerProps) {
   const deckState = useDeck()
   const { currentIndex, direction, next, prev } = deckState
@@ -43,6 +48,7 @@ function DeckInner({
 
   useKeyboardNavigation(deckState)
   useFullscreen(deckRef)
+  useSyncChannel(sync ? deckState : null, sync ?? 'presenter')
 
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -96,18 +102,9 @@ export function Deck({
   clickNavigation = true,
   showProgress = true,
   showCounter = true,
+  sync,
 }: DeckProps) {
-  const slides = Children.toArray(children)
-
-  const notes = useMemo(() => {
-    const result: Record<number, ReactNode> = {}
-    slides.forEach((child, index) => {
-      if (isValidElement<{ notes?: ReactNode }>(child) && child.props.notes != null) {
-        result[index] = child.props.notes
-      }
-    })
-    return result
-  }, [slides])
+  const { slides, notes } = useMemo(() => parseSlides(children), [children])
 
   return (
     <ThemeProvider theme={theme}>
@@ -119,6 +116,7 @@ export function Deck({
           clickNavigation={clickNavigation}
           showProgress={showProgress}
           showCounter={showCounter}
+          sync={sync}
         />
       </DeckProvider>
     </ThemeProvider>
