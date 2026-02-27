@@ -32,5 +32,10 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "vite-plugin-dts": "^4.5.4"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.5.0"
   }
 }

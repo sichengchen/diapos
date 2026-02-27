@@ -6,10 +6,17 @@ import { useDeck } from '../hooks/useDeck'
 import { useSyncChannel } from '../hooks/useSyncChannel'
 import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation'
 import { parseSlides } from '../utils/parseSlides'
+import { Button } from '../components/ui/Button'
+import { Card, CardContent, CardDescription, CardHeader } from '../components/ui/Card'
 
 export interface PresenterViewProps {
   children: ReactNode
   theme?: Theme
+}
+
+function getProjectorUrl(): string {
+  const { origin, pathname, search } = window.location
+  return `${origin}${pathname}${search}#/projector`
 }
 
 function Timer() {
@@ -27,7 +34,7 @@ function Timer() {
   const pad = (n: number) => String(n).padStart(2, '0')
 
   return (
-    <span style={{ fontVariantNumeric: 'tabular-nums' }}>
+    <span className="text-sm font-medium tabular-nums text-slate-300">
       {hours > 0 ? `${pad(hours)}:` : ''}{pad(minutes)}:{pad(seconds)}
     </span>
   )
@@ -40,32 +47,145 @@ interface SlidePreviewProps {
 
 function SlidePreview({ slide, label }: SlidePreviewProps) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-      <span style={{ fontSize: 12, textTransform: 'uppercase', opacity: 0.6, letterSpacing: '0.05em' }}>
-        {label}
-      </span>
-      <div
-        style={{
-          width: '100%',
-          aspectRatio: '16 / 9',
-          overflow: 'hidden',
-          borderRadius: 8,
-          border: '1px solid rgba(255,255,255,0.15)',
-          position: 'relative',
-          backgroundColor: 'var(--diapos-bg, #000)',
-        }}
-      >
-        <div
-          style={{
-            width: 1920,
-            height: 1080,
-            transform: 'scale(var(--preview-scale, 0.25))',
-            transformOrigin: 'top left',
-            pointerEvents: 'none',
-          }}
-        >
-          {slide}
+    <Card className="flex h-full min-h-0 flex-col overflow-hidden border-slate-800 bg-slate-900/80">
+      <CardHeader className="pb-2">
+        <CardDescription className="text-[11px] uppercase tracking-[0.14em] text-slate-400">
+          {label}
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="min-h-0 flex-1">
+        <div className="relative aspect-video w-full overflow-hidden rounded-md border border-slate-700/80 bg-[var(--diapos-bg,#000)]">
+          <div
+            className="h-[1080px] w-[1920px] origin-top-left pointer-events-none"
+            style={{ transform: 'scale(var(--preview-scale, 0.25))' }}
+          >
+            {slide}
+          </div>
         </div>
+      </CardContent>
+    </Card>
+  )
+}
+
+function NotesPanel({ notes }: { notes: ReactNode | null }) {
+  return (
+    <Card className="flex min-h-0 flex-1 flex-col overflow-hidden border-slate-800 bg-slate-900/80">
+      <CardHeader className="pb-2">
+        <CardDescription className="text-[11px] uppercase tracking-[0.14em] text-slate-400">
+          Notes
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="min-h-0 flex-1 overflow-y-auto text-base leading-relaxed text-slate-100">
+        {notes ?? <p className="text-sm italic text-slate-500">No notes for this slide</p>}
+      </CardContent>
+    </Card>
+  )
+}
+
+function PresenterFooter({
+  currentIndex,
+  totalSlides,
+  onPrev,
+  onNext,
+  onPlay,
+}: {
+  currentIndex: number
+  totalSlides: number
+  onPrev: (e: React.MouseEvent) => void
+  onNext: (e: React.MouseEvent) => void
+  onPlay: (e: React.MouseEvent) => void
+}) {
+  return (
+    <div className="col-span-full flex items-center justify-between border-t border-slate-800 pt-3">
+      <div className="flex items-center gap-2">
+        <Button
+          type="button"
+          variant="secondary"
+          size="sm"
+          onClick={onPrev}
+          disabled={currentIndex === 0}
+        >
+          Prev
+        </Button>
+        <Button
+          type="button"
+          variant="secondary"
+          size="sm"
+          onClick={onNext}
+          disabled={currentIndex === totalSlides - 1}
+        >
+          Next
+        </Button>
+        <Button
+          type="button"
+          variant="play"
+          size="sm"
+          onClick={onPlay}
+        >
+          Play
+        </Button>
+      </div>
+
+      <span className="text-sm font-medium text-slate-300">
+        {currentIndex + 1} / {totalSlides}
+      </span>
+
+      <Timer />
+    </div>
+  )
+}
+
+function NextSlideFallback() {
+  return (
+    <div className="flex h-full items-center justify-center text-xl text-slate-500">
+      End of presentation
+    </div>
+  )
+}
+
+function PresenterShell({
+  currentSlide,
+  nextSlide,
+  currentNotes,
+  currentIndex,
+  totalSlides,
+  onPrev,
+  onNext,
+  onPlay,
+}: {
+  currentSlide: ReactNode
+  nextSlide: ReactNode | null
+  currentNotes: ReactNode | null
+  currentIndex: number
+  totalSlides: number
+  onPrev: (e: React.MouseEvent) => void
+  onNext: (e: React.MouseEvent) => void
+  onPlay: (e: React.MouseEvent) => void
+}) {
+  return (
+    <div className="h-screen w-screen overflow-hidden bg-slate-950 text-slate-100">
+      <div className="grid h-full grid-cols-1 grid-rows-[minmax(0,1fr)_minmax(0,1fr)_auto] gap-4 p-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:grid-rows-[minmax(0,1fr)_auto]">
+        <div className="min-h-0">
+          <SlidePreview slide={currentSlide} label="Current Slide" />
+        </div>
+
+        <div className="flex min-h-0 flex-col gap-4">
+          <div className="h-[40%] min-h-[190px]">
+            <SlidePreview
+              slide={nextSlide ?? <NextSlideFallback />}
+              label="Next Slide"
+            />
+          </div>
+          <NotesPanel notes={currentNotes} />
+        </div>
+
+        <PresenterFooter
+          currentIndex={currentIndex}
+          totalSlides={totalSlides}
+          onPrev={onPrev}
+          onNext={onNext}
+          onPlay={onPlay}
+        />
       </div>
     </div>
   )
@@ -92,133 +212,22 @@ function PresenterInner({ slides }: { slides: ReactNode[] }) {
     next()
   }, [next])
 
+  const handleOpenProjector = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation()
+    window.open(getProjectorUrl(), '_blank')
+  }, [])
+
   return (
-    <div
-      style={{
-        width: '100vw',
-        height: '100vh',
-        display: 'grid',
-        gridTemplateColumns: '2fr 1fr',
-        gridTemplateRows: '1fr auto',
-        gap: 16,
-        padding: 16,
-        boxSizing: 'border-box',
-        backgroundColor: '#1a1a1a',
-        color: '#fff',
-        fontFamily: 'system-ui, sans-serif',
-        overflow: 'hidden',
-      }}
-    >
-      {/* Current slide — large preview */}
-      <div style={{ gridRow: '1', gridColumn: '1', minHeight: 0 }}>
-        <SlidePreview slide={currentSlide} label="Current Slide" />
-      </div>
-
-      {/* Right panel: next slide + notes */}
-      <div
-        style={{
-          gridRow: '1',
-          gridColumn: '2',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 16,
-          minHeight: 0,
-        }}
-      >
-        {/* Next slide preview */}
-        <div style={{ flexShrink: 0 }}>
-          <SlidePreview
-            slide={nextSlide ?? <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', opacity: 0.3, fontSize: 24 }}>End of presentation</div>}
-            label="Next Slide"
-          />
-        </div>
-
-        {/* Notes */}
-        <div
-          style={{
-            flex: 1,
-            minHeight: 0,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 8,
-          }}
-        >
-          <span style={{ fontSize: 12, textTransform: 'uppercase', opacity: 0.6, letterSpacing: '0.05em' }}>
-            Notes
-          </span>
-          <div
-            style={{
-              flex: 1,
-              overflowY: 'auto',
-              padding: 16,
-              borderRadius: 8,
-              backgroundColor: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              fontSize: 16,
-              lineHeight: 1.6,
-            }}
-          >
-            {currentNotes ?? <span style={{ opacity: 0.3, fontStyle: 'italic' }}>No notes for this slide</span>}
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom bar: controls + counter + timer */}
-      <div
-        style={{
-          gridRow: '2',
-          gridColumn: '1 / -1',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '8px 0',
-          borderTop: '1px solid rgba(255,255,255,0.1)',
-        }}
-      >
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-          <button
-            onClick={handlePrev}
-            disabled={currentIndex === 0}
-            style={{
-              padding: '6px 16px',
-              borderRadius: 6,
-              border: '1px solid rgba(255,255,255,0.2)',
-              backgroundColor: 'rgba(255,255,255,0.1)',
-              color: '#fff',
-              cursor: currentIndex === 0 ? 'not-allowed' : 'pointer',
-              opacity: currentIndex === 0 ? 0.4 : 1,
-              fontSize: 14,
-            }}
-          >
-            Prev
-          </button>
-          <button
-            onClick={handleNext}
-            disabled={currentIndex === totalSlides - 1}
-            style={{
-              padding: '6px 16px',
-              borderRadius: 6,
-              border: '1px solid rgba(255,255,255,0.2)',
-              backgroundColor: 'rgba(255,255,255,0.1)',
-              color: '#fff',
-              cursor: currentIndex === totalSlides - 1 ? 'not-allowed' : 'pointer',
-              opacity: currentIndex === totalSlides - 1 ? 0.4 : 1,
-              fontSize: 14,
-            }}
-          >
-            Next
-          </button>
-        </div>
-
-        <span style={{ fontSize: 14, opacity: 0.6 }}>
-          {currentIndex + 1} / {totalSlides}
-        </span>
-
-        <div style={{ fontSize: 14, opacity: 0.6 }}>
-          <Timer />
-        </div>
-      </div>
-    </div>
+    <PresenterShell
+      currentSlide={currentSlide}
+      nextSlide={nextSlide}
+      currentNotes={currentNotes}
+      currentIndex={currentIndex}
+      totalSlides={totalSlides}
+      onPrev={handlePrev}
+      onNext={handleNext}
+      onPlay={handleOpenProjector}
+    />
   )
 }
 
