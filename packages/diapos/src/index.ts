@@ -7,6 +7,9 @@ export type { DeckProps } from './components/Deck'
 export { Slide } from './components/Slide'
 export type { SlideProps } from './components/Slide'
 
+export { Step } from './components/Step'
+export type { StepProps } from './components/Step'
+
 export { ProgressBar } from './components/ProgressBar'
 export { SlideCounter } from './components/SlideCounter'
 

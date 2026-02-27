@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { DemoPresentation } from '../packages/create-diapos/template/src/slides'
-import { DiaposRouter, PresenterView, Slide, Title, Content, Code, Split } from '../packages/diapos/src/index'
+import { DiaposRouter, PresenterView, Slide, Step, Title, Content, Code, Split } from '../packages/diapos/src/index'
 import { demoTheme } from '../packages/create-diapos/template/src/theme'
 import '../packages/diapos/src/styles/global.css'
 
@@ -33,6 +33,16 @@ function DemoSlides() {
             <li>Built on Vite for instant HMR</li>
           </ul>
         </Content>
+      </Slide>
+      <Slide notes="Reveal each feature one by one. Pause between each for emphasis.">
+        <h2 style={{ fontFamily: 'var(--diapos-font-heading)', fontSize: '2em', marginBottom: '1em' }}>
+          Key Features
+        </h2>
+        <ul style={{ fontSize: '1em', lineHeight: 2.5, listStyle: 'none', padding: 0 }}>
+          <Step><li>Write slides in TSX</li></Step>
+          <Step><li>Theme with CSS custom properties</li></Step>
+          <Step><li>Presenter mode with speaker notes</li></Step>
+        </ul>
       </Slide>
       <Code title="Getting Started" code={exampleCode} language="tsx" />
       <Split
