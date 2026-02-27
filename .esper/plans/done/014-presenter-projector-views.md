@@ -1,14 +1,14 @@
 ---
-id: 014
+id: 14
 title: Presenter and projector views with sync
-status: pending
+status: done
 type: feature
 priority: 2
 phase: 002-packaging-templates-and-presenter
 branch: feature/002-packaging-templates-and-presenter
 created: 2026-02-26
+shipped_at: 2026-02-27
 ---
-
 # Presenter and projector views with sync
 
 ## Context
@@ -52,3 +52,17 @@ Users need two views: a projector view (fullscreen slides for the audience) and 
 - Manual: Verify presenter shows correct notes and next slide preview
 - Expected: Navigation stays in sync, notes display correctly, timer runs
 - Edge cases: Opening projector before presenter (should sync on connect), closing one tab (other continues working), rapid navigation (no message flooding — debounce or latest-wins)
+
+## Progress
+- Created `useSyncChannel` hook: BroadcastChannel wrapper with navigate/sync-request messages, auto-broadcast for presenter, sync-request for late-joining projector, lastBroadcast dedup
+- Created simple hash router: `DiaposRouter` component + `useRoute()` hook, maps `/#/presenter` → presenter, everything else → projector
+- Added `sync` prop to `Deck` and `DeckInner` — integrates `useSyncChannel` when set, noop when absent
+- Created `ProjectorView`: wraps `<Deck>` with no chrome and `sync="projector"`
+- Created `PresenterView`: three-panel layout (current slide, next slide preview, notes), elapsed timer, prev/next buttons, slide counter, uses `DeckProvider` directly for multi-slide rendering, integrated sync as presenter
+- Extracted `parseSlides` utility for shared slide+notes parsing between Deck and PresenterView
+- Exported all new components/hooks from index.ts: PresenterView, ProjectorView, DiaposRouter, useRoute, useSyncChannel
+- Updated `src/main.tsx` to use `DiaposRouter` with both views
+- Tests: 8 new tests for views (ProjectorView renders, PresenterView layout/notes/counter/buttons) and 2 for sync channel (creates/skips BroadcastChannel)
+- Modified: Deck.tsx, useSyncChannel.ts (new), router.tsx (new), ProjectorView.tsx (new), PresenterView.tsx (new), parseSlides.ts (new), index.ts, main.tsx
+- Verification: all new tests pass (10/10), lint clean, typecheck clean for plan 14 files
+- Deviation: Used `sync` prop on Deck instead of `mode` prop — cleaner separation since PresenterView uses DeckProvider directly (needs to render multiple slides simultaneously)
