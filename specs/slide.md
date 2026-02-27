@@ -22,7 +22,8 @@ interface SlideProps {
 
 - The frame boundary. Every visible slide in the deck is a `<Slide>`.
 - Renders a `<div>` filling its container (100% width/height).
-- Default layout: centered flex column (`flexDirection: column`, `justifyContent: center`, `alignItems: center`).
+- Default layout: presentation-oriented column (`flexDirection: column`, `justifyContent: center`, `alignItems: stretch`, `textAlign: left`).
+- Adds a default `diapos-slide` class that applies heading/list typography tuned for slide decks.
 - Applies theme typography via CSS custom properties: `--diapos-font-body`, `--diapos-fg`, `--diapos-spacing-slide`.
 - `overflow: hidden` prevents content from bleeding out.
 - `style` is spread last, so user styles override defaults.

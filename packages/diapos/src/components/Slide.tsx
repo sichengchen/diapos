@@ -8,21 +8,24 @@ export interface SlideProps {
 }
 
 export function Slide({ children, style, className }: SlideProps) {
+  const slideClassName = className ? `diapos-slide ${className}` : 'diapos-slide'
+
   return (
     <div
-      className={className}
+      className={slideClassName}
       style={{
         width: '100%',
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'stretch',
+        textAlign: 'left',
         overflow: 'hidden',
         fontFamily: 'var(--diapos-font-body, system-ui)',
         color: 'var(--diapos-fg, #fff)',
-        fontSize: '1.25em',
-        lineHeight: 1.6,
+        fontSize: '1.2em',
+        lineHeight: 1.45,
         padding: 'var(--diapos-spacing-slide, 64px)',
         boxSizing: 'border-box',
         ...style,

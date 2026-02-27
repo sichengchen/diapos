@@ -57,6 +57,17 @@ describe('PresenterView', () => {
     expect(screen.getByText('Test note content')).toBeInTheDocument()
   })
 
+  it('renders preview slide content visibly', () => {
+    render(
+      <PresenterView>
+        <Slide><div>Preview Slide A</div></Slide>
+        <Slide><div>Preview Slide B</div></Slide>
+      </PresenterView>,
+    )
+    expect(screen.getByText('Preview Slide A')).toBeVisible()
+    expect(screen.getByText('Preview Slide B')).toBeVisible()
+  })
+
   it('shows slide counter', () => {
     render(
       <PresenterView>

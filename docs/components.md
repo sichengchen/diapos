@@ -39,7 +39,7 @@ import { Slide } from 'diapos'
 </Slide>
 ```
 
-Default layout: centered flex column with theme typography.
+Default layout: full-height flex column, vertically centered with left-aligned content and slide-friendly heading/list typography.
 
 ### `<Section>`
 
