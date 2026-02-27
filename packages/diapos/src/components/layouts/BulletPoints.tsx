@@ -14,6 +14,7 @@ export function BulletPoints({ children, pause, style }: BulletPointsProps) {
     <ul
       style={{
         fontFamily: 'var(--diapos-font-body, system-ui)',
+        listStyle: 'disc',
         paddingLeft: '1.2em',
         margin: 0,
         ...pauseStyle,

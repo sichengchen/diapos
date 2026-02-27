@@ -14,6 +14,7 @@ export function Enumerate({ children, pause, style }: EnumerateProps) {
     <ol
       style={{
         fontFamily: 'var(--diapos-font-body, system-ui)',
+        listStyle: 'decimal',
         paddingLeft: '1.2em',
         margin: 0,
         ...pauseStyle,
