@@ -242,7 +242,6 @@ import type { CodeProps } from 'diapos'
 ```ts
 interface CodeProps {
   code: string
-  title?: ReactNode
   language?: string
   style?: CSSProperties
 }
@@ -252,14 +251,15 @@ interface CodeProps {
 
 - Renders a code block in a `<pre>` element.
 - Sets `data-language` attribute on the `<pre>` for potential syntax highlighting integration.
-- Optional title renders above the code block.
 - Uses `--diapos-code-bg` for background, `--diapos-font-code` for font.
+- Use `<Heading>` above `<Code>` for a title — Code does not own a title.
 
 ### Valid Usage
 
 ```tsx
 <Slide>
-  <Code title="Example" code={`const x = 1`} language="tsx" />
+  <Heading as="h3">Example</Heading>
+  <Code code={`const x = 1`} language="tsx" />
 </Slide>
 ```
 

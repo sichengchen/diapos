@@ -117,11 +117,6 @@ describe('Code', () => {
     expect(screen.getByText('const x = 1')).toBeInTheDocument()
   })
 
-  it('renders title when provided', () => {
-    render(<Code code="x" title="Example" />)
-    expect(screen.getByText('Example')).toBeInTheDocument()
-  })
-
   it('sets data-language attribute', () => {
     const { container } = render(<Code code="x" language="typescript" />)
     expect(container.querySelector('pre')).toHaveAttribute('data-language', 'typescript')

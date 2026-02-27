@@ -155,24 +155,20 @@ import { BulletPoints, Enumerate, Item } from 'diapos'
 
 ### `<Code>`
 
-Displays a code block with optional title.
+Displays a code block. Use `<Heading>` above it for a title.
 
 ```tsx
-import { Code } from 'diapos'
+import { Code, Heading } from 'diapos'
 
 <Slide>
-  <Code
-    title="Example"
-    code={`const x = 1`}
-    language="tsx"
-  />
+  <Heading as="h3">Example</Heading>
+  <Code code={`const x = 1`} language="tsx" />
 </Slide>
 ```
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `code` | `string` | required | The code to display |
-| `title` | `ReactNode` | -- | Optional title above the code block |
 | `language` | `string` | -- | Language identifier (sets `data-language` attribute) |
 | `style` | `CSSProperties` | -- | Style overrides |
 
