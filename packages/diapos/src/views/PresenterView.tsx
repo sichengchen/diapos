@@ -1,4 +1,4 @@
-import { type ReactNode, useMemo, useState, useEffect, useCallback } from 'react'
+import { type ReactNode, useMemo, useState, useEffect, useCallback, useRef } from 'react'
 import { DeckProvider } from '../context/DeckContext'
 import { ThemeProvider } from '../theme/ThemeContext'
 import type { Theme } from '../theme/types'
@@ -7,7 +7,6 @@ import { useSyncChannel } from '../hooks/useSyncChannel'
 import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation'
 import { parseSlides } from '../utils/parseSlides'
 import { Button } from '../components/ui/Button'
-import { Card, CardContent, CardDescription, CardHeader } from '../components/ui/Card'
 
 export interface PresenterViewProps {
   children: ReactNode
@@ -43,42 +42,70 @@ function Timer() {
 interface SlidePreviewProps {
   slide: ReactNode
   label: string
+  className?: string
 }
 
-function SlidePreview({ slide, label }: SlidePreviewProps) {
+function SlidePreview({ slide, label, className }: SlidePreviewProps) {
+  const viewportRef = useRef<HTMLDivElement>(null)
+  const [scale, setScale] = useState(0.25)
+
+  useEffect(() => {
+    const viewport = viewportRef.current
+    if (!viewport) return
+
+    const updateScale = () => {
+      const { clientWidth, clientHeight } = viewport
+      if (clientWidth <= 0 || clientHeight <= 0) return
+      const nextScale = Math.min(clientWidth / 1920, clientHeight / 1080)
+      setScale(nextScale)
+    }
+
+    updateScale()
+
+    const observer = typeof ResizeObserver !== 'undefined'
+      ? new ResizeObserver(updateScale)
+      : null
+    observer?.observe(viewport)
+    window.addEventListener('resize', updateScale)
+
+    return () => {
+      observer?.disconnect()
+      window.removeEventListener('resize', updateScale)
+    }
+  }, [])
+
   return (
-    <Card className="flex h-full min-h-0 flex-col overflow-hidden border-slate-800 bg-slate-900/80">
-      <CardHeader className="pb-2">
-        <CardDescription className="text-[11px] uppercase tracking-[0.14em] text-slate-400">
-          {label}
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="min-h-0 flex-1">
-        <div className="relative aspect-video w-full overflow-hidden rounded-md border border-slate-700/80 bg-[var(--diapos-bg,#000)]">
+    <section className={`flex min-h-0 flex-col gap-2 ${className ?? ''}`}>
+      <p className="px-1 text-[11px] uppercase tracking-[0.14em] text-slate-400">
+        {label}
+      </p>
+      <div
+        ref={viewportRef}
+        className="relative min-h-0 flex-1 overflow-hidden rounded-lg border border-slate-700/80 bg-[var(--diapos-bg,#000)]"
+      >
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
           <div
-            className="h-[1080px] w-[1920px] origin-top-left pointer-events-none"
-            style={{ transform: 'scale(var(--preview-scale, 0.25))' }}
+            className="h-[1080px] w-[1920px] origin-center pointer-events-none"
+            style={{ transform: `scale(${scale})` }}
           >
             {slide}
           </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </section>
   )
 }
 
 function NotesPanel({ notes }: { notes: ReactNode | null }) {
   return (
-    <Card className="flex min-h-0 flex-1 flex-col overflow-hidden border-slate-800 bg-slate-900/80">
-      <CardHeader className="pb-2">
-        <CardDescription className="text-[11px] uppercase tracking-[0.14em] text-slate-400">
-          Notes
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="min-h-0 flex-1 overflow-y-auto text-base leading-relaxed text-slate-100">
+    <section className="flex min-h-0 flex-1 flex-col gap-2">
+      <p className="px-1 text-[11px] uppercase tracking-[0.14em] text-slate-400">
+        Notes
+      </p>
+      <div className="min-h-0 flex-1 overflow-y-auto rounded-lg border border-slate-700/80 bg-slate-900/80 p-4 text-base leading-relaxed text-slate-100">
         {notes ?? <p className="text-sm italic text-slate-500">No notes for this slide</p>}
-      </CardContent>
-    </Card>
+      </div>
+    </section>
   )
 }
 
@@ -96,7 +123,7 @@ function PresenterFooter({
   onPlay: (e: React.MouseEvent) => void
 }) {
   return (
-    <div className="col-span-full flex items-center justify-between border-t border-slate-800 pt-3">
+    <div className="col-span-full flex items-center justify-between border-t border-slate-800/90 pt-4">
       <div className="flex items-center gap-2">
         <Button
           type="button"
@@ -164,13 +191,13 @@ function PresenterShell({
 }) {
   return (
     <div className="h-screen w-screen overflow-hidden bg-slate-950 text-slate-100">
-      <div className="grid h-full grid-cols-1 grid-rows-[minmax(0,1fr)_minmax(0,1fr)_auto] gap-4 p-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:grid-rows-[minmax(0,1fr)_auto]">
+      <div className="grid h-full grid-cols-1 grid-rows-[minmax(0,1fr)_minmax(0,1fr)_auto] gap-6 p-6 lg:grid-cols-[minmax(0,1.85fr)_minmax(360px,1fr)] lg:grid-rows-[minmax(0,1fr)_auto] lg:gap-7 lg:p-8">
         <div className="min-h-0">
           <SlidePreview slide={currentSlide} label="Current Slide" />
         </div>
 
-        <div className="flex min-h-0 flex-col gap-4">
-          <div className="h-[40%] min-h-[190px]">
+        <div className="flex min-h-0 flex-col gap-6">
+          <div className="h-[33%] min-h-[200px]">
             <SlidePreview
               slide={nextSlide ?? <NextSlideFallback />}
               label="Next Slide"
