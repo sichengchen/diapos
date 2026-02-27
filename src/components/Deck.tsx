@@ -2,15 +2,19 @@ import { Children, type ReactNode, useCallback, useRef } from 'react'
 import { DeckProvider } from '../context/DeckContext'
 import { ThemeProvider } from '../theme/ThemeContext'
 import type { Theme } from '../theme/types'
+import type { Transition } from '../types'
 import { useDeck } from '../hooks/useDeck'
 import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation'
 import { useFullscreen } from '../hooks/useFullscreen'
+import { TransitionWrapper } from './TransitionWrapper'
 import { ProgressBar } from './ProgressBar'
 import { SlideCounter } from './SlideCounter'
 
 export interface DeckProps {
   children: ReactNode
   theme?: Theme
+  transition?: Transition
+  transitionDuration?: number
   clickNavigation?: boolean
   showProgress?: boolean
   showCounter?: boolean
@@ -18,14 +22,23 @@ export interface DeckProps {
 
 interface DeckInnerProps {
   slides: ReactNode[]
-  clickNavigation?: boolean
-  showProgress?: boolean
-  showCounter?: boolean
+  transition: Transition
+  transitionDuration: number
+  clickNavigation: boolean
+  showProgress: boolean
+  showCounter: boolean
 }
 
-function DeckInner({ slides, clickNavigation = true, showProgress = true, showCounter = true }: DeckInnerProps) {
+function DeckInner({
+  slides,
+  transition,
+  transitionDuration,
+  clickNavigation,
+  showProgress,
+  showCounter,
+}: DeckInnerProps) {
   const deckState = useDeck()
-  const { currentIndex, next, prev } = deckState
+  const { currentIndex, direction, next, prev } = deckState
   const deckRef = useRef<HTMLDivElement>(null)
 
   useKeyboardNavigation(deckState)
@@ -34,7 +47,6 @@ function DeckInner({ slides, clickNavigation = true, showProgress = true, showCo
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       if (!clickNavigation) return
-      // Don't intercept clicks on interactive elements
       const target = e.target as HTMLElement
       if (target.closest('button, a, input, textarea, select, [role="button"]')) return
       const rect = e.currentTarget.getBoundingClientRect()
@@ -62,14 +74,29 @@ function DeckInner({ slides, clickNavigation = true, showProgress = true, showCo
         cursor: clickNavigation ? 'pointer' : undefined,
       }}
     >
-      {slides[currentIndex]}
+      <TransitionWrapper
+        transition={transition}
+        slideKey={currentIndex}
+        duration={transitionDuration}
+        direction={direction}
+      >
+        {slides[currentIndex]}
+      </TransitionWrapper>
       {showProgress && <ProgressBar />}
       {showCounter && <SlideCounter />}
     </div>
   )
 }
 
-export function Deck({ children, theme, clickNavigation, showProgress, showCounter }: DeckProps) {
+export function Deck({
+  children,
+  theme,
+  transition = 'fade',
+  transitionDuration = 300,
+  clickNavigation = true,
+  showProgress = true,
+  showCounter = true,
+}: DeckProps) {
   const slides = Children.toArray(children)
 
   return (
@@ -77,6 +104,8 @@ export function Deck({ children, theme, clickNavigation, showProgress, showCount
       <DeckProvider totalSlides={slides.length}>
         <DeckInner
           slides={slides}
+          transition={transition}
+          transitionDuration={transitionDuration}
           clickNavigation={clickNavigation}
           showProgress={showProgress}
           showCounter={showCounter}

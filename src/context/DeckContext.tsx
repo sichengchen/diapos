@@ -1,8 +1,9 @@
-import { createContext, type ReactNode, useCallback, useMemo, useState } from 'react'
+import { createContext, type ReactNode, useCallback, useMemo, useRef, useState } from 'react'
 
 export interface DeckState {
   currentIndex: number
   totalSlides: number
+  direction: 'forward' | 'backward'
   next: () => void
   prev: () => void
   goTo: (index: number) => void
@@ -18,24 +19,31 @@ interface DeckProviderProps {
 
 export function DeckProvider({ children, totalSlides, startIndex = 0 }: DeckProviderProps) {
   const [currentIndex, setCurrentIndex] = useState(startIndex)
+  const directionRef = useRef<'forward' | 'backward'>('forward')
 
   const next = useCallback(() => {
+    directionRef.current = 'forward'
     setCurrentIndex((i) => Math.min(i + 1, totalSlides - 1))
   }, [totalSlides])
 
   const prev = useCallback(() => {
+    directionRef.current = 'backward'
     setCurrentIndex((i) => Math.max(i - 1, 0))
   }, [])
 
   const goTo = useCallback(
     (index: number) => {
-      setCurrentIndex(Math.max(0, Math.min(index, totalSlides - 1)))
+      setCurrentIndex((prev) => {
+        const clamped = Math.max(0, Math.min(index, totalSlides - 1))
+        directionRef.current = clamped >= prev ? 'forward' : 'backward'
+        return clamped
+      })
     },
     [totalSlides],
   )
 
   const value = useMemo<DeckState>(
-    () => ({ currentIndex, totalSlides, next, prev, goTo }),
+    () => ({ currentIndex, totalSlides, direction: directionRef.current, next, prev, goTo }),
     [currentIndex, totalSlides, next, prev, goTo],
   )
 
