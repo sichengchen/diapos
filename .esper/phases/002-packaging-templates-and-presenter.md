@@ -58,3 +58,6 @@ Transform diapos from a standalone app into a publishable framework with a monor
 
 ## Phase Notes
 Phase 1 architecture is solid — DeckContext/ThemeContext split, CSS custom properties for theming, and the DeckInner pattern all carry forward cleanly. The component architecture shifts to Approach D (exploration 001): `<Slide>` is always explicit, layouts become content components, `<Content>` and `<Split>` are removed. This is a breaking change but acceptable since Phase 1 has no external consumers.
+
+## Shipped Plans
+- Plan 9 — Monorepo restructure: Initialize a Bun/npm workspace at the root with `packages/*` glob. Files: package.json, vite.config.ts, tsconfig.app.json, tsconfig.node.json, eslint.config.js, packages/diapos/package.json, packages/diapos/vite.config.ts, packages/diapos/tsconfig.json, packages/create-diapos/package.json
