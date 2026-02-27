@@ -1,14 +1,14 @@
 ---
-id: 013
+id: 13
 title: Speaker notes support
-status: pending
+status: done
 type: feature
 priority: 2
 phase: 002-packaging-templates-and-presenter
 branch: feature/002-packaging-templates-and-presenter
 created: 2026-02-26
+shipped_at: 2026-02-27
 ---
-
 # Speaker notes support
 
 ## Context
@@ -36,3 +36,14 @@ Depends on: plan 012 (component architecture overhaul) should be complete first,
 - Run: `bun run test` — test that notes are collected and accessible via useNotes
 - Expected: `useNotes()` returns correct notes for current and next slide
 - Edge cases: Slides without notes (should return null), last slide (next notes should be null)
+
+## Progress
+- Updated `SlideProps.notes` type from `string` to `ReactNode`
+- Added `notes: Record<number, ReactNode>` to `DeckState` and `DeckProvider`
+- Added notes collection in `Deck` during `Children.toArray` flattening pass
+- Created `useNotes()` hook returning `{ current, next }` based on `currentIndex`
+- Exported `useNotes` from public API
+- Added notes to 3 slides in the demo presentation (title, overview, thank you)
+- Created comprehensive test suite (5 tests): current/next notes, null for missing notes, last slide edge case, navigation updates, mixed slides
+- Modified: Slide.tsx, DeckContext.tsx, Deck.tsx, useNotes.ts (new), useNotes.test.tsx (new), index.ts, slides.tsx
+- Verification: all useNotes tests pass (5/5), lint clean, typecheck clean for plan 13 files
