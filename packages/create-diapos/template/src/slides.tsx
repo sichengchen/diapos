@@ -1,4 +1,4 @@
-import { PresenterView, ProjectorView, Slide, Title, Code, Heading, BulletPoints, Item, Text } from 'diapos'
+import { PresenterView, ProjectorView, Slide, Title, Code, Heading, BulletPoints, Item } from 'diapos'
 import { demoTheme } from './theme'
 
 const exampleCode = `import { Deck, Slide, Title, Code } from 'diapos'
@@ -19,7 +19,7 @@ function MyPresentation() {
 const demoSlides = (
   <>
     <Slide notes="Welcome the audience. Introduce diapos as a code-first presentation framework.">
-      <Title title="Diapos" subtitle="Presentations as React Components" />
+      <Title title="Diapos" subtitle="Producing presentations and slides with React" />
     </Slide>
 
     <Slide notes="Emphasize the code-first philosophy. Mention Beamer as inspiration for LaTeX users.">
@@ -34,9 +34,11 @@ const demoSlides = (
 
     <Slide notes="Reveal each feature one by one. Pause between each for emphasis.">
       <Heading>Key Features</Heading>
-      <Text pause>Write slides in TSX</Text>
-      <Text pause>Theme with CSS custom properties</Text>
-      <Text pause>Presenter mode with speaker notes</Text>
+      <BulletPoints>
+        <Item pause>Write slides in TSX</Item>
+        <Item pause>Theme with CSS custom properties</Item>
+        <Item pause>Presenter mode with speaker notes</Item>
+      </BulletPoints>
     </Slide>
 
     <Slide>
@@ -70,7 +72,7 @@ const demoSlides = (
     </Slide>
 
     <Slide notes="Thank the audience. Open for questions.">
-      <Title title="Thank You" subtitle="diapos — slides as code" />
+      <Title title="Thank You" subtitle="Diapos — Producing presentations and slides with React" />
     </Slide>
   </>
 )
