@@ -19,6 +19,10 @@ bun dev
 
 Open `http://localhost:5173` for the presenter view, click "Play" or open `http://localhost:5173/#/projector` for the projector view. Those two tabs are connected.
 
+## Agent Skill
+
+An [agent skill](skills/SKILL.md) that teaches AI coding agents how to create presentations and theme packs also can be used.
+
 ## Example
 
 ```tsx

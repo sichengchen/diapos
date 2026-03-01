@@ -57,6 +57,10 @@ bun run typecheck   # tsc --noEmit
 bun run dev         # dev server
 ```
 
+## Agent Skill
+
+`skills/SKILL.md` teaches AI agents the Diapos component API, slide authoring patterns, and theme pack authoring. Keep the skill in sync with specs — when components, props, or theme tokens change, update both `specs/` and `skills/SKILL.md`.
+
 ## Scope Boundaries
 
 The following will never be built in this repository:
