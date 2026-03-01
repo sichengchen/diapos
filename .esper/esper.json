@@ -1,10 +1,18 @@
 {
+  "schema_version": 1,
   "backlog_mode": "local",
-  "current_phase": "002-packaging-templates-and-presenter",
+  "spec_root": "specs",
   "commands": {
     "test": "bun run test",
     "lint": "bun run lint",
     "typecheck": "bun run typecheck",
     "dev": "bun run dev"
+  },
+  "workflow_defaults": {
+    "work_mode": "atom",
+    "commit_granularity": "milestone",
+    "pr_policy": "auto-per-increment",
+    "validation": "blocking",
+    "spec_sync": "proactive"
   }
 }
