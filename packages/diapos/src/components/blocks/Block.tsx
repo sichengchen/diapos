@@ -1,11 +1,6 @@
-import type { CSSProperties, ReactNode } from 'react'
+import type { BlockProps } from '../../core/props'
 
-export interface BlockProps {
-  title?: string
-  variant?: 'default' | 'alert' | 'example'
-  children: ReactNode
-  style?: CSSProperties
-}
+export type { BlockProps }
 
 const variantColors: Record<string, { border: string; bg: string; title: string }> = {
   default: {
@@ -25,11 +20,12 @@ const variantColors: Record<string, { border: string; bg: string; title: string 
   },
 }
 
-export function Block({ title, variant = 'default', children, style }: BlockProps) {
+export function Block({ title, variant = 'default', children, style, className }: BlockProps) {
   const colors = variantColors[variant] ?? variantColors['default']!
 
   return (
     <div
+      className={className}
       style={{
         borderLeft: `4px solid ${colors.border}`,
         backgroundColor: colors.bg,

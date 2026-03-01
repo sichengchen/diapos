@@ -1,16 +1,11 @@
-import type { CSSProperties, ReactNode } from 'react'
+import type { ImageProps } from '../../core/props'
 
-export interface ImageProps {
-  src: string
-  alt?: string
-  caption?: ReactNode
-  contain?: boolean
-  style?: CSSProperties
-}
+export type { ImageProps }
 
-export function Image({ src, alt = '', caption, contain = false, style }: ImageProps) {
+export function Image({ src, alt = '', caption, contain = false, style, className }: ImageProps) {
   return (
     <div
+      className={className}
       style={{
         display: 'flex',
         flexDirection: 'column',

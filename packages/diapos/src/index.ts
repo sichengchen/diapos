@@ -30,6 +30,14 @@ export type { ImageProps } from './components/layouts/Image'
 export { Quote } from './components/layouts/Quote'
 export type { QuoteProps } from './components/layouts/Quote'
 
+// Block components
+export { Block } from './components/blocks/Block'
+export type { BlockProps } from './components/blocks/Block'
+export { Columns } from './components/blocks/Columns'
+export type { ColumnsProps } from './components/blocks/Columns'
+export { Column } from './components/blocks/Column'
+export type { ColumnProps } from './components/blocks/Column'
+
 // Views
 export { PresenterView } from './views/PresenterView'
 export type { PresenterViewProps } from './views/PresenterView'
@@ -42,6 +50,7 @@ export type { DiaposRoute } from './router'
 
 // Hooks
 export { useDeck } from './core/hooks/useDeck'
+export { usePause } from './core/hooks/usePause'
 export { useNotes } from './core/hooks/useNotes'
 export { useSyncChannel } from './core/hooks/useSyncChannel'
 export { useTheme } from './core/hooks/useTheme'

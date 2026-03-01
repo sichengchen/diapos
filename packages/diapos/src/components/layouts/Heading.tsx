@@ -1,14 +1,9 @@
-import type { CSSProperties, ReactNode } from 'react'
 import { usePause } from '../../core/hooks/usePause'
+import type { HeadingProps } from '../../core/props'
+
+export type { HeadingProps }
 
 type HeadingLevel = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-
-export interface HeadingProps {
-  children: ReactNode
-  as?: HeadingLevel
-  pause?: boolean
-  style?: CSSProperties
-}
 
 const sizeMap: Record<HeadingLevel, string> = {
   h1: 'clamp(2.2rem, 4.2vw, 4rem)',
@@ -19,11 +14,12 @@ const sizeMap: Record<HeadingLevel, string> = {
   h6: '1.1rem',
 }
 
-export function Heading({ children, as: Tag = 'h2', pause, style }: HeadingProps) {
+export function Heading({ children, as: Tag = 'h2', pause, style, className }: HeadingProps) {
   const { style: pauseStyle } = usePause(pause)
 
   return (
     <Tag
+      className={className}
       style={{
         fontFamily: 'var(--diapos-font-heading, system-ui)',
         fontSize: sizeMap[Tag],

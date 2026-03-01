@@ -1,15 +1,11 @@
-import type { CSSProperties, ReactNode } from 'react'
+import type { ColumnsProps } from '../../core/props'
 
-export interface ColumnsProps {
-  ratio?: string
-  gap?: string
-  children: ReactNode
-  style?: CSSProperties
-}
+export type { ColumnsProps }
 
-export function Columns({ ratio, gap = '2em', children, style }: ColumnsProps) {
+export function Columns({ ratio, gap = '2em', children, style, className }: ColumnsProps) {
   return (
     <div
+      className={className}
       style={{
         display: 'grid',
         gridTemplateColumns: ratio ?? undefined,

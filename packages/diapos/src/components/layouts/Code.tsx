@@ -1,14 +1,11 @@
-import type { CSSProperties } from 'react'
+import type { CodeProps } from '../../core/props'
 
-export interface CodeProps {
-  code: string
-  language?: string
-  style?: CSSProperties
-}
+export type { CodeProps }
 
-export function Code({ code, language, style }: CodeProps) {
+export function Code({ code, language, style, className }: CodeProps) {
   return (
     <pre
+      className={className}
       data-language={language}
       style={{
         fontFamily: 'var(--diapos-font-code, monospace)',

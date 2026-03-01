@@ -1,13 +1,11 @@
-import type { CSSProperties, ReactNode } from 'react'
+import type { ColumnProps } from '../../core/props'
 
-export interface ColumnProps {
-  children: ReactNode
-  style?: CSSProperties
-}
+export type { ColumnProps }
 
-export function Column({ children, style }: ColumnProps) {
+export function Column({ children, style, className }: ColumnProps) {
   return (
     <div
+      className={className}
       style={{
         display: 'flex',
         flexDirection: 'column',

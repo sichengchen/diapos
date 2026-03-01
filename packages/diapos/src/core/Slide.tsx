@@ -1,15 +1,8 @@
-import type { CSSProperties, ReactNode } from 'react'
 import { ThemeProvider } from './theme/ThemeContext'
 import { createTheme } from './theme/createTheme'
-import type { DeepPartial, Theme } from './theme/types'
+import type { SlideProps } from './props'
 
-export interface SlideProps {
-  children: ReactNode
-  theme?: DeepPartial<Theme>
-  style?: CSSProperties
-  className?: string
-  notes?: ReactNode
-}
+export type { SlideProps }
 
 export function Slide({ children, theme, style, className }: SlideProps) {
   const content = (

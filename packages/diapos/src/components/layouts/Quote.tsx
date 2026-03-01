@@ -1,14 +1,11 @@
-import type { CSSProperties } from 'react'
+import type { QuoteProps } from '../../core/props'
 
-export interface QuoteProps {
-  quote: string
-  author?: string
-  style?: CSSProperties
-}
+export type { QuoteProps }
 
-export function Quote({ quote, author, style }: QuoteProps) {
+export function Quote({ quote, author, style, className }: QuoteProps) {
   return (
     <div
+      className={className}
       style={{
         display: 'flex',
         flexDirection: 'column',

@@ -1,17 +1,14 @@
-import type { CSSProperties, ReactNode } from 'react'
 import { usePause } from '../../core/hooks/usePause'
+import type { TextProps } from '../../core/props'
 
-export interface TextProps {
-  children: ReactNode
-  pause?: boolean
-  style?: CSSProperties
-}
+export type { TextProps }
 
-export function Text({ children, pause, style }: TextProps) {
+export function Text({ children, pause, style, className }: TextProps) {
   const { style: pauseStyle } = usePause(pause)
 
   return (
     <p
+      className={className}
       style={{
         fontFamily: 'var(--diapos-font-body, system-ui)',
         fontSize: '1.02em',

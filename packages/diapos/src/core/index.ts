@@ -2,7 +2,6 @@
 export { Deck } from './Deck'
 export type { DeckProps } from './Deck'
 export { Slide } from './Slide'
-export type { SlideProps } from './Slide'
 export { Section } from './Section'
 export type { SectionProps } from './Section'
 
@@ -25,3 +24,20 @@ export type { DeckState } from './context/DeckContext'
 
 // Types
 export type { Transition } from './types'
+
+// Prop interfaces
+export type {
+  SlideProps,
+  HeadingProps,
+  TitleProps,
+  TextProps,
+  CodeProps,
+  ImageProps,
+  QuoteProps,
+  BlockProps,
+  BulletPointsProps,
+  EnumerateProps,
+  ItemProps,
+  ColumnsProps,
+  ColumnProps,
+} from './props'

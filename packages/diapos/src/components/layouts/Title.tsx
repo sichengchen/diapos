@@ -1,14 +1,11 @@
-import type { CSSProperties, ReactNode } from 'react'
+import type { TitleProps } from '../../core/props'
 
-export interface TitleProps {
-  title: ReactNode
-  subtitle?: ReactNode
-  style?: CSSProperties
-}
+export type { TitleProps }
 
-export function Title({ title, subtitle, style }: TitleProps) {
+export function Title({ title, subtitle, style, className }: TitleProps) {
   return (
     <div
+      className={className}
       style={{
         display: 'flex',
         flexDirection: 'column',

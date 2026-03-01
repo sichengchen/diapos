@@ -1,17 +1,14 @@
-import type { CSSProperties, ReactNode } from 'react'
 import { usePause } from '../../core/hooks/usePause'
+import type { BulletPointsProps } from '../../core/props'
 
-export interface BulletPointsProps {
-  children: ReactNode
-  pause?: boolean
-  style?: CSSProperties
-}
+export type { BulletPointsProps }
 
-export function BulletPoints({ children, pause, style }: BulletPointsProps) {
+export function BulletPoints({ children, pause, style, className }: BulletPointsProps) {
   const { style: pauseStyle } = usePause(pause)
 
   return (
     <ul
+      className={className}
       style={{
         fontFamily: 'var(--diapos-font-body, system-ui)',
         listStyle: 'disc',

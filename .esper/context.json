@@ -2,7 +2,7 @@
   "schema_version": 1,
   "spec_root": "specs",
   "constitution_path": ".esper/CONSTITUTION.md",
-  "active_increment": "006-create-shared-prop-interfaces.md",
+  "active_increment": "007-create-default-theme-pack.md",
   "active_increment_scope": [
     "theming.md"
   ],
