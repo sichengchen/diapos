@@ -185,7 +185,9 @@ function PresenterShell({
 }) {
   const deck = useDeck()
   const [timerRunning, setTimerRunning] = useState(true)
-  const [colorScheme, setColorScheme] = useState<'light' | 'dark'>('dark')
+  const [colorScheme, setColorScheme] = useState<'light' | 'dark'>(
+    () => window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark',
+  )
   const colors = presenterColors[colorScheme]
 
   useKeyboardNavigation(deck)
