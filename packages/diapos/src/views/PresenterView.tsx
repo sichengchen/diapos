@@ -112,7 +112,7 @@ function SlidePreview({
 
   return (
     <div className={cn('flex min-h-0 flex-col gap-2', className)}>
-      <span className={cn('text-xs font-medium uppercase tracking-widest', colors.label)}>
+      <span className={cn('hidden text-xs font-medium uppercase tracking-widest md:block', colors.label)}>
         {label}
       </span>
       <div
@@ -146,7 +146,7 @@ function SlidePreview({
 function NotesPanel({ notes, colors }: { notes: ReactNode | null; colors: PresenterColors }) {
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-2">
-      <span className={cn('text-xs font-medium uppercase tracking-widest', colors.label)}>
+      <span className={cn('hidden text-xs font-medium uppercase tracking-widest md:block', colors.label)}>
         Notes
       </span>
       <div className={cn('flex-1 overflow-y-auto rounded-lg border p-4', colors.panel)}>
@@ -207,13 +207,14 @@ function PresenterShell({
   return (
     <div className={cn('flex h-screen w-screen flex-col', colors.shell)}>
       {/* Main content */}
-      <div className="grid flex-1 grid-cols-[2fr_1fr] gap-4 overflow-hidden p-4">
-        <SlidePreview slide={currentSlide} label="Current Slide" colors={colors} />
+      <div className="flex flex-1 flex-col gap-4 overflow-hidden p-4 md:grid md:grid-cols-[2fr_1fr]">
+        <SlidePreview slide={currentSlide} label="Current Slide" className="shrink-0" colors={colors} />
 
-        <div className="flex min-h-0 flex-col gap-4">
+        <div className="flex min-h-0 flex-1 flex-col gap-4">
           <SlidePreview
             slide={nextSlide ?? <EndOfPresentation colors={colors} />}
             label="Next Slide"
+            className="hidden md:flex"
             colors={colors}
           />
           <NotesPanel notes={currentNotes} colors={colors} />
@@ -240,15 +241,17 @@ function PresenterShell({
 
         {/* Right: timer + play */}
         <div className="flex items-center justify-end gap-1">
-          <Timer running={timerRunning} colors={colors} />
-          <Button
-            variant={colors.ghostButton}
-            size="icon"
-            onClick={() => setTimerRunning((r) => !r)}
-            aria-label={timerRunning ? 'Pause timer' : 'Resume timer'}
-          >
-            {timerRunning ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-          </Button>
+          <div className="hidden items-center gap-1 md:flex">
+            <Timer running={timerRunning} colors={colors} />
+            <Button
+              variant={colors.ghostButton}
+              size="icon"
+              onClick={() => setTimerRunning((r) => !r)}
+              aria-label={timerRunning ? 'Pause timer' : 'Resume timer'}
+            >
+              {timerRunning ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+            </Button>
+          </div>
           <Button
             variant={colors.ghostButton}
             size="icon"
