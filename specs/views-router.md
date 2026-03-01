@@ -22,10 +22,16 @@ interface PresenterViewProps {
 
 ### Layout
 
-2-column grid:
+Responsive breakpoint at `md` (768px):
 
+**Desktop (>= md):** 2-column grid:
 - **Left (2fr):** Current slide preview
 - **Right (1fr):** Next slide preview (top) + notes panel (bottom)
+
+**Phone (< md):** Single-column stack:
+- Current slide preview (compact, fixed 16:9 aspect ratio)
+- Notes panel (scrollable, fills remaining height)
+- Next slide preview, labels, and timer are hidden
 
 ### Components
 
