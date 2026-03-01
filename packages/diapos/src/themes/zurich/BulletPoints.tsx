@@ -11,7 +11,7 @@ export function BulletPoints({ children, pause, style, className }: BulletPoints
       className={className}
       style={{
         fontFamily: 'var(--diapos-font-body, system-ui)',
-        listStyle: 'none',
+        listStyle: 'disc',
         paddingLeft: '1em',
         margin: 0,
         ...pauseStyle,

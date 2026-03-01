@@ -25,9 +25,6 @@ export default defineConfig({
     lib: {
       entry: {
         diapos: resolve(__dirname, 'src/index.ts'),
-        'themes/geneva': resolve(__dirname, 'src/themes/geneva/index.ts'),
-        'themes/milan': resolve(__dirname, 'src/themes/milan/index.ts'),
-        'themes/vienna': resolve(__dirname, 'src/themes/vienna/index.ts'),
       },
       formats: ['es'],
     },

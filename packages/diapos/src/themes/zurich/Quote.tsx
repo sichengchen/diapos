@@ -11,9 +11,8 @@ export function Quote({ quote, author, style, className }: QuoteProps) {
         flexDirection: 'column',
         justifyContent: 'center',
         width: '100%',
-        flex: 1,
         paddingLeft: '2em',
-        borderLeft: '3px solid var(--diapos-accent, #6366f1)',
+        borderLeft: '3px solid var(--diapos-muted, #a1a1aa)',
         ...style,
       }}
     >

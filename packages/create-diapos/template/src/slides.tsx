@@ -12,7 +12,6 @@ import {
   Image,
   Quote,
 } from 'diapos'
-import { demoTheme } from './theme'
 
 const exampleCode = `import { Deck, Slide, Title, Heading, Code } from 'diapos'
 
@@ -135,7 +134,7 @@ const demoSlides = (
 
 export function DemoPresentation() {
   return (
-    <ProjectorView theme={demoTheme} transition="fade">
+    <ProjectorView transition="fade">
       {demoSlides}
     </ProjectorView>
   )
@@ -143,7 +142,7 @@ export function DemoPresentation() {
 
 export function DemoPresenter() {
   return (
-    <PresenterView theme={demoTheme}>
+    <PresenterView>
       {demoSlides}
     </PresenterView>
   )

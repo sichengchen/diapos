@@ -10,18 +10,6 @@
       "import": "./dist/diapos.js",
       "types": "./dist/index.d.ts"
     },
-    "./themes/geneva": {
-      "import": "./dist/themes/geneva.js",
-      "types": "./dist/themes/geneva.d.ts"
-    },
-    "./themes/milan": {
-      "import": "./dist/themes/milan.js",
-      "types": "./dist/themes/milan.d.ts"
-    },
-    "./themes/vienna": {
-      "import": "./dist/themes/vienna.js",
-      "types": "./dist/themes/vienna.d.ts"
-    },
     "./styles.css": "./dist/diapos.css"
   },
   "sideEffects": [

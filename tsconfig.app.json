@@ -19,9 +19,6 @@
     "paths": {
       "@/*": ["./packages/diapos/src/*"],
       "diapos": ["./packages/diapos/src/index.ts"],
-      "diapos/themes/geneva": ["./packages/diapos/src/themes/geneva/index.ts"],
-      "diapos/themes/milan": ["./packages/diapos/src/themes/milan/index.ts"],
-      "diapos/themes/vienna": ["./packages/diapos/src/themes/vienna/index.ts"]
     }
   },
   "include": ["src", "packages/diapos/src", "packages/create-diapos/template"]
