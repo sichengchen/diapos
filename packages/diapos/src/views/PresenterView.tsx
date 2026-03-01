@@ -13,13 +13,43 @@ import { cn } from '../lib/utils'
 export interface PresenterViewProps {
   children: ReactNode
   theme?: Theme
+  colorScheme?: 'light' | 'dark'
 }
+
+// ---------------------------------------------------------------------------
+// Color scheme map
+// ---------------------------------------------------------------------------
+
+const presenterColors = {
+  dark: {
+    shell: 'bg-slate-950 text-slate-100',
+    panel: 'border-slate-800 bg-slate-900',
+    label: 'text-slate-500',
+    muted: 'text-slate-400',
+    notes: 'text-slate-300',
+    separator: 'bg-slate-800',
+    ghostButton: 'ghost' as const,
+    playButton: 'play' as const,
+  },
+  light: {
+    shell: 'bg-slate-50 text-slate-900',
+    panel: 'border-slate-200 bg-white',
+    label: 'text-slate-500',
+    muted: 'text-slate-500',
+    notes: 'text-slate-700',
+    separator: 'bg-slate-200',
+    ghostButton: 'ghostLight' as const,
+    playButton: 'playLight' as const,
+  },
+} as const
+
+type PresenterColors = (typeof presenterColors)[keyof typeof presenterColors]
 
 // ---------------------------------------------------------------------------
 // Timer
 // ---------------------------------------------------------------------------
 
-function Timer({ running }: { running: boolean }) {
+function Timer({ running, colors }: { running: boolean; colors: PresenterColors }) {
   const [elapsed, setElapsed] = useState(0)
   const startRef = useRef<number | null>(null)
 
@@ -37,7 +67,7 @@ function Timer({ running }: { running: boolean }) {
   const s = String(elapsed % 60).padStart(2, '0')
 
   return (
-    <span className="font-mono text-sm tabular-nums text-slate-400">
+    <span className={cn('font-mono text-sm tabular-nums', colors.muted)}>
       {h}:{m}:{s}
     </span>
   )
@@ -54,10 +84,12 @@ function SlidePreview({
   slide,
   label,
   className,
+  colors,
 }: {
   slide: ReactNode
   label: string
   className?: string
+  colors: PresenterColors
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [scale, setScale] = useState(0.25)
@@ -80,12 +112,15 @@ function SlidePreview({
 
   return (
     <div className={cn('flex min-h-0 flex-col gap-2', className)}>
-      <span className="text-xs font-medium uppercase tracking-widest text-slate-500">
+      <span className={cn('text-xs font-medium uppercase tracking-widest', colors.label)}>
         {label}
       </span>
       <div
         ref={containerRef}
-        className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden rounded-lg border border-slate-800 bg-slate-900"
+        className={cn(
+          'relative flex min-h-0 flex-1 items-center justify-center overflow-hidden rounded-lg border',
+          colors.panel,
+        )}
         style={{ aspectRatio: '16 / 9' }}
       >
         <div
@@ -108,17 +143,17 @@ function SlidePreview({
 // NotesPanel
 // ---------------------------------------------------------------------------
 
-function NotesPanel({ notes }: { notes: ReactNode | null }) {
+function NotesPanel({ notes, colors }: { notes: ReactNode | null; colors: PresenterColors }) {
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-2">
-      <span className="text-xs font-medium uppercase tracking-widest text-slate-500">
+      <span className={cn('text-xs font-medium uppercase tracking-widest', colors.label)}>
         Notes
       </span>
-      <div className="flex-1 overflow-y-auto rounded-lg border border-slate-800 bg-slate-900 p-4">
+      <div className={cn('flex-1 overflow-y-auto rounded-lg border p-4', colors.panel)}>
         {notes ? (
-          <div className="text-sm leading-relaxed text-slate-300">{notes}</div>
+          <div className={cn('text-sm leading-relaxed', colors.notes)}>{notes}</div>
         ) : (
-          <p className="text-sm italic text-slate-500">No notes for this slide</p>
+          <p className={cn('text-sm italic', colors.label)}>No notes for this slide</p>
         )}
       </div>
     </div>
@@ -129,9 +164,9 @@ function NotesPanel({ notes }: { notes: ReactNode | null }) {
 // EndOfPresentation
 // ---------------------------------------------------------------------------
 
-function EndOfPresentation() {
+function EndOfPresentation({ colors }: { colors: PresenterColors }) {
   return (
-    <div className="flex h-full w-full items-center justify-center text-sm text-slate-500">
+    <div className={cn('flex h-full w-full items-center justify-center text-sm', colors.label)}>
       End of presentation
     </div>
   )
@@ -144,9 +179,11 @@ function EndOfPresentation() {
 function PresenterShell({
   slides,
   notes,
+  colors,
 }: {
   slides: ReactNode[]
   notes: Record<number, ReactNode>
+  colors: PresenterColors
 }) {
   const deck = useDeck()
   const [timerRunning, setTimerRunning] = useState(true)
@@ -166,46 +203,47 @@ function PresenterShell({
   }, [])
 
   return (
-    <div className="flex h-screen w-screen flex-col bg-slate-950 text-slate-100">
+    <div className={cn('flex h-screen w-screen flex-col', colors.shell)}>
       {/* Main content */}
       <div className="grid flex-1 grid-cols-[2fr_1fr] gap-4 overflow-hidden p-4">
-        <SlidePreview slide={currentSlide} label="Current Slide" />
+        <SlidePreview slide={currentSlide} label="Current Slide" colors={colors} />
 
         <div className="flex min-h-0 flex-col gap-4">
           <SlidePreview
-            slide={nextSlide ?? <EndOfPresentation />}
+            slide={nextSlide ?? <EndOfPresentation colors={colors} />}
             label="Next Slide"
+            colors={colors}
           />
-          <NotesPanel notes={currentNotes} />
+          <NotesPanel notes={currentNotes} colors={colors} />
         </div>
       </div>
 
       {/* Status bar */}
-      <Separator />
+      <Separator className={colors.separator} />
       <div className="grid grid-cols-3 items-center px-4 py-3">
         {/* Left: nav */}
         <div className="flex items-center gap-3">
-          <Button variant="ghost" size="sm" onClick={deck.prev}>Prev</Button>
-          <Button variant="ghost" size="sm" onClick={deck.next}>Next</Button>
+          <Button variant={colors.ghostButton} size="sm" onClick={deck.prev}>Prev</Button>
+          <Button variant={colors.ghostButton} size="sm" onClick={deck.next}>Next</Button>
         </div>
 
         {/* Center: page counter */}
-        <span className="text-center text-sm tabular-nums text-slate-400">
+        <span className={cn('text-center text-sm tabular-nums', colors.muted)}>
           {deck.currentIndex + 1} / {deck.totalSlides}
         </span>
 
         {/* Right: timer + play */}
         <div className="flex items-center justify-end gap-3">
-          <Timer running={timerRunning} />
+          <Timer running={timerRunning} colors={colors} />
           <Button
-            variant="ghost"
+            variant={colors.ghostButton}
             size="sm"
             onClick={() => setTimerRunning((r) => !r)}
           >
             {timerRunning ? 'Pause' : 'Resume'}
           </Button>
           <Button
-            variant="play"
+            variant={colors.playButton}
             size="sm"
             onClick={openProjector}
             aria-label="Play"
@@ -222,13 +260,14 @@ function PresenterShell({
 // PresenterView — public API
 // ---------------------------------------------------------------------------
 
-export function PresenterView({ children, theme }: PresenterViewProps) {
+export function PresenterView({ children, theme, colorScheme = 'dark' }: PresenterViewProps) {
   const { slides, notes } = parseSlides(children)
+  const colors = presenterColors[colorScheme]
 
   return (
     <ThemeProvider theme={theme}>
       <DeckProvider totalSlides={slides.length} notes={notes}>
-        <PresenterShell slides={slides} notes={notes} />
+        <PresenterShell slides={slides} notes={notes} colors={colors} />
       </DeckProvider>
     </ThemeProvider>
   )

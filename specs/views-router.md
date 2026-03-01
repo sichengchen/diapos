@@ -17,6 +17,7 @@ import type { PresenterViewProps } from 'diapos'
 interface PresenterViewProps {
   children: ReactNode  // same slide content as Deck
   theme?: Theme
+  colorScheme?: 'light' | 'dark'  // presenter chrome color scheme (default: 'dark')
 }
 ```
 

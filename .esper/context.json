@@ -2,8 +2,10 @@
   "schema_version": 1,
   "spec_root": "specs",
   "constitution_path": ".esper/CONSTITUTION.md",
-  "active_increment": null,
-  "active_increment_scope": [],
+  "active_increment": "014-add-light-mode-to-presenterview.md",
+  "active_increment_scope": [
+    "views-router.md"
+  ],
   "workflow_mode": "atom",
   "commands": {
     "test": "bun run test",

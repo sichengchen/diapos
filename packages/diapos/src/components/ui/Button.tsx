@@ -10,7 +10,9 @@ const buttonVariants = cva(
         default: 'bg-slate-100 text-slate-900 hover:bg-slate-200',
         secondary: 'bg-slate-800 text-slate-100 hover:bg-slate-700',
         ghost: 'text-slate-300 hover:bg-slate-800 hover:text-slate-100',
+        ghostLight: 'text-slate-600 hover:bg-slate-200 hover:text-slate-900',
         play: 'bg-emerald-500/20 text-emerald-200 ring-1 ring-emerald-400/40 hover:bg-emerald-500/30',
+        playLight: 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-300 hover:bg-emerald-100',
       },
       size: {
         default: 'h-9 px-4 py-2',
