@@ -1,6 +1,6 @@
 ---
-id: 3
-title: Create core directory structure
+id: 6
+title: Create shared prop interfaces
 status: active
 type: chore
 lane: atomic
@@ -9,7 +9,7 @@ priority: 1
 created: 2026-03-01
 spec: theming.md
 ---
-# Create core directory structure
+# Create shared prop interfaces
 
 ## Context
 

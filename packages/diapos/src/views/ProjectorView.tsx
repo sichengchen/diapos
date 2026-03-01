@@ -22,8 +22,8 @@ export function ProjectorView({
       transition={transition}
       transitionDuration={transitionDuration}
       clickNavigation={false}
-      showProgress={false}
-      showCounter={false}
+      progress={false}
+      counter={false}
       sync="projector"
     >
       {children}

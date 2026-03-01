@@ -19,33 +19,33 @@
 }
 
 @layer components {
-  .diapos-slide h1,
-  .diapos-slide h2,
-  .diapos-slide h3,
-  .diapos-slide h4 {
+  [data-slot="slide"] h1,
+  [data-slot="slide"] h2,
+  [data-slot="slide"] h3,
+  [data-slot="slide"] h4 {
     font-family: var(--diapos-font-heading, system-ui);
     line-height: 1.15;
   }
 
-  .diapos-slide h1 {
+  [data-slot="slide"] h1 {
     font-size: clamp(2.2rem, 4.2vw, 4rem);
   }
 
-  .diapos-slide h2 {
+  [data-slot="slide"] h2 {
     font-size: clamp(1.8rem, 3.2vw, 3rem);
   }
 
-  .diapos-slide p,
-  .diapos-slide li {
+  [data-slot="slide"] p,
+  [data-slot="slide"] li {
     font-size: 1.02em;
   }
 
-  .diapos-slide ul,
-  .diapos-slide ol {
+  [data-slot="slide"] ul,
+  [data-slot="slide"] ol {
     padding-left: 1.2em;
   }
 
-  .diapos-slide li + li {
+  [data-slot="slide"] li + li {
     margin-top: 0.35em;
   }
 }

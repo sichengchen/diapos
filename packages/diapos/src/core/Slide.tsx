@@ -1,33 +1,27 @@
 import type { CSSProperties, ReactNode } from 'react'
+import { ThemeProvider } from './theme/ThemeContext'
+import { createTheme } from './theme/createTheme'
+import type { DeepPartial, Theme } from './theme/types'
 
 export interface SlideProps {
   children: ReactNode
+  theme?: DeepPartial<Theme>
   style?: CSSProperties
   className?: string
   notes?: ReactNode
 }
 
-export function Slide({ children, style, className }: SlideProps) {
-  const slideClassName = className ? `diapos-slide ${className}` : 'diapos-slide'
-
-  return (
+export function Slide({ children, theme, style, className }: SlideProps) {
+  const content = (
     <div
-      className={slideClassName}
+      data-slot="slide"
+      className={className}
       style={{
         width: '100%',
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'stretch',
-        textAlign: 'left',
-        gap: '0.5em',
         overflow: 'hidden',
-        fontFamily: 'var(--diapos-font-body, system-ui)',
-        color: 'var(--diapos-fg, #fff)',
-        fontSize: '1.2em',
-        lineHeight: 1.45,
-        padding: 'var(--diapos-spacing-slide, 64px)',
         boxSizing: 'border-box',
         ...style,
       }}
@@ -35,4 +29,6 @@ export function Slide({ children, style, className }: SlideProps) {
       {children}
     </div>
   )
+
+  return theme ? <ThemeProvider theme={createTheme(theme)}>{content}</ThemeProvider> : content
 }

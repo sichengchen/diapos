@@ -1,4 +1,4 @@
-import { type ReactNode, useCallback, useMemo, useRef } from 'react'
+import { type ComponentType, type CSSProperties, type ReactNode, useCallback, useMemo, useRef } from 'react'
 import { DeckProvider } from './context/DeckContext'
 import { ThemeProvider } from './theme/ThemeContext'
 import type { Theme } from './theme/types'
@@ -8,8 +8,8 @@ import { useKeyboardNavigation } from './hooks/useKeyboardNavigation'
 import { useFullscreen } from './hooks/useFullscreen'
 import { useSyncChannel } from './hooks/useSyncChannel'
 import { TransitionWrapper } from './TransitionWrapper'
-import { ProgressBar } from '../components/ProgressBar'
-import { SlideCounter } from '../components/SlideCounter'
+import { ProgressBar as DefaultProgressBar } from '../components/ProgressBar'
+import { SlideCounter as DefaultSlideCounter } from '../components/SlideCounter'
 import { parseSlides } from './utils/parseSlides'
 
 export interface DeckProps {
@@ -18,9 +18,12 @@ export interface DeckProps {
   transition?: Transition
   transitionDuration?: number
   clickNavigation?: boolean
-  showProgress?: boolean
-  showCounter?: boolean
+  progress?: ComponentType | false
+  counter?: ComponentType | false
+  decorator?: ComponentType
   sync?: 'presenter' | 'projector'
+  style?: CSSProperties
+  className?: string
 }
 
 interface DeckInnerProps {
@@ -28,9 +31,12 @@ interface DeckInnerProps {
   transition: Transition
   transitionDuration: number
   clickNavigation: boolean
-  showProgress: boolean
-  showCounter: boolean
+  Progress: ComponentType | false
+  Counter: ComponentType | false
+  Decorator?: ComponentType
   sync?: 'presenter' | 'projector'
+  style?: CSSProperties
+  className?: string
 }
 
 function DeckInner({
@@ -38,9 +44,12 @@ function DeckInner({
   transition,
   transitionDuration,
   clickNavigation,
-  showProgress,
-  showCounter,
+  Progress,
+  Counter,
+  Decorator,
   sync,
+  style,
+  className,
 }: DeckInnerProps) {
   const deckState = useDeck()
   const { currentIndex, direction, next, prev } = deckState
@@ -70,6 +79,7 @@ function DeckInner({
     <div
       ref={deckRef}
       onClick={handleClick}
+      className={className}
       style={{
         width: '100vw',
         height: '100vh',
@@ -78,6 +88,7 @@ function DeckInner({
         backgroundColor: 'var(--diapos-bg, #000)',
         color: 'var(--diapos-fg, #fff)',
         cursor: clickNavigation ? 'pointer' : undefined,
+        ...style,
       }}
     >
       <TransitionWrapper
@@ -87,9 +98,10 @@ function DeckInner({
         direction={direction}
       >
         {slides[currentIndex]}
+        {Decorator && <Decorator />}
       </TransitionWrapper>
-      {showProgress && <ProgressBar />}
-      {showCounter && <SlideCounter />}
+      {Progress && <Progress />}
+      {Counter && <Counter />}
     </div>
   )
 }
@@ -100,9 +112,12 @@ export function Deck({
   transition = 'fade',
   transitionDuration = 300,
   clickNavigation = true,
-  showProgress = true,
-  showCounter = true,
+  progress = DefaultProgressBar,
+  counter = DefaultSlideCounter,
+  decorator,
   sync,
+  style,
+  className,
 }: DeckProps) {
   const { slides, notes } = useMemo(() => parseSlides(children), [children])
 
@@ -114,9 +129,12 @@ export function Deck({
           transition={transition}
           transitionDuration={transitionDuration}
           clickNavigation={clickNavigation}
-          showProgress={showProgress}
-          showCounter={showCounter}
+          Progress={progress}
+          Counter={counter}
+          Decorator={decorator}
           sync={sync}
+          style={style}
+          className={className}
         />
       </DeckProvider>
     </ThemeProvider>

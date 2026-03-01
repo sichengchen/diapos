@@ -96,7 +96,7 @@ describe('Deck with sync', () => {
           <Slide><SyncControls id="presenter" /></Slide>
         </Deck>
 
-        <Deck sync="projector" clickNavigation={false} showProgress={false} showCounter={false}>
+        <Deck sync="projector" clickNavigation={false} progress={false} counter={false}>
           <Slide><SyncControls id="projector" /></Slide>
           <Slide><SyncControls id="projector" /></Slide>
         </Deck>
@@ -118,7 +118,7 @@ describe('Deck with sync', () => {
     vi.useFakeTimers()
 
     render(
-      <Deck sync="projector" clickNavigation={false} showProgress={false} showCounter={false}>
+      <Deck sync="projector" clickNavigation={false} progress={false} counter={false}>
         <Slide><SyncControls id="projector-retry" /></Slide>
         <Slide><SyncControls id="projector-retry" /></Slide>
       </Deck>,
