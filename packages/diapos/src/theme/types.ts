@@ -3,6 +3,9 @@ export interface ThemeColors {
   foreground: string
   accent: string
   code: string
+  muted: string
+  danger: string
+  success: string
 }
 
 export interface ThemeFonts {

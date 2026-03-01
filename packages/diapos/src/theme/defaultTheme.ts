@@ -6,6 +6,9 @@ export const defaultTheme: Theme = {
     foreground: '#f8fafc',
     accent: '#3b82f6',
     code: '#1e293b',
+    muted: '#94a3b8',
+    danger: '#ef4444',
+    success: '#22c55e',
   },
   fonts: {
     heading: 'system-ui, -apple-system, sans-serif',

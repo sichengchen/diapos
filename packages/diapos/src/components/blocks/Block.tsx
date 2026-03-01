@@ -14,14 +14,14 @@ const variantColors: Record<string, { border: string; bg: string; title: string 
     title: 'var(--diapos-accent, #3b82f6)',
   },
   alert: {
-    border: '#ef4444',
-    bg: 'rgba(239, 68, 68, 0.1)',
-    title: '#ef4444',
+    border: 'var(--diapos-danger, #ef4444)',
+    bg: 'color-mix(in srgb, var(--diapos-danger, #ef4444) 10%, transparent)',
+    title: 'var(--diapos-danger, #ef4444)',
   },
   example: {
-    border: '#22c55e',
-    bg: 'rgba(34, 197, 94, 0.1)',
-    title: '#22c55e',
+    border: 'var(--diapos-success, #22c55e)',
+    bg: 'color-mix(in srgb, var(--diapos-success, #22c55e) 10%, transparent)',
+    title: 'var(--diapos-success, #22c55e)',
   },
 }
 
