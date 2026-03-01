@@ -1,12 +1,12 @@
 import { render, screen, act } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
-import { Deck } from '../../core/Deck'
-import { Slide } from '../../core/Slide'
-import { Item } from '../layouts/Item'
-import { BulletPoints } from '../layouts/BulletPoints'
-import { Heading } from '../layouts/Heading'
-import { Text } from '../layouts/Text'
-import { useDeck } from '../../core/hooks/useDeck'
+import { Deck } from '../../../core/Deck'
+import { Slide } from '../../../core/Slide'
+import { Item } from '../Item'
+import { BulletPoints } from '../BulletPoints'
+import { Heading } from '../Heading'
+import { Text } from '../Text'
+import { useDeck } from '../../../core/hooks/useDeck'
 
 function NavControls() {
   const { currentIndex, totalSlides, next, prev } = useDeck()

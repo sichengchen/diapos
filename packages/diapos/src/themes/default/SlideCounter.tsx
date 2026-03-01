@@ -1,4 +1,4 @@
-import { useDeck } from '../core/hooks/useDeck'
+import { useDeck } from '../../core/hooks/useDeck'
 
 export function SlideCounter() {
   const { currentIndex, totalSlides } = useDeck()

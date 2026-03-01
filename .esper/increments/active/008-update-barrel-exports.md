@@ -1,15 +1,15 @@
 ---
-id: 7
-title: Create default theme pack
+id: 8
+title: Update barrel exports
 status: active
-type: feature
+type: chore
 lane: atomic
 parent: 1
 priority: 1
 created: 2026-03-01
 spec: theming.md
 ---
-# Create default theme pack
+# Update barrel exports
 
 ## Context
 
