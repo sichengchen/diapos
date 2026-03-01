@@ -1,11 +1,12 @@
 ---
 id: 10
 title: New theme packs (minimal, vibrant, elegant)
-status: active
+status: done
 type: batch
 lane: systematic
 priority: 1
 created: 2026-03-01
+finished_at: 2026-03-01
 ---
 # New theme packs (minimal, vibrant, elegant)
 
