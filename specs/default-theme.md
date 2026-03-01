@@ -39,7 +39,7 @@ Renders `<h1>`–`<h6>` with responsive sizing via `clamp()`:
 | h5 | `1.25rem` | 600 |
 | h6 | `1.1rem` | 600 |
 
-Font: `--diapos-font-heading`, line-height 1.15, margin 0. Uses `usePause()`.
+Font: `--diapos-font-heading`, line-height 1.15, margin `0.3em 0 0 0`. Uses `usePause()`.
 
 ## Text
 

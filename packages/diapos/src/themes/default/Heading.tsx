@@ -25,7 +25,7 @@ export function Heading({ children, as: Tag = 'h2', pause, style, className }: H
         fontSize: sizeMap[Tag],
         fontWeight: Tag === 'h1' || Tag === 'h2' ? 700 : 600,
         lineHeight: 1.15,
-        margin: 0,
+        margin: '0.3em 0 0 0',
         ...pauseStyle,
         ...style,
       }}
