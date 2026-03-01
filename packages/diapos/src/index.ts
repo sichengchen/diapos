@@ -60,6 +60,7 @@ export type { DeckState } from './core/context/DeckContext'
 
 export { defaultTheme } from './core/theme/defaultTheme'
 export { minimalTheme } from './themes/minimal/theme'
+export { vibrantTheme } from './themes/vibrant/theme'
 export { createTheme } from './core/theme/createTheme'
 export type { Theme, ThemeColors, ThemeFonts, DeepPartial } from './core/theme/types'
 export type { Transition } from './core/types'

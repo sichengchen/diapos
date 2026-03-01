@@ -14,6 +14,10 @@
       "import": "./dist/themes/minimal.js",
       "types": "./dist/themes/minimal.d.ts"
     },
+    "./themes/vibrant": {
+      "import": "./dist/themes/vibrant.js",
+      "types": "./dist/themes/vibrant.d.ts"
+    },
     "./styles.css": "./dist/diapos.css"
   },
   "sideEffects": [

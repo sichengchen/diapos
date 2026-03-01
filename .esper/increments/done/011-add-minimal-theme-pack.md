@@ -1,13 +1,14 @@
 ---
 id: 11
 title: Add minimal theme pack
-status: active
+status: done
 type: feature
 lane: atomic
 parent: 10
 priority: 1
 created: 2026-03-01
 spec: themes/minimal.md
+finished_at: 2026-03-01
 ---
 # Add minimal theme pack
 

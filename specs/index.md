@@ -21,6 +21,7 @@
 ## Theme Packs
 
 - [themes/minimal.md](themes/minimal.md) — Minimal theme: light, clean, whitespace-heavy, Inter font
+- [themes/vibrant.md](themes/vibrant.md) — Vibrant theme: bold colors, large type, high contrast, orange accent
 
 ## Views & Router
 

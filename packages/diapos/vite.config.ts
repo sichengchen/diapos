@@ -26,6 +26,7 @@ export default defineConfig({
       entry: {
         diapos: resolve(__dirname, 'src/index.ts'),
         'themes/minimal': resolve(__dirname, 'src/themes/minimal/index.ts'),
+        'themes/vibrant': resolve(__dirname, 'src/themes/vibrant/index.ts'),
       },
       formats: ['es'],
     },
