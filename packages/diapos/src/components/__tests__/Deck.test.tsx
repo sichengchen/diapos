@@ -1,8 +1,8 @@
 import { render, screen, act } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
-import { Deck } from '../Deck'
-import { Slide } from '../Slide'
-import { useDeck } from '../../hooks/useDeck'
+import { Deck } from '../../core/Deck'
+import { Slide } from '../../core/Slide'
+import { useDeck } from '../../core/hooks/useDeck'
 
 function NavControls() {
   const { currentIndex, totalSlides, next, prev, goTo } = useDeck()

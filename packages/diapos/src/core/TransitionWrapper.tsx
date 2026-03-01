@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
-import type { Transition } from '../types'
-import '../styles/transitions.css'
+import type { Transition } from './types'
+import './styles/transitions.css'
 
 interface TransitionWrapperProps {
   children: ReactNode

@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react'
-import { usePause } from '../../hooks/usePause'
+import { usePause } from '../../core/hooks/usePause'
 
 export interface BulletPointsProps {
   children: ReactNode

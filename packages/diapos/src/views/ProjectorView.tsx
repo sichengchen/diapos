@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
-import { Deck } from '../components/Deck'
-import type { Theme } from '../theme/types'
-import type { Transition } from '../types'
+import { Deck } from '../core/Deck'
+import type { Theme } from '../core/theme/types'
+import type { Transition } from '../core/types'
 
 export interface ProjectorViewProps {
   children: ReactNode

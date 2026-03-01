@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { Slide } from '../../components/Slide'
-import { Item } from '../../components/layouts/Item'
-import { BulletPoints } from '../../components/layouts/BulletPoints'
+import { Slide } from '../../Slide'
+import { Item } from '../../../components/layouts/Item'
+import { BulletPoints } from '../../../components/layouts/BulletPoints'
 import { parseSlides } from '../parseSlides'
 
 describe('parseSlides', () => {

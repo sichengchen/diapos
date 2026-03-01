@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
-import { Slide } from '../../components/Slide'
+import { Slide } from '../../core/Slide'
 import { ProjectorView } from '../ProjectorView'
 import { PresenterView } from '../PresenterView'
 

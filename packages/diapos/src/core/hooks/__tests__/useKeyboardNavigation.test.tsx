@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, act } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
-import { Deck } from '../../components/Deck'
-import { Slide } from '../../components/Slide'
+import { Deck } from '../../Deck'
+import { Slide } from '../../Slide'
 import { useDeck } from '../useDeck'
 
 function SlideContent({ label }: { label: string }) {

@@ -1,7 +1,7 @@
 import { render, screen, act } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
-import { Deck } from '../../components/Deck'
-import { Slide } from '../../components/Slide'
+import { Deck } from '../../Deck'
+import { Slide } from '../../Slide'
 import { useNotes } from '../useNotes'
 import { useDeck } from '../useDeck'
 
