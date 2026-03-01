@@ -13,7 +13,6 @@ import { cn } from '../lib/utils'
 export interface PresenterViewProps {
   children: ReactNode
   theme?: Theme
-  colorScheme?: 'light' | 'dark'
 }
 
 // ---------------------------------------------------------------------------
@@ -179,14 +178,14 @@ function EndOfPresentation({ colors }: { colors: PresenterColors }) {
 function PresenterShell({
   slides,
   notes,
-  colors,
 }: {
   slides: ReactNode[]
   notes: Record<number, ReactNode>
-  colors: PresenterColors
 }) {
   const deck = useDeck()
   const [timerRunning, setTimerRunning] = useState(true)
+  const [colorScheme, setColorScheme] = useState<'light' | 'dark'>('dark')
+  const colors = presenterColors[colorScheme]
 
   useKeyboardNavigation(deck)
   useSyncChannel(deck, 'presenter')
@@ -243,6 +242,14 @@ function PresenterShell({
             {timerRunning ? 'Pause' : 'Resume'}
           </Button>
           <Button
+            variant={colors.ghostButton}
+            size="sm"
+            onClick={() => setColorScheme((s) => s === 'dark' ? 'light' : 'dark')}
+            aria-label="Toggle color scheme"
+          >
+            {colorScheme === 'dark' ? 'Light' : 'Dark'}
+          </Button>
+          <Button
             variant={colors.playButton}
             size="sm"
             onClick={openProjector}
@@ -260,14 +267,13 @@ function PresenterShell({
 // PresenterView — public API
 // ---------------------------------------------------------------------------
 
-export function PresenterView({ children, theme, colorScheme = 'dark' }: PresenterViewProps) {
+export function PresenterView({ children, theme }: PresenterViewProps) {
   const { slides, notes } = parseSlides(children)
-  const colors = presenterColors[colorScheme]
 
   return (
     <ThemeProvider theme={theme}>
       <DeckProvider totalSlides={slides.length} notes={notes}>
-        <PresenterShell slides={slides} notes={notes} colors={colors} />
+        <PresenterShell slides={slides} notes={notes} />
       </DeckProvider>
     </ThemeProvider>
   )

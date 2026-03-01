@@ -17,7 +17,6 @@ import type { PresenterViewProps } from 'diapos'
 interface PresenterViewProps {
   children: ReactNode  // same slide content as Deck
   theme?: Theme
-  colorScheme?: 'light' | 'dark'  // presenter chrome color scheme (default: 'dark')
 }
 ```
 
@@ -38,7 +37,7 @@ interface PresenterViewProps {
 
 - Left: Prev/Next buttons
 - Center: Slide counter (`currentIndex + 1 / totalSlides`)
-- Right: Timer toggle, Play button (opens projector in new window)
+- Right: Timer toggle, Light/Dark toggle, Play button (opens projector in new window)
 
 ### Behavior
 
