@@ -2,9 +2,9 @@
   "schema_version": 1,
   "spec_root": "specs",
   "constitution_path": ".esper/CONSTITUTION.md",
-  "active_increment": "015-replace-presenterview-button-text-with-i.md",
+  "active_increment": "016-add-diapos-agent-skill-for-slide-and-the.md",
   "active_increment_scope": [
-    "views-router.md"
+    "agent-skill.md"
   ],
   "workflow_mode": "atom",
   "commands": {

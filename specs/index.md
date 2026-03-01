@@ -22,3 +22,7 @@
 ## Views & Router
 
 - [views-router.md](views-router.md) — PresenterView, ProjectorView, DiaposRouter, useRoute
+
+## Agent Skill
+
+- [agent-skill.md](agent-skill.md) — Claude Code skill for creating Diapos slides and theme packs
