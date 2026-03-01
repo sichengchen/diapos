@@ -10,6 +10,10 @@
       "import": "./dist/diapos.js",
       "types": "./dist/index.d.ts"
     },
+    "./themes/minimal": {
+      "import": "./dist/themes/minimal.js",
+      "types": "./dist/themes/minimal.d.ts"
+    },
     "./styles.css": "./dist/diapos.css"
   },
   "sideEffects": [

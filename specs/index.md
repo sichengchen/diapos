@@ -18,6 +18,10 @@
 
 - [default-theme.md](default-theme.md) — Default theme pack components (Slide wrapper, Title, Heading, Text, Code, Image, Quote, Block, BulletPoints, Enumerate, Item, Columns, Column, ProgressBar, SlideCounter)
 
+## Theme Packs
+
+- [themes/minimal.md](themes/minimal.md) — Minimal theme: light, clean, whitespace-heavy, Inter font
+
 ## Views & Router
 
 - [views-router.md](views-router.md) — PresenterView, ProjectorView, DiaposRouter, useRoute

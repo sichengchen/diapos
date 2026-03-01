@@ -23,9 +23,11 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
+      entry: {
+        diapos: resolve(__dirname, 'src/index.ts'),
+        'themes/minimal': resolve(__dirname, 'src/themes/minimal/index.ts'),
+      },
       formats: ['es'],
-      fileName: 'diapos',
     },
     rollupOptions: {
       external: [
