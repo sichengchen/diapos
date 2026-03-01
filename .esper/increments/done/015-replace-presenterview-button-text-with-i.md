@@ -1,13 +1,14 @@
 ---
 id: 15
 title: Replace PresenterView button text with icons
-status: active
+status: done
 type: feature
 lane: atomic
 priority: 1
 created: 2026-03-01
 spec: views-router.md
 spec_section: Status Bar
+finished_at: 2026-03-01
 ---
 # Replace PresenterView button text with icons
 
