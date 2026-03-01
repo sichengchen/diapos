@@ -1,7 +1,7 @@
 ---
 id: 13
 title: Add elegant theme pack
-status: pending
+status: active
 type: feature
 lane: atomic
 parent: 10

@@ -2,9 +2,9 @@
   "schema_version": 1,
   "spec_root": "specs",
   "constitution_path": ".esper/CONSTITUTION.md",
-  "active_increment": "012-add-vibrant-theme-pack.md",
+  "active_increment": "013-add-elegant-theme-pack.md",
   "active_increment_scope": [
-    "themes/vibrant.md"
+    "themes/elegant.md"
   ],
   "workflow_mode": "atom",
   "commands": {

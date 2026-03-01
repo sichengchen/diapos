@@ -18,6 +18,10 @@
       "import": "./dist/themes/vibrant.js",
       "types": "./dist/themes/vibrant.d.ts"
     },
+    "./themes/elegant": {
+      "import": "./dist/themes/elegant.js",
+      "types": "./dist/themes/elegant.d.ts"
+    },
     "./styles.css": "./dist/diapos.css"
   },
   "sideEffects": [
