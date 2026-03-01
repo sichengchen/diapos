@@ -1,8 +1,12 @@
 import './styles/global.css'
 import './core/styles/transitions.css'
 
+// Core engine
 export { Deck } from './core/Deck'
 export type { DeckProps } from './core/Deck'
+export { Section } from './core/Section'
+export type { SectionProps } from './core/Section'
+export { ThemeProvider } from './core/theme/ThemeContext'
 
 export { Slide } from './themes/default/Slide'
 export type { SlideProps } from './themes/default/Slide'

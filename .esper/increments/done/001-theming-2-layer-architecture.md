@@ -1,11 +1,12 @@
 ---
 id: 1
 title: Theming 2-layer architecture
-status: active
+status: done
 type: batch
 lane: systematic
 priority: 1
 created: 2026-03-01
+finished_at: 2026-03-01
 ---
 # Theming 2-layer architecture
 
