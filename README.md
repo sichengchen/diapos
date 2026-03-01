@@ -8,6 +8,10 @@ Write slides in TSX, present in the browser.
 
 [Demo](https://diapos-demo.scchan.workers.dev)
 
+## Agent Skill
+
+An [agent skill](skills/SKILL.md) that teaches AI coding agents how to create presentations and theme packs can be used.
+
 ## Quick Start
 
 ```bash
@@ -103,10 +107,6 @@ Click the left or right half of the screen to navigate.
 | `<PresenterView>` | Speaker view with notes and controls |
 | `<ProjectorView>` | Audience fullscreen view |
 | `<DiaposRouter>` | Hash-based view router |
-
-## Agent Skill
-
-An [agent skill](skills/SKILL.md) that teaches AI coding agents how to create presentations and theme packs.
 
 ## Documentation
 
