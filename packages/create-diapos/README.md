@@ -1,74 +1,38 @@
-# Diapos
+# create-diapos
 
-[![npm](https://img.shields.io/npm/v/diapos)](https://www.npmjs.com/package/diapos)
+[![npm](https://img.shields.io/npm/v/create-diapos)](https://www.npmjs.com/package/create-diapos)
 
-Diapos is a React-based presentation framework.
+Scaffold a new [Diapos](https://www.npmjs.com/package/diapos) presentation project.
 
-Write slides in TSX, present in the browser!
-
-[Demo](https://diapos-demo.scchan.workers.dev)
-
-## Quick Start
+## Usage
 
 ```bash
 npx create-diapos my-slides
 cd my-slides
-bun install
-bun dev
+npm install
+npm run dev
 ```
 
-Open `http://localhost:5173` for the presenter view, click "Play" or open `http://localhost:5173/#/projector` for the projector view. Those two tabs are connected.
+Creates a ready-to-run presentation with:
+- A demo slide deck
+- Presenter and projector views wired with `DiaposRouter`
+- Vite dev server with HMR
 
-## Example
+## What You Get
 
-```tsx
-import { Deck, Slide, Title, Heading, Text, BulletPoints, Item, Code } from 'diapos'
-
-function MyPresentation() {
-  return (
-    <Deck>
-      <Slide>
-        <Title title="Hello, Diapos!" subtitle="Slides as React components" />
-      </Slide>
-      <Slide notes="Walk through the key points">
-        <Heading>Why Diapos?</Heading>
-        <BulletPoints>
-          <Item pause>Write slides in React</Item>
-          <Item pause>Presenter mode with speaker notes</Item>
-        </BulletPoints>
-      </Slide>
-      <Slide>
-        <Heading as="h3">Quick Example</Heading>
-        <Code code={`const x = 1`} language="ts" />
-      </Slide>
-      <Slide>
-        <Title title="Thank You" />
-      </Slide>
-    </Deck>
-  )
-}
+```
+my-slides/
+  src/
+    slides.tsx    # your slides
+    theme.ts      # your theme (optional)
+    main.tsx      # router entry point
+  index.html
+  package.json
+  vite.config.ts
 ```
 
-## Navigation
-
-| Key | Action |
-|-----|--------|
-| `->` `Down` `Space` | Next slide |
-| `<-` `Up` | Previous slide |
-| `Home` | First slide |
-| `End` | Last slide |
-| `F` | Toggle fullscreen |
-
-Click the left or right half of the screen to navigate.
-
-## Documentation
-
-- [Getting Started](docs/getting-started.md)
-- [Components](docs/components.md)
-- [Theming](docs/theming.md)
-- [Presenting](docs/presenting.md)
-- [Hooks](docs/hooks.md)
+Open `http://localhost:5173` for the presenter view, click the projector button to open the audience view in a new tab.
 
 ## License
 
-[MIT](LICENSE)
+[MIT](../../LICENSE)

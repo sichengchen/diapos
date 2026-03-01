@@ -2,13 +2,13 @@
 
 ## `useDeck()`
 
-Access the deck navigation state. Must be used inside a `<Deck>` component.
+Access the deck navigation state. Must be used inside a `<Deck>`, `<PresenterView>`, or `<ProjectorView>`.
 
 ```tsx
 import { useDeck } from 'diapos'
 
 function MyComponent() {
-  const { currentIndex, totalSlides, direction, notes, next, prev, goTo } = useDeck()
+  const { currentIndex, totalSlides, direction, next, prev, goTo } = useDeck()
   return <span>Slide {currentIndex + 1} of {totalSlides}</span>
 }
 ```
@@ -27,7 +27,7 @@ function MyComponent() {
 
 ## `useNotes()`
 
-Access speaker notes for the current and next slides. Must be used inside a `<Deck>` component.
+Access speaker notes for the current and next slides.
 
 ```tsx
 import { useNotes } from 'diapos'
@@ -52,9 +52,41 @@ function NotesPanel() {
 | `current` | `ReactNode \| null` | Notes for the current slide |
 | `next` | `ReactNode \| null` | Notes for the next slide |
 
+## `usePause()`
+
+Hook for progressive reveal. Returns a visibility style object. Used internally by theme components — call it when building custom pauseable components.
+
+```tsx
+import { usePause } from 'diapos'
+
+function MyComponent({ pause, children }: { pause?: boolean; children: React.ReactNode }) {
+  const { style } = usePause(pause)
+  return <div style={style}>{children}</div>
+}
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `pause` | `boolean \| undefined` | Whether this component participates in progressive reveal |
+
+### Return Type
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `style` | `CSSProperties` | `{ visibility: 'hidden' }` until revealed, `{}` otherwise |
+
+Behavior:
+- If `pause` is falsy: always visible, no pause index consumed
+- If `pause` is truthy inside a `<Slide>`: consumes a pause index, hidden until revealed by navigation
+- If `pause` is truthy outside a pause provider: always visible (fallback)
+
+Each `pause` element adds one sub-step to the slide. A slide with N paused elements becomes N+1 navigation steps (the base slide plus one reveal per pause).
+
 ## `useTheme()`
 
-Access the current theme object. Can be used inside a `<Deck>` or `ThemeProvider`.
+Access the current theme object.
 
 ```tsx
 import { useTheme } from 'diapos'
@@ -65,7 +97,7 @@ function MyComponent() {
 }
 ```
 
-Returns the full `Theme` object.
+Returns the full `Theme` object. Prefer using CSS custom properties (`var(--diapos-accent)`) over this hook when possible — they cascade naturally with per-slide overrides.
 
 ## `useFullscreen()`
 
@@ -110,7 +142,19 @@ const { broadcast } = useSyncChannel(deckState, 'presenter')
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `deckState` | `DeckState \| null` | Deck state (null to disable) |
+| `deckState` | `DeckState \| null` | Deck state (`null` to disable) |
 | `role` | `'presenter' \| 'projector'` | This tab's role |
 
-The presenter auto-broadcasts on navigation. The projector receives and follows, re-requests sync on focus/visibility, and retries sync requests until it receives presenter state. Most users should use the higher-level view components instead of this hook directly.
+The presenter broadcasts on navigation. The projector receives and follows, re-syncs on focus/visibility, and retries until it hears from the presenter. Most users should use `<PresenterView>` and `<ProjectorView>` instead of this hook directly.
+
+## `useRoute()`
+
+Returns the current route based on the URL hash.
+
+```tsx
+import { useRoute } from 'diapos'
+
+const route = useRoute() // 'projector' | 'presenter'
+```
+
+Updates when the hash changes. Returns `'projector'` if the hash is `#/projector`, otherwise `'presenter'`.

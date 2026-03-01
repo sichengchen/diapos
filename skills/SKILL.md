@@ -3,7 +3,7 @@ name: diapos
 description: Create Diapos presentations and theme packs.
 ---
 
-Diapos is a React presentation framework. Slides are TSX components. Presentations are static Vite apps built with Vite + Bun.
+Diapos is a React presentation framework. Slides are TSX components. Presentations are static Vite apps.
 
 ## Project Structure
 

@@ -1,68 +1,92 @@
 # Components
 
+All components are imported from `'diapos'`. Every component accepts `style` and `className` props for custom styling.
+
 ## Structural Components
 
 ### `<Deck>`
 
-Root component for a presentation. Handles navigation, theming, transitions, and slide counting.
+Presentation engine. Manages navigation, theming, transitions, and chrome.
 
 ```tsx
-import { Deck } from 'diapos'
-
 <Deck
-  theme={myTheme}           // optional Theme object
-  transition="fade"          // 'none' | 'fade' | 'slide' (default: 'fade')
-  transitionDuration={300}   // milliseconds (default: 300)
-  clickNavigation={true}     // click left/right to navigate (default: true)
-  showProgress={true}        // show progress bar (default: true)
-  showCounter={true}         // show slide counter (default: true)
-  sync="presenter"           // 'presenter' | 'projector' — enables BroadcastChannel sync
+  theme={myTheme}             // Theme object (default: defaultTheme)
+  transition="fade"            // 'none' | 'fade' | 'slide' (default: 'fade')
+  transitionDuration={300}     // milliseconds (default: 300)
+  clickNavigation={true}       // click left/right to navigate (default: true)
+  progress={ProgressBar}       // ComponentType | false (default: built-in ProgressBar)
+  counter={SlideCounter}       // ComponentType | false (default: built-in SlideCounter)
+  decorator={MyDecorator}      // ComponentType rendered on every slide (optional)
+  sync="presenter"             // 'presenter' | 'projector' — enables BroadcastChannel sync
 >
-  {/* slides go here */}
+  <Slide>...</Slide>
 </Deck>
 ```
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | required | `<Slide>` and `<Section>` children |
+| `theme` | `Theme` | `defaultTheme` | Theme object |
+| `transition` | `'none' \| 'fade' \| 'slide'` | `'fade'` | Slide transition |
+| `transitionDuration` | `number` | `300` | Transition duration in ms |
+| `clickNavigation` | `boolean` | `true` | Click left/right half to navigate |
+| `progress` | `ComponentType \| false` | `ProgressBar` | Progress bar component, or `false` to hide |
+| `counter` | `ComponentType \| false` | `SlideCounter` | Slide counter component, or `false` to hide |
+| `decorator` | `ComponentType` | -- | Component rendered on every slide |
+| `sync` | `'presenter' \| 'projector'` | -- | Enables cross-tab sync |
 
 ### `<Slide>`
 
 The frame boundary. Every slide in the deck must be a `<Slide>`. Content goes inside it.
 
 ```tsx
-import { Slide } from 'diapos'
-
 <Slide
-  notes="Speaker notes for this slide"  // string or ReactNode
-  style={{ textAlign: 'left' }}         // override default styles
-  className="my-slide"                  // CSS class
+  notes="Speaker notes for this slide"   // string or ReactNode
+  theme={{ colors: { accent: '#e94560' } }}  // per-slide theme overrides
+  style={{ textAlign: 'left' }}
+  className="my-slide"
 >
   <h1>Hello</h1>
   <p>Any JSX works here.</p>
 </Slide>
 ```
 
-Default layout: full-height flex column, vertically centered with left-aligned content and slide-friendly heading/list typography.
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | required | Slide content |
+| `notes` | `ReactNode` | -- | Speaker notes (shown in presenter view) |
+| `theme` | `DeepPartial<Theme>` | -- | Per-slide theme overrides (deep-merged with deck theme) |
+
+The Zurich theme adds default styling: flex column layout, `80px` padding, `1.15em` font size, and `0.75em` gap between children.
 
 ### `<Section>`
 
-Groups slides and auto-generates a divider slide. Not yet exported from the public API.
+Groups slides into a named section. Deck auto-generates a divider slide.
 
 ```tsx
+import { Section, Slide } from 'diapos'
+
 <Section title="Part 1" subtitle="Introduction">
   <Slide>...</Slide>
   <Slide>...</Slide>
 </Section>
 ```
 
-## Content Layouts
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | required | Section title |
+| `subtitle` | `string` | -- | Optional subtitle |
+| `children` | `ReactNode` | required | `<Slide>` children |
 
-Content layouts are components used *inside* `<Slide>`. They are not frame boundaries — `<Slide>` is always the frame.
+## Content Components
+
+Content components go *inside* `<Slide>`. They are not frame boundaries — `<Slide>` is always the frame.
 
 ### `<Title>`
 
-Centered title with optional subtitle.
+Title card with optional subtitle.
 
 ```tsx
-import { Title } from 'diapos'
-
 <Slide>
   <Title title="My Talk" subtitle="A subtitle" />
 </Slide>
@@ -72,15 +96,12 @@ import { Title } from 'diapos'
 |------|------|---------|-------------|
 | `title` | `ReactNode` | required | The main title |
 | `subtitle` | `ReactNode` | -- | Optional subtitle |
-| `style` | `CSSProperties` | -- | Style overrides |
 
 ### `<Heading>`
 
-Theme-aware heading element. Supports progressive reveal with `pause`.
+Theme-aware heading. Supports progressive reveal with `pause`.
 
 ```tsx
-import { Heading } from 'diapos'
-
 <Slide>
   <Heading>Main Point</Heading>
   <Heading as="h3">Subtitle</Heading>
@@ -93,15 +114,12 @@ import { Heading } from 'diapos'
 | `children` | `ReactNode` | required | Heading content |
 | `as` | `'h1' \| 'h2' \| ... \| 'h6'` | `'h2'` | Heading level |
 | `pause` | `boolean` | -- | Progressive reveal |
-| `style` | `CSSProperties` | -- | Style overrides |
 
 ### `<Text>`
 
-Theme-aware paragraph. Supports progressive reveal with `pause`.
+Theme-aware paragraph. Supports progressive reveal.
 
 ```tsx
-import { Text } from 'diapos'
-
 <Slide>
   <Text>A paragraph of content.</Text>
   <Text pause>Revealed on next click.</Text>
@@ -112,15 +130,12 @@ import { Text } from 'diapos'
 |------|------|---------|-------------|
 | `children` | `ReactNode` | required | Text content |
 | `pause` | `boolean` | -- | Progressive reveal |
-| `style` | `CSSProperties` | -- | Style overrides |
 
 ### `<BulletPoints>` / `<Enumerate>` / `<Item>`
 
-Theme-aware lists. `<BulletPoints>` renders `<ul>`, `<Enumerate>` renders `<ol>`. Both contain `<Item>` children that render as `<li>` directly — valid HTML with no wrapper elements.
+Lists. `<BulletPoints>` renders `<ul>`, `<Enumerate>` renders `<ol>`. Both contain `<Item>` children.
 
 ```tsx
-import { BulletPoints, Enumerate, Item } from 'diapos'
-
 <Slide>
   <BulletPoints>
     <Item>Always visible</Item>
@@ -143,23 +158,19 @@ import { BulletPoints, Enumerate, Item } from 'diapos'
 |------|------|---------|-------------|
 | `children` | `ReactNode` | required | `<Item>` children |
 | `pause` | `boolean` | -- | Progressive reveal of the entire list |
-| `style` | `CSSProperties` | -- | Style overrides |
 
 **Item props:**
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `children` | `ReactNode` | required | Item content |
-| `pause` | `boolean` | -- | Progressive reveal (hidden until revealed, reserves space) |
-| `style` | `CSSProperties` | -- | Style overrides |
+| `pause` | `boolean` | -- | Progressive reveal (hidden until revealed) |
 
 ### `<Code>`
 
-Displays a code block. Use `<Heading>` above it for a title.
+Code block with optional language hint.
 
 ```tsx
-import { Code, Heading } from 'diapos'
-
 <Slide>
   <Heading as="h3">Example</Heading>
   <Code code={`const x = 1`} language="tsx" />
@@ -170,15 +181,12 @@ import { Code, Heading } from 'diapos'
 |------|------|---------|-------------|
 | `code` | `string` | required | The code to display |
 | `language` | `string` | -- | Language identifier (sets `data-language` attribute) |
-| `style` | `CSSProperties` | -- | Style overrides |
 
 ### `<Image>`
 
-Displays an image with optional caption.
+Image with optional caption.
 
 ```tsx
-import { Image } from 'diapos'
-
 <Slide>
   <Image src="/photo.jpg" alt="A photo" caption="Figure 1" />
 </Slide>
@@ -187,18 +195,15 @@ import { Image } from 'diapos'
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `src` | `string` | required | Image source URL |
-| `alt` | `string` | -- | Alt text |
+| `alt` | `string` | `''` | Alt text |
 | `caption` | `ReactNode` | -- | Caption below the image |
 | `contain` | `boolean` | -- | Use `object-fit: contain` instead of cover |
-| `style` | `CSSProperties` | -- | Style overrides |
 
 ### `<Quote>`
 
-Displays a blockquote with optional author attribution.
+Blockquote with optional author attribution.
 
 ```tsx
-import { Quote } from 'diapos'
-
 <Slide>
   <Quote quote="The best way to predict the future is to invent it." author="Alan Kay" />
 </Slide>
@@ -206,64 +211,66 @@ import { Quote } from 'diapos'
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `quote` | `string` | required | The quote text |
-| `author` | `string` | -- | Attribution |
-| `style` | `CSSProperties` | -- | Style overrides |
+| `quote` | `ReactNode` | required | The quote text |
+| `author` | `ReactNode` | -- | Attribution |
 
 ## Building Blocks
 
-Composable structural components for arranging content within slides. Not yet exported from the public API.
+Composable structural components for arranging content within slides.
 
 ### `<Block>`
 
-A styled content block with optional title and variant.
+Styled content block with optional title and color variant.
 
 ```tsx
-<Block title="Key Insight" variant="alert">
-  <p>Important content here.</p>
-</Block>
+<Slide>
+  <Block title="Key Insight" variant="alert">
+    <p>Important content here.</p>
+  </Block>
+</Slide>
 ```
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `title` | `string` | -- | Block heading |
-| `variant` | `'default' \| 'alert' \| 'example'` | `'default'` | Color variant |
+| `variant` | `'default' \| 'alert' \| 'example'` | `'default'` | Color variant (`accent`, `danger`, or `success`) |
 | `children` | `ReactNode` | required | Block content |
-| `style` | `CSSProperties` | -- | Style overrides |
 
 ### `<Columns>` / `<Column>`
 
-Multi-column layout within a slide.
+Multi-column grid layout within a slide.
 
 ```tsx
-<Columns ratio="1fr 2fr" gap="2em">
-  <Column>Left content</Column>
-  <Column>Right content</Column>
-</Columns>
+<Slide>
+  <Columns ratio="1fr 2fr" gap="2em">
+    <Column>Left content</Column>
+    <Column>Right content</Column>
+  </Columns>
+</Slide>
 ```
 
 **Columns props:**
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `ratio` | `string` | -- | CSS `grid-template-columns` value |
-| `gap` | `string` | `'2em'` | Column gap |
+| `ratio` | `string` | -- | CSS `grid-template-columns` value. Without it, columns auto-flow as equal `1fr`. |
+| `gap` | `string` | `'3em'` | Column gap |
 | `children` | `ReactNode` | required | `<Column>` children |
-| `style` | `CSSProperties` | -- | Style overrides |
 
 **Column props:**
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `children` | `ReactNode` | required | Column content |
-| `style` | `CSSProperties` | -- | Style overrides |
 
 ## Chrome Components
 
 ### `<ProgressBar>`
 
-Thin progress bar at the bottom of the viewport. Rendered by `<Deck>` when `showProgress={true}`.
+Progress bar at the bottom of the viewport. Rendered by `<Deck>` by default.
 
 ### `<SlideCounter>`
 
-Displays `current / total` in the bottom-right corner. Rendered by `<Deck>` when `showCounter={true}`.
+Displays `current / total` in the bottom-right corner. Rendered by `<Deck>` by default.
+
+Pass custom components or `false` to `<Deck>`'s `progress` and `counter` props to customize or hide them.

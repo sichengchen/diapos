@@ -2,73 +2,70 @@
 
 [![npm](https://img.shields.io/npm/v/diapos)](https://www.npmjs.com/package/diapos)
 
-Diapos is a React-based presentation framework.
+A React-based presentation framework. Write slides in TSX, present in the browser.
 
-Write slides in TSX, present in the browser!
-
-[Demo](https://diapos-demo.scchan.workers.dev)
+[Demo](https://diapos-demo.scchan.workers.dev) | [Documentation](https://github.com/sichengchen/diapos#documentation)
 
 ## Quick Start
 
 ```bash
 npx create-diapos my-slides
 cd my-slides
-bun install
-bun dev
+npm install
+npm run dev
 ```
 
-Open `http://localhost:5173` for the presenter view, click "Play" or open `http://localhost:5173/#/projector` for the projector view. Those two tabs are connected.
-
-## Example
+## Usage
 
 ```tsx
-import { Deck, Slide, Title, Heading, Text, BulletPoints, Item, Code } from 'diapos'
+import {
+  Slide, Title, Heading, BulletPoints, Item, Code,
+  PresenterView, ProjectorView, DiaposRouter,
+} from 'diapos'
+import 'diapos/styles.css'
 
-function MyPresentation() {
+const slides = (
+  <>
+    <Slide notes="Welcome the audience.">
+      <Title title="Hello, Diapos!" subtitle="Slides as React components" />
+    </Slide>
+    <Slide notes="Walk through the key points.">
+      <Heading>Why Diapos?</Heading>
+      <BulletPoints>
+        <Item pause>Write slides in React</Item>
+        <Item pause>Presenter mode with speaker notes</Item>
+        <Item pause>Per-slide theming and progressive reveal</Item>
+      </BulletPoints>
+    </Slide>
+    <Slide notes="Show a code example.">
+      <Heading as="h3">Quick Example</Heading>
+      <Code code={`const x = 1`} language="ts" />
+    </Slide>
+    <Slide notes="Thank the audience.">
+      <Title title="Thank You" />
+    </Slide>
+  </>
+)
+
+function App() {
   return (
-    <Deck>
-      <Slide>
-        <Title title="Hello, Diapos!" subtitle="Slides as React components" />
-      </Slide>
-      <Slide notes="Walk through the key points">
-        <Heading>Why Diapos?</Heading>
-        <BulletPoints>
-          <Item pause>Write slides in React</Item>
-          <Item pause>Presenter mode with speaker notes</Item>
-        </BulletPoints>
-      </Slide>
-      <Slide>
-        <Heading as="h3">Quick Example</Heading>
-        <Code code={`const x = 1`} language="ts" />
-      </Slide>
-      <Slide>
-        <Title title="Thank You" />
-      </Slide>
-    </Deck>
+    <DiaposRouter
+      title="Hello, Diapos!"
+      projector={<ProjectorView>{slides}</ProjectorView>}
+      presenter={<PresenterView>{slides}</PresenterView>}
+    />
   )
 }
 ```
 
-## Navigation
+## Features
 
-| Key | Action |
-|-----|--------|
-| `->` `Down` `Space` | Next slide |
-| `<-` `Up` | Previous slide |
-| `Home` | First slide |
-| `End` | Last slide |
-| `F` | Toggle fullscreen |
-
-Click the left or right half of the screen to navigate.
-
-## Documentation
-
-- [Getting Started](docs/getting-started.md)
-- [Components](docs/components.md)
-- [Theming](docs/theming.md)
-- [Presenting](docs/presenting.md)
-- [Hooks](docs/hooks.md)
+- **Presenter + Projector views** synced via BroadcastChannel
+- **Progressive reveal** with `pause` prop
+- **Token-based theming** with 12 CSS custom properties and per-slide overrides
+- **Transitions**: `'fade'`, `'slide'`, or `'none'`
+- **Keyboard & click navigation**
 
 ## License
 
-[MIT](LICENSE)
+[MIT](../../LICENSE)

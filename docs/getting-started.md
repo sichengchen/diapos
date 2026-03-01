@@ -5,8 +5,8 @@
 ```bash
 npx create-diapos my-slides
 cd my-slides
-bun install
-bun dev
+npm install
+npm run dev
 ```
 
 This scaffolds a ready-to-run presentation with a demo deck, theme, and dev server.
@@ -17,8 +17,8 @@ This scaffolds a ready-to-run presentation with a demo deck, theme, and dev serv
 my-slides/
   src/
     slides.tsx    # your slides
-    theme.ts      # your theme
-    main.tsx      # router entry point (projector/presenter)
+    theme.ts      # your theme (optional)
+    main.tsx      # router entry point
   index.html
   package.json
   vite.config.ts
@@ -29,41 +29,85 @@ my-slides/
 Open `src/slides.tsx` and write your presentation:
 
 ```tsx
-import { Deck, Slide, Title, Code } from 'diapos'
+import {
+  Slide, Title, Heading, Text, BulletPoints, Item, Code,
+  PresenterView, ProjectorView,
+} from 'diapos'
 import { myTheme } from './theme'
 
-export function MyPresentation() {
-  return (
-    <Deck theme={myTheme}>
-      <Slide>
-        <Title title="My Talk" subtitle="A subtitle" />
-      </Slide>
-      <Slide>
-        <p>Any JSX works inside a Slide.</p>
-      </Slide>
-    </Deck>
-  )
+const slides = (
+  <>
+    <Slide notes="Welcome everyone.">
+      <Title title="My Talk" subtitle="A subtitle" />
+    </Slide>
+    <Slide notes="Walk through the key points.">
+      <Heading>Key Points</Heading>
+      <BulletPoints>
+        <Item pause>First point</Item>
+        <Item pause>Second point</Item>
+      </BulletPoints>
+    </Slide>
+    <Slide notes="Show a code example.">
+      <Heading as="h3">Example</Heading>
+      <Code code={`const x = 1`} language="ts" />
+    </Slide>
+    <Slide notes="Thank the audience.">
+      <Title title="Thank You" />
+    </Slide>
+  </>
+)
+
+export function Presentation() {
+  return <ProjectorView theme={myTheme}>{slides}</ProjectorView>
 }
+
+export function Presenter() {
+  return <PresenterView theme={myTheme}>{slides}</PresenterView>
+}
+```
+
+Wire it up in `src/main.tsx`:
+
+```tsx
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { DiaposRouter } from 'diapos'
+import { Presentation, Presenter } from './slides'
+import 'diapos/styles.css'
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <DiaposRouter
+      title="My Talk"
+      projector={<Presentation />}
+      presenter={<Presenter />}
+    />
+  </StrictMode>,
+)
 ```
 
 ## Key Concepts
 
-- **`<Deck>`** is the root component. It handles navigation, theming, and transitions.
 - **`<Slide>`** is the frame boundary. Every slide in the deck is a `<Slide>`. All content goes inside it.
-- **Layout components** (`<Title>`, `<Code>`, `<Image>`, `<Quote>`) are content components used *inside* `<Slide>`, not wrappers around it.
-- **Building blocks** (`<Block>`, `<Columns>`, `<Column>`) are composable structural components for arranging content within a slide.
+- **Content components** (`<Title>`, `<Heading>`, `<Text>`, `<Code>`, `<Image>`, `<Quote>`) go *inside* `<Slide>`.
+- **Building blocks** (`<Block>`, `<Columns>`, `<Column>`) let you arrange content within a slide.
+- **`<PresenterView>`** is the speaker-facing view with notes, timer, and controls.
+- **`<ProjectorView>`** is the audience-facing fullscreen view.
+- **`<DiaposRouter>`** switches between views based on URL hash.
+- **Progressive reveal** — add `pause` to content components to reveal them one at a time on click.
+- **Per-slide theming** — pass a `theme` prop to any `<Slide>` to override the deck theme for that slide.
 
 ## Dev Server
 
 ```bash
-bun dev
+npm run dev
 ```
 
 Opens a Vite dev server with HMR. Edit your slides and see changes instantly.
 
 ## Presenting
 
-- **Presenter view**: `http://localhost:5173` -- notes, next slide preview, and controls
-- **Projector view**: `http://localhost:5173/#/projector` -- fullscreen slides for the audience
+- **Presenter view**: `http://localhost:5173` — notes, next slide preview, timer, and controls
+- **Projector view**: `http://localhost:5173/#/projector` — fullscreen slides for the audience
 
-Scaffolded `main.tsx` uses `DiaposRouter` with `ProjectorView` and `PresenterView`, so both routes work out of the box. Use the PresenterView Play button to open the projector route in a new tab. Both views stay in sync via BroadcastChannel.
+Click the projector button in the presenter view to open the projector in a new tab. Both views stay in sync via BroadcastChannel.
