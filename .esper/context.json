@@ -2,7 +2,7 @@
   "schema_version": 1,
   "spec_root": "specs",
   "constitution_path": ".esper/CONSTITUTION.md",
-  "active_increment": "014-add-light-mode-to-presenterview.md",
+  "active_increment": "015-replace-presenterview-button-text-with-i.md",
   "active_increment_scope": [
     "views-router.md"
   ],

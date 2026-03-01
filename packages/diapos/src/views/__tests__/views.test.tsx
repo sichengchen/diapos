@@ -86,8 +86,8 @@ describe('PresenterView', () => {
         <Slide><div>Slide 2</div></Slide>
       </PresenterView>,
     )
-    expect(screen.getByText('Prev')).toBeInTheDocument()
-    expect(screen.getByText('Next')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Previous slide' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Next slide' })).toBeInTheDocument()
   })
 
   it('shows no-notes message when slide has no notes', () => {
@@ -109,7 +109,7 @@ describe('PresenterView', () => {
       </PresenterView>,
     )
 
-    screen.getByRole('button', { name: 'Play' }).click()
+    screen.getByRole('button', { name: 'Open projector' }).click()
 
     expect(openSpy).toHaveBeenCalledTimes(1)
     expect(openSpy.mock.calls[0]?.[0]).toContain('#/projector')

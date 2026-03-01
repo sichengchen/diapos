@@ -1,12 +1,13 @@
 ---
 id: 14
 title: Add light mode to PresenterView
-status: active
+status: done
 type: feature
 lane: atomic
 priority: 1
 created: 2026-03-01
 spec: views-router.md
+finished_at: 2026-03-01
 ---
 # Add light mode to PresenterView
 

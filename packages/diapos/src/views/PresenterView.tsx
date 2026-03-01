@@ -1,4 +1,5 @@
 import { type ReactNode, useCallback, useEffect, useRef, useState } from 'react'
+import { ChevronLeft, ChevronRight, Moon, Pause, Play, Presentation, Sun } from 'lucide-react'
 import { DeckProvider } from '../core/context/DeckContext'
 import { useDeck } from '../core/hooks/useDeck'
 import { useKeyboardNavigation } from '../core/hooks/useKeyboardNavigation'
@@ -221,9 +222,13 @@ function PresenterShell({
       <Separator className={colors.separator} />
       <div className="grid grid-cols-3 items-center px-4 py-3">
         {/* Left: nav */}
-        <div className="flex items-center gap-3">
-          <Button variant={colors.ghostButton} size="sm" onClick={deck.prev}>Prev</Button>
-          <Button variant={colors.ghostButton} size="sm" onClick={deck.next}>Next</Button>
+        <div className="flex items-center gap-1">
+          <Button variant={colors.ghostButton} size="icon" onClick={deck.prev} aria-label="Previous slide">
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <Button variant={colors.ghostButton} size="icon" onClick={deck.next} aria-label="Next slide">
+            <ChevronRight className="h-4 w-4" />
+          </Button>
         </div>
 
         {/* Center: page counter */}
@@ -232,30 +237,31 @@ function PresenterShell({
         </span>
 
         {/* Right: timer + play */}
-        <div className="flex items-center justify-end gap-3">
+        <div className="flex items-center justify-end gap-1">
           <Timer running={timerRunning} colors={colors} />
           <Button
             variant={colors.ghostButton}
-            size="sm"
+            size="icon"
             onClick={() => setTimerRunning((r) => !r)}
+            aria-label={timerRunning ? 'Pause timer' : 'Resume timer'}
           >
-            {timerRunning ? 'Pause' : 'Resume'}
+            {timerRunning ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
           </Button>
           <Button
             variant={colors.ghostButton}
-            size="sm"
+            size="icon"
             onClick={() => setColorScheme((s) => s === 'dark' ? 'light' : 'dark')}
             aria-label="Toggle color scheme"
           >
-            {colorScheme === 'dark' ? 'Light' : 'Dark'}
+            {colorScheme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </Button>
           <Button
             variant={colors.playButton}
-            size="sm"
+            size="icon"
             onClick={openProjector}
-            aria-label="Play"
+            aria-label="Open projector"
           >
-            Play
+            <Presentation className="h-4 w-4" />
           </Button>
         </div>
       </div>

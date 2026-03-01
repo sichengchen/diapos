@@ -35,9 +35,11 @@ interface PresenterViewProps {
 
 ### Status Bar
 
-- Left: Prev/Next buttons
+All buttons use icon-only rendering (via `lucide-react`) with `aria-label` for accessibility.
+
+- Left: `ChevronLeft` / `ChevronRight` (prev/next navigation)
 - Center: Slide counter (`currentIndex + 1 / totalSlides`)
-- Right: Timer toggle, Light/Dark toggle, Play button (opens projector in new window)
+- Right: `Pause`/`Play` (timer toggle), `Sun`/`Moon` (light/dark toggle), `Presentation` (opens projector in new window)
 
 ### Behavior
 
