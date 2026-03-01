@@ -1,6 +1,6 @@
 import { createTheme } from '../../core/theme/createTheme'
 
-export const elegantTheme = createTheme({
+export const viennaTheme = createTheme({
   colors: {
     background: '#faf8f5',
     foreground: '#2c2825',

@@ -1,4 +1,4 @@
-export { minimalTheme } from './theme'
+export { milanTheme } from './theme'
 export { Slide } from './Slide'
 export { Title } from './Title'
 export { Heading } from './Heading'

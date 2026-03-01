@@ -1,14 +1,14 @@
-# Elegant Theme Pack
+# Vienna Theme Pack
 
 A refined, warm theme with serif typography and an editorial aesthetic. Targets a literary, sophisticated feel.
 
-**Source:** `packages/diapos/src/themes/elegant/`
-**Import:** `import { Slide, Title, elegantTheme } from 'diapos/themes/elegant'`
+**Source:** `packages/diapos/src/themes/vienna/`
+**Import:** `import { Slide, Title, viennaTheme } from 'diapos/themes/vienna'`
 
 ## Token Preset
 
 ```ts
-const elegantTheme = createTheme({
+const viennaTheme = createTheme({
   colors: {
     background: '#faf8f5',
     foreground: '#2c2825',
@@ -28,7 +28,7 @@ const elegantTheme = createTheme({
 })
 ```
 
-Also exported from the main barrel: `import { elegantTheme } from 'diapos'`
+Also exported from the main barrel: `import { viennaTheme } from 'diapos'`
 
 ## Components
 

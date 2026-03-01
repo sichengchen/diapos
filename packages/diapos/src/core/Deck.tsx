@@ -8,8 +8,8 @@ import { useKeyboardNavigation } from './hooks/useKeyboardNavigation'
 import { useFullscreen } from './hooks/useFullscreen'
 import { useSyncChannel } from './hooks/useSyncChannel'
 import { TransitionWrapper } from './TransitionWrapper'
-import { ProgressBar as DefaultProgressBar } from '../themes/default/ProgressBar'
-import { SlideCounter as DefaultSlideCounter } from '../themes/default/SlideCounter'
+import { ProgressBar as DefaultProgressBar } from '../themes/zurich/ProgressBar'
+import { SlideCounter as DefaultSlideCounter } from '../themes/zurich/SlideCounter'
 import { parseSlides } from './utils/parseSlides'
 
 export interface DeckProps {

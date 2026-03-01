@@ -1,3 +1,4 @@
+export { genevaTheme } from './theme'
 export { Slide } from './Slide'
 export { Title } from './Title'
 export { Heading } from './Heading'

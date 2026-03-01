@@ -10,17 +10,17 @@
       "import": "./dist/diapos.js",
       "types": "./dist/index.d.ts"
     },
-    "./themes/minimal": {
-      "import": "./dist/themes/minimal.js",
-      "types": "./dist/themes/minimal.d.ts"
+    "./themes/geneva": {
+      "import": "./dist/themes/geneva.js",
+      "types": "./dist/themes/geneva.d.ts"
     },
-    "./themes/vibrant": {
-      "import": "./dist/themes/vibrant.js",
-      "types": "./dist/themes/vibrant.d.ts"
+    "./themes/milan": {
+      "import": "./dist/themes/milan.js",
+      "types": "./dist/themes/milan.d.ts"
     },
-    "./themes/elegant": {
-      "import": "./dist/themes/elegant.js",
-      "types": "./dist/themes/elegant.d.ts"
+    "./themes/vienna": {
+      "import": "./dist/themes/vienna.js",
+      "types": "./dist/themes/vienna.d.ts"
     },
     "./styles.css": "./dist/diapos.css"
   },

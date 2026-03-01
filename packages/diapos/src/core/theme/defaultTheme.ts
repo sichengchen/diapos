@@ -2,21 +2,21 @@ import type { Theme } from './types'
 
 export const defaultTheme: Theme = {
   colors: {
-    background: '#0f172a',
-    foreground: '#f8fafc',
-    accent: '#3b82f6',
-    code: '#1e293b',
-    muted: '#94a3b8',
+    background: '#ffffff',
+    foreground: '#18181b',
+    accent: '#6366f1',
+    muted: '#a1a1aa',
+    code: '#f4f4f5',
     danger: '#ef4444',
     success: '#22c55e',
   },
   fonts: {
-    heading: 'system-ui, -apple-system, sans-serif',
-    body: 'system-ui, -apple-system, sans-serif',
-    code: "'SF Mono', 'Fira Code', 'Cascadia Code', monospace",
+    heading: "'Inter', system-ui, -apple-system, sans-serif",
+    body: "'Inter', system-ui, -apple-system, sans-serif",
+    code: "'JetBrains Mono', 'SF Mono', monospace",
   },
   spacing: {
-    slide: '64px',
+    slide: '80px',
   },
-  borderRadius: '8px',
+  borderRadius: '4px',
 }

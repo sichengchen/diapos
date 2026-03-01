@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { Slide } from '../../Slide'
-import { Item } from '../../../themes/default/Item'
-import { BulletPoints } from '../../../themes/default/BulletPoints'
+import { Item } from '../../../themes/zurich/Item'
+import { BulletPoints } from '../../../themes/zurich/BulletPoints'
 import { parseSlides } from '../parseSlides'
 
 describe('parseSlides', () => {

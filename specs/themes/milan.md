@@ -1,14 +1,14 @@
-# Vibrant Theme Pack
+# Milan Theme Pack
 
 A bold, high-contrast theme with strong colors and large typography. Targets an eye-catching conference-talk aesthetic.
 
-**Source:** `packages/diapos/src/themes/vibrant/`
-**Import:** `import { Slide, Title, vibrantTheme } from 'diapos/themes/vibrant'`
+**Source:** `packages/diapos/src/themes/milan/`
+**Import:** `import { Slide, Title, milanTheme } from 'diapos/themes/milan'`
 
 ## Token Preset
 
 ```ts
-const vibrantTheme = createTheme({
+const milanTheme = createTheme({
   colors: {
     background: '#0a0a0a',
     foreground: '#fafafa',
@@ -28,7 +28,7 @@ const vibrantTheme = createTheme({
 })
 ```
 
-Also exported from the main barrel: `import { vibrantTheme } from 'diapos'`
+Also exported from the main barrel: `import { milanTheme } from 'diapos'`
 
 ## Components
 

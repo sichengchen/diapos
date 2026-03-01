@@ -1,6 +1,6 @@
 import { createTheme } from '../../core/theme/createTheme'
 
-export const vibrantTheme = createTheme({
+export const milanTheme = createTheme({
   colors: {
     background: '#0a0a0a',
     foreground: '#fafafa',

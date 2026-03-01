@@ -1,14 +1,15 @@
-# Minimal Theme Pack
+# Zurich Theme Pack (Default)
 
-A light, clean theme with ample whitespace and understated typography. Targets an Apple-keynote / academic-paper aesthetic.
+A light, clean theme with ample whitespace and understated typography. Targets an Apple-keynote / academic-paper aesthetic. This is the default theme — components are re-exported from the main `diapos` barrel.
 
-**Source:** `packages/diapos/src/themes/minimal/`
-**Import:** `import { Slide, Title, minimalTheme } from 'diapos/themes/minimal'`
+**Source:** `packages/diapos/src/themes/zurich/`
+**Import:** `import { Slide, Title } from 'diapos'` (default) or `import { ... } from 'diapos/themes/zurich'`
 
 ## Token Preset
 
 ```ts
-const minimalTheme = createTheme({
+// These values ARE the defaultTheme
+const zurichTheme = createTheme({
   colors: {
     background: '#ffffff',
     foreground: '#18181b',
@@ -28,7 +29,7 @@ const minimalTheme = createTheme({
 })
 ```
 
-Also exported from the main barrel: `import { minimalTheme } from 'diapos'`
+Also exported from the main barrel: `import { zurichTheme } from 'diapos'`
 
 ## Components
 

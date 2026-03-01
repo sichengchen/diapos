@@ -1,10 +1,12 @@
-# Default Theme Pack
+# Default Theme Pack (Zurich)
 
-The `diapos` package ships a default theme pack at `themes/default/`. The top-level `diapos` import re-exports core + default theme, so `import { Slide, Title } from 'diapos'` gives the default styled experience.
+The `diapos` package ships the Zurich theme as the default. The top-level `diapos` import re-exports core + Zurich theme, so `import { Slide, Title } from 'diapos'` gives the default styled experience.
 
-The default theme uses **inline styles with CSS variable references** — no CSS build tool dependency.
+All theme packs use **inline styles with CSS variable references** — no CSS build tool dependency.
 
-**Source:** `packages/diapos/src/themes/default/`
+**Source:** `packages/diapos/src/themes/zurich/` (default), also `geneva/`, `milan/`, `vienna/`
+
+The component specs below describe the Geneva (original) theme pack's visual details. Zurich, Milan, and Vienna each have their own spec files under `themes/`.
 
 ## Slide (wrapper)
 
